@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" fill="none" stroke="#507552" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Foliage around hero photo frame matching Image 1 -->
+  <!-- Left side leaves -->
+  <path d="M 120,240 C 60,230 40,190 70,170 C 95,185 105,215 120,240 Z" fill="#507552" fill-opacity="0.06"/>
+  <path d="M 115,235 Q 75,195 65,180"/>
+  <path d="M 130,190 C 70,170 50,130 85,115 C 105,130 115,160 130,190 Z" fill="#507552" fill-opacity="0.06"/>
+  <path d="M 125,185 Q 90,145 80,125"/>
+  <path d="M 140,280 C 80,290 60,330 90,345 C 115,330 125,305 140,280 Z" fill="#507552" fill-opacity="0.06"/>
+  <path d="M 135,285 Q 95,320 85,335"/>
+
+  <!-- Top delicate leaves -->
+  <path d="M 230,110 C 220,50 250,30 270,55 C 260,80 245,95 230,110 Z" fill="#507552" fill-opacity="0.06"/>
+  <path d="M 235,105 Q 255,60 265,45"/>
+  <path d="M 280,115 C 290,60 325,45 335,75 C 315,95 300,105 280,115 Z" fill="#507552" fill-opacity="0.06"/>
+  <path d="M 285,110 Q 315,70 328,60"/>
+
+  <!-- Right side leaves (like lilies/leaves in Image 1) -->
+  <path d="M 370,180 C 420,160 450,180 435,210 C 405,205 385,195 370,180 Z" fill="#507552" fill-opacity="0.06"/>
+  <path d="M 375,185 Q 425,190 440,200"/>
+  <path d="M 380,240 C 440,230 465,260 445,285 C 415,275 395,260 380,240 Z" fill="#507552" fill-opacity="0.06"/>
+  <path d="M 385,245 Q 435,265 450,275"/>
+  <path d="M 360,310 C 410,330 425,370 395,385 C 375,365 370,335 360,310 Z" fill="#507552" fill-opacity="0.06"/>
+  <path d="M 365,315 Q 400,355 408,375"/>
+
+  <!-- Subtle floral buds / petals -->
+  <circle cx="65" cy="180" r="3" fill="#A39B75" opacity="0.6"/>
+  <circle cx="445" cy="285" r="3" fill="#A39B75" opacity="0.6"/>
+  <circle cx="265" cy="45" r="3" fill="#A39B75" opacity="0.6"/>
+</svg>
