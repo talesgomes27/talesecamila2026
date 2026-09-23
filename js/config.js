@@ -64,7 +64,7 @@ const CONFIG = {
   // ----------------------------------------------------------------------------
   ceremony: {
     title: "Cerimônia & Recepção",
-    venueName: "Casa da Familia Bastos, no antigo empresa bar",
+    venueName: "Beira Rio, no antigo Empresa Bar",
     venuePhoto: "assets/imagens/cerimonia.jpeg",
     dateFormatted: "19 de Dezembro de 2026",
     time: "16h00",
