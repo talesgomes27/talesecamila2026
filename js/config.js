@@ -41,19 +41,59 @@ const CONFIG = {
     // Fotos do carrossel/ensaio pré-wedding
     gallery: [
       {
-        url: "assets/imagens/carrossel/carrossel-1.jpg",
-        caption: "O início da nossa caminhada juntos"
+        url: "assets/imagens/carrossel/01.jpg.jpeg",
+        caption: "Caminhando de mãos dadas pelo pátio histórico"
       },
       {
-        url: "assets/imagens/carrossel/carrossel-2.jpg",
-        caption: "Momentos inesquecíveis a dois"
+        url: "assets/imagens/carrossel/02.png",
+        caption: "O abraço seguro e acolhedor"
       },
       {
-        url: "assets/imagens/carrossel/carrossel-3.jpg",
-        caption: "A cumplicidade em cada detalhe"
+        url: "assets/imagens/carrossel/03.png",
+        caption: "O carinho em cada detalhe"
       },
       {
-        url: "assets/imagens/carrossel/carrossel-4.jpg",
+        url: "assets/imagens/carrossel/04.jpg.jpeg",
+        caption: "Nossos sorrisos sob o céu aberto"
+      },
+      {
+        url: "assets/imagens/carrossel/05.png",
+        caption: "A leveza e a alegria de estarmos juntos"
+      },
+      {
+        url: "assets/imagens/carrossel/06.png",
+        caption: "Cumplicidade e muito afeto"
+      },
+      {
+        url: "assets/imagens/carrossel/08.png",
+        caption: "Construindo nossa história passo a passo"
+      },
+      {
+        url: "assets/imagens/carrossel/09.png",
+        caption: "Quando o olhar revela tudo que sentimos"
+      },
+      {
+        url: "assets/imagens/carrossel/10.png",
+        caption: "Parceria e companheirismo para toda a vida"
+      },
+      {
+        url: "assets/imagens/carrossel/11.png",
+        caption: "Na beira do rio ao entardecer"
+      },
+      {
+        url: "assets/imagens/carrossel/12.png",
+        caption: "O dourado do pôr do sol abençoando nossa união"
+      },
+      {
+        url: "assets/imagens/carrossel/13.png",
+        caption: "Celebrando cada momento desse sonho"
+      },
+      {
+        url: "assets/imagens/carrossel/14.jpg.jpeg",
+        caption: "Sob o charme das luzes noturnas"
+      },
+      {
+        url: "assets/imagens/carrossel/15.png",
         caption: "Contando os dias para o nosso sim!"
       }
     ]

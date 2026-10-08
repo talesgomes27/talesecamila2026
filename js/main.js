@@ -126,9 +126,9 @@ function initCoupleSection() {
   track.innerHTML = gallery.map((item, index) => `
     <div class="carousel-slide flex-shrink-0 w-full relative overflow-hidden rounded-2xl h-[380px] sm:h-[460px] md:h-[520px] shadow-md bg-stone-900 flex items-center justify-center">
       <!-- Fundo desfocado para preencher as bordas de fotos com proporções diferentes -->
-      <img src="${item.url}" alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-40 select-none pointer-events-none">
+      <img src="${item.url}" alt="" aria-hidden="true" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async" class="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-40 select-none pointer-events-none">
       <!-- Imagem principal 100% visível e sem cortes indesejados -->
-      <img src="${item.url}" alt="${item.caption || 'Foto do casal'}" class="relative z-10 max-h-full max-w-full object-contain select-none">
+      <img src="${item.url}" alt="${item.caption || 'Foto do casal'}" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async" class="relative z-10 max-h-full max-w-full object-contain select-none">
       ${item.caption ? `
         <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 text-white text-center">
           <p class="font-sans text-sm md:text-base tracking-wide italic">${item.caption}</p>
@@ -140,7 +140,7 @@ function initCoupleSection() {
   // Renderizar dots
   if (dotsContainer) {
     dotsContainer.innerHTML = gallery.map((_, i) => `
-      <button aria-label="Ir para foto ${i + 1}" class="carousel-dot w-3 h-3 rounded-full transition-all duration-300 ${i === 0 ? 'bg-olive-600 scale-125' : 'bg-gray-300 hover:bg-olive-400'}" data-index="${i}"></button>
+      <button aria-label="Ir para foto ${i + 1}" class="carousel-dot w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${i === 0 ? 'bg-olive-600 scale-125' : 'bg-gray-300 hover:bg-olive-400'}" data-index="${i}"></button>
     `).join('');
   }
 

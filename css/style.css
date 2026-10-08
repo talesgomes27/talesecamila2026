@@ -107,12 +107,12 @@ html {
 
 .organic-profile-frame img {
   object-fit: cover;
-  object-position: center 18%;
+  object-position: center center;
 }
 
 .organic-hero-frame img {
   object-fit: cover;
-  object-position: center center;
+  object-position: center 38%;
 }
 
 /* Carrossel de Fotos */
