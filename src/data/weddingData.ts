@@ -132,14 +132,14 @@ export const weddingData: WeddingData = {
     },
     {
       id: 5,
-      title: "Passeio de barco ao pôr do sol",
+      title: "Passeio de barco ao pôr do sol, lua de mel",
       description: "Para brindarmos ao início dessa nova jornada com um cenário cinematográfico.",
       price: 520.00,
       image: "/assets/imagens/presentes/05-passeio-barco.jpg"
     },
     {
       id: 6,
-      title: "Um ano de café da manhã na cama",
+      title: "Um ano de café da manhã na cama para a noiva",
       description: "Garantindo que a doçura e os mimos continuem todos os fins de semana.",
       price: 180.00,
       image: "/assets/imagens/presentes/06-cafe-cama.jpg"
@@ -160,7 +160,7 @@ export const weddingData: WeddingData = {
     },
     {
       id: 9,
-      title: "Brinde com champanhe na praia",
+      title: "Brinde com champanhe na praia, lua de mel",
       description: "Duas taças e um champanhe gelado para brindar à felicidade sem fim.",
       price: 280.00,
       image: "/assets/imagens/presentes/09-champanhe.jpg"
@@ -234,6 +234,20 @@ export const weddingData: WeddingData = {
       description: "Item de utilidade pública essencial para a paz matrimonial e o sono sagrado da noiva!",
       price: 120.00,
       image: "/assets/imagens/presentes/19-tampao-ouvido.jpg"
+    },
+    {
+      id: 20,
+      title: "Cota para pedir um bebê para os noivos",
+      description: "Para incentivar a fábrica da cegonha e garantir a futura fofura da família!",
+      price: 500.00,
+      image: "/assets/imagens/presentes/20-pedir-bebe.jpg"
+    },
+    {
+      id: 21,
+      title: "Ajuda para pagar a terapia da noiva depois de organizar o casamento",
+      description: "Uma contribuição humanitária para devolver a paz de espírito após planejar a festa do século!",
+      price: 200.00,
+      image: "/assets/imagens/presentes/21-terapia-noiva.jpg"
     }
   ],
 
