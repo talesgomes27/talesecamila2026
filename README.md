@@ -69,8 +69,8 @@ export const weddingData: WeddingData = {
   ceremony: {
     venueName: "Beira Rio, no antigo Empresa Bar",
     dateFormatted: "19 de Dezembro de 2026",
-    time: "16h00",
-    address: "Av. Lauro Sodré, 146 - São Miguel do Guamá, PA, 68660-000",
+    time: "16h30m",
+    address: "Av. Lauro Sodré, 187 - São Miguel do Guamá, PA, 68660-000",
     // links do Google Maps e Waze...
   },
   pix: {

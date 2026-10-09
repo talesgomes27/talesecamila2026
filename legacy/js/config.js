@@ -107,16 +107,16 @@ const CONFIG = {
     venueName: "Beira Rio, no antigo Empresa Bar",
     venuePhoto: "assets/imagens/cerimonia.jpeg",
     dateFormatted: "19 de Dezembro de 2026",
-    time: "16h00",
-    notes: "Gostaríamos muito de contar com a presença de todos vocês no momento em que nossa união será abençoada diante de Deus! A cerimônia será rápida e tentaremos ser extremamente pontuais. Contamos com vocês!",
-    address: "Av. Lauro Sodré, 146 - São Miguel do Guamá, PA, 68660-000",
+    time: "16h30m",
+    notes: "Será uma alegria imensa ter vocês conosco para abençoar nossa união diante de Deus. Nossa cerimônia será breve e pontual; em seguida, preparem o coração e o apetite para um rodízio de pizza quentinha saindo do forno, no padrão de qualidade O Teimoso, celebrando a vida e o amor. Esperamos por vocês!",
+    address: "Av. Lauro Sodré, 187 - São Miguel do Guamá, PA, 68660-000",
     
     // Iframe de incorporação do Google Maps
-    mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d997.0542474066214!2d-47.486152430384315!3d-1.6233647593308864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x92a55f1f8b0f612f%3A0xd5abf900193d4723!2sAv.%20Lauro%20Sodr%C3%A9%2C%20146%20-%20S%C3%A3o%20Miguel%20do%20Guam%C3%A1%2C%20PA%2C%2068660-000!5e0!3m2!1spt-BR!2sbr!4v1789923462646!5m2!1spt-BR!2sbr",
+    mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d997.0542474066214!2d-47.485272!3d-1.623415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zAv.%20Lauro%20Sodr%C3%A9%2C%20187%20-%20S%C3%A3o%20Miguel%20do%20Guam%C3%A1%2C%20PA%2C%2068660-000!5e0!3m2!1spt-BR!2sbr!4v1789923462646!5m2!1spt-BR!2sbr",
     
     // Links para aplicativos de rota
-    mapsUrl: "https://maps.google.com/?q=Av.+Lauro+Sodr%C3%A9,+146+-+S%C3%A3o+Miguel+do+Guam%C3%A1,+PA,+68660-000",
-    wazeUrl: "https://waze.com/ul?q=Av.+Lauro+Sodr%C3%A9,+146+-+S%C3%A3o+Miguel+do+Guam%C3%A1"
+    mapsUrl: "https://maps.app.goo.gl/ugTke1R91TTHsNFE9",
+    wazeUrl: "https://waze.com/ul?ll=-1.623415,-47.485272&navigate=yes"
   },
 
   // ----------------------------------------------------------------------------
