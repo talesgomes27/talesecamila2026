@@ -61,6 +61,22 @@ const { ceremony } = Astro.props;
           {ceremony.notes}
         </p>
 
+        <!-- Informações de Traje & Dica da Noiva -->
+        <div class="my-6 p-4 sm:p-5 rounded-2xl bg-linen-light border border-olive-100 text-center max-w-lg mx-auto space-y-2.5">
+          <div>
+            <span class="inline-block font-sans text-xs font-semibold uppercase tracking-wider text-olive-800">
+              Traje: Casual Chique
+            </span>
+            <p class="font-sans text-xs text-gray-500 italic mt-0.5">
+              (Pedimos apenas a gentileza de não usar trajes em tons de verde)
+            </p>
+          </div>
+          <div class="w-8 h-px bg-olive-200/70 mx-auto"></div>
+          <p class="font-sans text-xs text-gray-600 leading-relaxed">
+            <strong class="text-olive-700 font-medium">✨ Dica da noiva:</strong> Meninas, o terreno é arenoso: evitem vestidos longos e salto fino; apostem no comprimento mídi e salto bloco!
+          </p>
+        </div>
+
         <p id="ceremony-address" class="font-sans text-xs md:text-sm text-gray-500 font-normal mb-6 flex items-center justify-center gap-1">
           {ceremony.address}
         </p>
