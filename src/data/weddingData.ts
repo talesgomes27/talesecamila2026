@@ -107,35 +107,35 @@ export const weddingData: WeddingData = {
       title: "Deus tocou no seu coração!",
       description: "Para os padrinhos e amigos generosos que desejam nos abençoar com essa cota especial!",
       price: 6627.50,
-      image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 2,
       title: "Ajuda para a aposentadoria dos noivos",
       description: "Garantindo nosso cafezinho e tranquilidade para quando ficarmos velhinhos juntos.",
       price: 4422.21,
-      image: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 3,
       title: "Cota 'amigos para sempre'",
       description: "Uma contribuição para celebrar a nossa amizade que atravessa todas as fases!",
       price: 3690.96,
-      image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 4,
       title: "Jantar romântico à luz de velas na lua de mel",
       description: "Uma noite inesquecível com vista para o mar e o melhor da gastronomia local.",
       price: 350.00,
-      image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1612927601601-6638404737ce?auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 5,
       title: "Passeio de barco ao pôr do sol",
       description: "Para brindarmos ao início dessa nova jornada com um cenário cinematográfico.",
       price: 520.00,
-      image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 6,
@@ -156,21 +156,21 @@ export const weddingData: WeddingData = {
       title: "Cota para o noivo não lavar a louça por 1 mês",
       description: "Uma ajuda humanitária valiosa para a harmonia do lar recém-formado!",
       price: 150.00,
-      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 9,
       title: "Brinde com champanhe na praia",
       description: "Duas taças e um champanhe gelado para brindar à felicidade sem fim.",
       price: 280.00,
-      image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1546171753-97d7676e4602?auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 10,
       title: "Cota de Padrinho",
       description: "Uma bênção e contribuição especial dos padrinhos queridos para marcar o início dessa nova etapa!",
       price: 950.00,
-      image: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 11,
@@ -184,14 +184,14 @@ export const weddingData: WeddingData = {
       title: "Cueca sexy para o noivo",
       description: "Garantindo que a lua de mel comece com muito estilo, charme e boas risadas!",
       price: 100.00,
-      image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1582966772680-860e372bb558?auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 13,
       title: "Lingerie sexy para a noiva",
       description: "Um mimo especial e charmoso para a mala da lua de mel ficar completa!",
       price: 120.00,
-      image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 14,
@@ -205,14 +205,14 @@ export const weddingData: WeddingData = {
       title: "Ajuda para mobiliar a casa",
       description: "Uma contribuição especial para transformar o nosso cantinho em um lar acolhedor e confortável.",
       price: 1500.00,
-      image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 16,
       title: "Garanta o jantar do noivo durante o 1º mês de casado",
       description: "Salvando o recém-casado de viver à base de miojo e delivery nos primeiros 30 dias!",
       price: 650.00,
-      image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 17,
@@ -226,14 +226,14 @@ export const weddingData: WeddingData = {
       title: "Kit ressaca para os noivos",
       description: "Água de coco, café reforçado e glicose na veia para nos recuperarmos da melhor festa da vida!",
       price: 320.00,
-      image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80"
     },
     {
       id: 19,
       title: "Tampão de ouvido pra noiva enquanto noivo ronca",
       description: "Item de utilidade pública essencial para a paz matrimonial e o sono sagrado da noiva!",
       price: 120.00,
-      image: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=600&q=80"
+      image: "https://images.unsplash.com/photo-1520206183501-b80df61043c2?auto=format&fit=crop&w=600&q=80"
     }
   ],
 
