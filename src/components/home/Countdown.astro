@@ -4,6 +4,16 @@ interface Props {
 }
 
 const { targetDate } = Astro.props;
+
+// Pré-cálculo em tempo de build/SSR para evitar flash "00" e Cumulative Layout Shift
+const targetTime = new Date(targetDate).getTime();
+const now = new Date().getTime();
+const initialDistance = Math.max(0, targetTime - now);
+
+const initialDays = String(Math.floor(initialDistance / (1000 * 60 * 60 * 24))).padStart(2, '0');
+const initialHours = String(Math.floor((initialDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+const initialMinutes = String(Math.floor((initialDistance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+const initialSeconds = String(Math.floor((initialDistance % (1000 * 60)) / 1000)).padStart(2, '0');
 ---
 
 <section id="countdown-banner" class="bg-olive-600 text-white py-10 md:py-14 shadow-inner relative z-20" data-target-date={targetDate}>
@@ -17,25 +27,25 @@ const { targetDate } = Astro.props;
       
       <!-- Dias -->
       <div class="countdown-divider flex flex-col items-center">
-        <span id="countdown-days" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight">00</span>
+        <span id="countdown-days" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight">{initialDays}</span>
         <span class="font-sans text-[10px] sm:text-xs tracking-widest uppercase mt-2 text-white/80 font-medium">Dias</span>
       </div>
 
       <!-- Horas -->
       <div class="countdown-divider flex flex-col items-center">
-        <span id="countdown-hours" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight">00</span>
+        <span id="countdown-hours" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight">{initialHours}</span>
         <span class="font-sans text-[10px] sm:text-xs tracking-widest uppercase mt-2 text-white/80 font-medium">Horas</span>
       </div>
 
       <!-- Minutos -->
       <div class="countdown-divider flex flex-col items-center">
-        <span id="countdown-minutes" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight">00</span>
+        <span id="countdown-minutes" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight">{initialMinutes}</span>
         <span class="font-sans text-[10px] sm:text-xs tracking-widest uppercase mt-2 text-white/80 font-medium">Minutos</span>
       </div>
 
       <!-- Segundos -->
       <div class="flex flex-col items-center">
-        <span id="countdown-seconds" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight">00</span>
+        <span id="countdown-seconds" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight">{initialSeconds}</span>
         <span class="font-sans text-[10px] sm:text-xs tracking-widest uppercase mt-2 text-white/80 font-medium">Segundos</span>
       </div>
 
@@ -44,7 +54,14 @@ const { targetDate } = Astro.props;
 </section>
 
 <script>
+  let countdownInterval: ReturnType<typeof setInterval> | null = null;
+
   function initCountdownTimer() {
+    if (countdownInterval) {
+      clearInterval(countdownInterval);
+      countdownInterval = null;
+    }
+
     const banner = document.getElementById('countdown-banner');
     if (!banner) return;
 
@@ -62,12 +79,18 @@ const { targetDate } = Astro.props;
       const distance = targetTime - now;
 
       if (distance <= 0) {
-        banner.innerHTML = `
-          <div class="py-8 text-center text-white">
-            <h2 class="font-serif text-3xl md:text-4xl mb-2">O grande dia chegou! ❤️</h2>
-            <p class="font-sans text-sm tracking-widest uppercase">Celebrando o nosso amor hoje</p>
-          </div>
-        `;
+        if (countdownInterval) {
+          clearInterval(countdownInterval);
+          countdownInterval = null;
+        }
+        if (banner) {
+          banner.innerHTML = `
+            <div class="py-8 text-center text-white">
+              <h2 class="font-serif text-3xl md:text-4xl mb-2">O grande dia chegou! ❤️</h2>
+              <p class="font-sans text-sm tracking-widest uppercase">Celebrando o nosso amor hoje</p>
+            </div>
+          `;
+        }
         return;
       }
 
@@ -83,7 +106,7 @@ const { targetDate } = Astro.props;
     }
 
     update();
-    setInterval(update, 1000);
+    countdownInterval = setInterval(update, 1000);
   }
 
   initCountdownTimer();

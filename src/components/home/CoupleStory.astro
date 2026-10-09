@@ -2,6 +2,9 @@
 import type { CoupleStory as CoupleStoryType } from '../../types/wedding';
 import LeafIcon from '../common/LeafIcon.astro';
 import Carousel from './Carousel.astro';
+import { Image } from 'astro:assets';
+import groomImg from '../../assets/images/noivo.jpg';
+import brideImg from '../../assets/images/noiva.jpg';
 
 interface Props {
   story: CoupleStoryType;
@@ -23,10 +26,15 @@ const { story } = Astro.props;
   <div class="flex justify-center items-center gap-6 sm:gap-10 mb-8">
     <div class="flex flex-col items-center">
       <div class="organic-profile-frame w-32 h-32 sm:w-44 sm:h-44 overflow-hidden border-2 border-white shadow-md bg-linen-light">
-        <img 
+        <Image 
           id="groom-photo" 
-          src={story.groomPhoto} 
+          src={groomImg} 
           alt={story.groomName} 
+          width={352}
+          height={352}
+          quality={85}
+          format="webp"
+          loading="lazy"
           class="w-full h-full object-cover" 
           style="object-position: center center;" 
         />
@@ -36,10 +44,15 @@ const { story } = Astro.props;
 
     <div class="flex flex-col items-center">
       <div class="organic-profile-frame w-32 h-32 sm:w-44 sm:h-44 overflow-hidden border-2 border-white shadow-md bg-linen-light">
-        <img 
+        <Image 
           id="bride-photo" 
-          src={story.bridePhoto} 
+          src={brideImg} 
           alt={story.brideName} 
+          width={352}
+          height={352}
+          quality={85}
+          format="webp"
+          loading="lazy"
           class="w-full h-full object-cover" 
           style="object-position: center center;" 
         />

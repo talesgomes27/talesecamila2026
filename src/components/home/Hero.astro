@@ -1,6 +1,8 @@
 ---
 import type { CoupleInfo } from '../../types/wedding';
 import LeafIcon from '../common/LeafIcon.astro';
+import { Image } from 'astro:assets';
+import coupleHeroImg from '../../assets/images/casal.jpg';
 
 interface Props {
   couple: CoupleInfo;
@@ -48,12 +50,18 @@ const { couple } = Astro.props;
             <img src="/assets/svgs/hero-frame-leaves.svg" alt="Folhagens decorativas" class="w-full h-full object-contain" />
           </div>
 
-          <!-- Moldura Orgânica da Foto -->
+          <!-- Moldura Orgânica da Foto com Otimização LCP do Astro -->
           <div class="organic-hero-frame w-full h-full overflow-hidden bg-linen-light p-2 border-2 border-white relative z-0">
-            <img 
+            <Image 
               id="hero-couple-img" 
-              src={couple.heroPhoto} 
-              alt={couple.names} 
+              src={coupleHeroImg} 
+              alt={`Foto do casal ${couple.names}`} 
+              width={768}
+              height={768}
+              quality={85}
+              format="webp"
+              loading="eager"
+              fetchpriority="high"
               class="w-full h-full object-cover rounded-[inherit]"
             />
           </div>

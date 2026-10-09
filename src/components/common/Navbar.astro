@@ -16,7 +16,7 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
       </a>
 
       <!-- Menu Desktop -->
-      <nav class="hidden md:flex items-center space-x-8">
+      <nav class="hidden md:flex items-center space-x-8" aria-label="Navegação principal">
         <a href="#hero" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase transition-colors">Home</a>
         <a href="#casal" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase transition-colors">O Casal</a>
         <a href="#cerimonia" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase transition-colors">Cerimônia & Recepção</a>
@@ -24,8 +24,15 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
         <a href="#rsvp" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase transition-colors">Confirme sua Presença</a>
       </nav>
 
-      <!-- Botão Mobile Hamburger -->
-      <button id="mobile-menu-toggle" aria-label="Abrir menu de navegação" class="md:hidden text-gray-700 p-2 rounded-lg hover:bg-black/5 focus:outline-none">
+      <!-- Botão Mobile Hamburger com Acessibilidade ARIA -->
+      <button 
+        id="mobile-menu-toggle" 
+        type="button"
+        aria-label="Abrir menu de navegação" 
+        aria-expanded="false" 
+        aria-controls="mobile-menu"
+        class="md:hidden text-gray-700 p-2 rounded-lg hover:bg-black/5 focus:outline-none cursor-pointer"
+      >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
@@ -33,7 +40,12 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
     </div>
 
     <!-- Menu Mobile Dropdown -->
-    <div id="mobile-menu" class="hidden md:hidden mt-3 pt-3 pb-4 px-4 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-gray-100 flex flex-col space-y-3">
+    <div 
+      id="mobile-menu" 
+      class="hidden md:hidden mt-3 pt-3 pb-4 px-4 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-gray-100 flex flex-col space-y-3"
+      role="region"
+      aria-label="Menu móvel"
+    >
       <a href="#hero" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase py-2">Home</a>
       <a href="#casal" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase py-2">O Casal</a>
       <a href="#cerimonia" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase py-2">Cerimônia & Recepção</a>
@@ -44,38 +56,49 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
 </header>
 
 <script>
-  function setupNavbar() {
+  let isScrollListenerBound = false;
+
+  function onWindowScroll() {
     const navbar = document.getElementById('navbar');
+    if (!navbar) return;
+
+    if (window.scrollY > 40) {
+      navbar.classList.add('bg-[#FAF8F5]/90', 'backdrop-blur-md', 'shadow-sm', 'py-3');
+      navbar.classList.remove('bg-transparent', 'py-5');
+    } else {
+      navbar.classList.remove('bg-[#FAF8F5]/90', 'backdrop-blur-md', 'shadow-sm', 'py-3');
+      navbar.classList.add('bg-transparent', 'py-5');
+    }
+  }
+
+  function setupNavbar() {
     const mobileToggle = document.getElementById('mobile-menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
     const navLinks = document.querySelectorAll('.nav-link');
 
-    // Efeito blur/background no scroll
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 40) {
-        navbar?.classList.add('bg-[#FAF8F5]/90', 'backdrop-blur-md', 'shadow-sm', 'py-3');
-        navbar?.classList.remove('bg-transparent', 'py-5');
-      } else {
-        navbar?.classList.remove('bg-[#FAF8F5]/90', 'backdrop-blur-md', 'shadow-sm', 'py-3');
-        navbar?.classList.add('bg-transparent', 'py-5');
-      }
-    }, { passive: true });
+    // Registrar scroll listener uma única vez de forma passiva
+    if (!isScrollListenerBound) {
+      window.addEventListener('scroll', onWindowScroll, { passive: true });
+      isScrollListenerBound = true;
+    }
+    onWindowScroll();
 
-    // Mobile menu toggle
+    // Mobile menu toggle com sincronização de atributos ARIA
     if (mobileToggle && mobileMenu) {
-      mobileToggle.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-      });
+      mobileToggle.onclick = () => {
+        const isHidden = mobileMenu.classList.toggle('hidden');
+        mobileToggle.setAttribute('aria-expanded', String(!isHidden));
+      };
 
       navLinks.forEach(link => {
         link.addEventListener('click', () => {
           mobileMenu.classList.add('hidden');
+          mobileToggle.setAttribute('aria-expanded', 'false');
         });
       });
     }
   }
 
-  // Executa no carregamento e em navegações
   setupNavbar();
   document.addEventListener('astro:page-load', setupNavbar);
 </script>

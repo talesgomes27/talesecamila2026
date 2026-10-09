@@ -2,14 +2,41 @@
 import InvitationLayout from '../../layouts/InvitationLayout.astro';
 import LeafIcon from '../../components/common/LeafIcon.astro';
 import { weddingData } from '../../data/weddingData';
+import QRCode from 'qrcode';
 
 const siteUrl = weddingData.meta.siteUrl;
 const coupleNames = weddingData.couple.names;
-const venue = weddingData.ceremony.venueName;
 const address = weddingData.ceremony.address;
 const time = weddingData.ceremony.time;
-const dateFormatted = weddingData.ceremony.dateFormatted;
 const mapsUrl = weddingData.ceremony.mapsUrl;
+
+// Geração estática em tempo de build (Zero JavaScript enviado ao cliente)
+const qrCodeDataUrl = await QRCode.toDataURL(siteUrl, {
+  width: 260,
+  margin: 1,
+  color: {
+    dark: '#2D3748',
+    light: '#FFFFFF'
+  }
+});
+
+// Arquivo iCal / ICS data URI para Apple Calendar / Outlook
+const icsContent = [
+  'BEGIN:VCALENDAR',
+  'VERSION:2.0',
+  'PRODID:-//Tales & Camila//Casamento 2026//PT',
+  'BEGIN:VEVENT',
+  'UID:casamento-tales-camila-20261219@talesecamila2026.netlify.app',
+  'DTSTAMP:20261008T120000Z',
+  'DTSTART:20261219T190000Z',
+  'DTEND:20261220T020000Z',
+  'SUMMARY:Casamento de Tales & Camila',
+  'DESCRIPTION:Casamento de Tales & Camila. Site: https://talesecamila2026.netlify.app',
+  'LOCATION:Beira Rio, no antigo Empresa Bar - Av. Lauro Sodré, 146 - São Miguel do Guamá, PA',
+  'END:VEVENT',
+  'END:VCALENDAR'
+].join('\r\n');
+const icsDataUri = `data:text/calendar;charset=utf8,${encodeURIComponent(icsContent)}`;
 ---
 
 <InvitationLayout>
@@ -78,6 +105,8 @@ const mapsUrl = weddingData.ceremony.mapsUrl;
             <img 
               src={weddingData.couple.heroPhoto} 
               alt={coupleNames} 
+              width="192"
+              height="192"
               class="w-full h-full object-cover select-none"
             />
           </div>
@@ -119,9 +148,16 @@ const mapsUrl = weddingData.ceremony.mapsUrl;
           Aponte a câmera para o QR Code:
         </p>
 
-        <!-- Container do QR Code Dinâmico -->
-        <div id="convite-qrcode" class="flex justify-center items-center my-2 p-1.5 bg-white rounded-xl inline-block shadow-sm border border-gray-100" data-site-url={siteUrl}>
-          <!-- Gerado dinamicamente -->
+        <!-- Container do QR Code (Gerado no Build Time pelo SSG) -->
+        <div class="flex justify-center items-center my-2 p-1.5 bg-white rounded-xl inline-block shadow-sm border border-gray-100">
+          <img 
+            src={qrCodeDataUrl} 
+            alt="QR Code para o site do casamento" 
+            width="130" 
+            height="130" 
+            loading="eager"
+            class="w-[130px] h-[130px] rounded-lg"
+          />
         </div>
 
         <p class="font-sans text-xs font-semibold text-olive-700 mt-2">
@@ -161,7 +197,7 @@ const mapsUrl = weddingData.ceremony.mapsUrl;
           <a 
             href={mapsUrl} 
             target="_blank" 
-            rel="noopener noreferrer"
+            rel="noopener noreferrer" 
             class="py-2.5 px-3 rounded-full bg-white hover:bg-gray-50 border border-gray-200 text-gray-700 font-sans text-xs font-medium tracking-wide transition-all shadow-sm flex items-center justify-center gap-1.5"
           >
             <svg class="w-3.5 h-3.5 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
@@ -171,19 +207,33 @@ const mapsUrl = weddingData.ceremony.mapsUrl;
           </a>
         </div>
 
-        <!-- Botão Adicionar à Agenda -->
-        <a 
-          id="btn-add-calendar"
-          href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Casamento+de+Tales+%26+Camila&dates=20261219T190000Z/20261220T020000Z&details=Casamento+de+Tales+%26+Camila.+Mais+informa%C3%A7%C3%B5es:+https://talesecamila2026.netlify.app&location=Beira+Rio,+no+antigo+Empresa+Bar+-+Av.+Lauro+Sodr%C3%A9,+146+-+S%C3%A3o+Miguel+do+Guam%C3%A1,+PA" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class="w-full py-2.5 px-4 rounded-full bg-linen hover:bg-linen-dark text-gray-600 font-sans text-xs font-medium tracking-wide transition-colors flex items-center justify-center gap-1.5 border border-gray-200/80"
-        >
-          <svg class="w-3.5 h-3.5 text-olive-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-          </svg>
-          Adicionar ao Calendário Google
-        </a>
+        <!-- Botões de Calendário (Google e Apple/iCal) -->
+        <div class="grid grid-cols-2 gap-2">
+          <a 
+            id="btn-add-calendar"
+            href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Casamento+de+Tales+%26+Camila&dates=20261219T190000Z/20261220T020000Z&details=Casamento+de+Tales+%26+Camila.+Mais+informa%C3%A7%C3%B5es:+https://talesecamila2026.netlify.app&location=Beira+Rio,+no+antigo+Empresa+Bar+-+Av.+Lauro+Sodr%C3%A9,+146+-+S%C3%A3o+Miguel+do+Guam%C3%A1,+PA" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="w-full py-2.5 px-3 rounded-full bg-linen hover:bg-linen-dark text-gray-600 font-sans text-xs font-medium tracking-wide transition-colors flex items-center justify-center gap-1.5 border border-gray-200/80"
+          >
+            <svg class="w-3.5 h-3.5 text-olive-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            Google Agenda
+          </a>
+
+          <a 
+            id="btn-add-ical"
+            href={icsDataUri} 
+            download="casamento-tales-e-camila.ics"
+            class="w-full py-2.5 px-3 rounded-full bg-linen hover:bg-linen-dark text-gray-600 font-sans text-xs font-medium tracking-wide transition-colors flex items-center justify-center gap-1.5 border border-gray-200/80"
+          >
+            <svg class="w-3.5 h-3.5 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.99.6-2.63 1.35-.57.66-.97 1.73-.84 2.76 1 .08 2.03-.51 2.55-1.26z"/>
+            </svg>
+            Apple / iCal
+          </a>
+        </div>
       </div>
 
     </div>
@@ -194,25 +244,3 @@ const mapsUrl = weddingData.ceremony.mapsUrl;
     <p>Com carinho, {coupleNames} ❤️</p>
   </footer>
 </InvitationLayout>
-
-<script>
-  import QRCode from 'qrcode';
-
-  const qrContainer = document.getElementById('convite-qrcode');
-  const targetUrl = qrContainer?.dataset.siteUrl || 'https://talesecamila2026.netlify.app';
-
-  if (qrContainer) {
-    QRCode.toDataURL(targetUrl, {
-      width: 130,
-      margin: 1,
-      color: {
-        dark: '#2D3748',
-        light: '#FFFFFF'
-      }
-    }).then(url => {
-      qrContainer.innerHTML = `<img src="${url}" alt="QR Code do site" class="w-[130px] h-[130px] rounded-lg" />`;
-    }).catch(() => {
-      qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&margin=2&data=${encodeURIComponent(targetUrl)}" alt="QR Code do site" class="w-[130px] h-[130px] rounded-lg" />`;
-    });
-  }
-</script>

@@ -9,20 +9,17 @@ interface Props {
 const { pix, coupleNames } = Astro.props;
 ---
 
-<div 
+<dialog 
   id="pix-modal" 
-  class="fixed inset-0 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
+  class="backdrop:bg-black/60 backdrop:backdrop-blur-sm p-0 rounded-3xl shadow-2xl max-w-lg w-full bg-white border border-gray-100 overflow-hidden m-auto"
   data-pix-key={pix.key}
   data-pix-recipient={pix.recipientName}
   data-pix-city={pix.city}
   data-pix-whatsapp={pix.whatsappNumber}
   data-couple-names={coupleNames}
 >
-  <!-- Overlay Escuro com Blur -->
-  <div id="pix-modal-overlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm cursor-pointer"></div>
-
   <!-- Caixa do Modal -->
-  <div class="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden z-10 max-h-[92vh] flex flex-col border border-gray-100 animate-fade-in">
+  <div class="relative w-full flex flex-col max-h-[90vh]">
     
     <!-- Cabeçalho do Modal -->
     <div class="p-5 sm:p-6 bg-linen-light border-b border-gray-200/70 flex items-center justify-between">
@@ -38,7 +35,7 @@ const { pix, coupleNames } = Astro.props;
         </div>
       </div>
 
-      <button id="pix-modal-close" aria-label="Fechar modal" class="text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-black/5 transition-colors">
+      <button id="pix-modal-close" type="button" aria-label="Fechar modal" class="text-gray-400 hover:text-gray-600 p-2 rounded-full hover:bg-black/5 transition-colors cursor-pointer">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         </svg>
@@ -80,7 +77,7 @@ const { pix, coupleNames } = Astro.props;
           <button 
             type="button" 
             id="pix-copy-btn" 
-            class="btn-pill flex-shrink-0 px-4 py-3 bg-olive-600 hover:bg-olive-700 text-white font-sans text-xs font-semibold tracking-wide whitespace-nowrap shadow-sm transition-colors"
+            class="btn-pill flex-shrink-0 px-4 py-3 bg-olive-600 hover:bg-olive-700 text-white font-sans text-xs font-semibold tracking-wide whitespace-nowrap shadow-sm transition-colors cursor-pointer"
           >
             Copiar Código
           </button>
@@ -115,7 +112,7 @@ const { pix, coupleNames } = Astro.props;
           <button 
             type="button" 
             id="pix-send-whatsapp-btn" 
-            class="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-sans text-xs font-medium tracking-wide flex items-center justify-center gap-2 transition-colors shadow-sm"
+            class="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-sans text-xs font-medium tracking-wide flex items-center justify-center gap-2 transition-colors shadow-sm cursor-pointer"
           >
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z"/>
@@ -128,7 +125,7 @@ const { pix, coupleNames } = Astro.props;
     </div>
 
   </div>
-</div>
+</dialog>
 
 <script>
   import { generatePixPayload } from '../../utils/pix';
@@ -146,8 +143,7 @@ const { pix, coupleNames } = Astro.props;
   let activeGift: GiftPayload | null = null;
   let activePixCode = '';
 
-  const modal = document.getElementById('pix-modal');
-  const overlay = document.getElementById('pix-modal-overlay');
+  const modal = document.getElementById('pix-modal') as HTMLDialogElement | null;
   const closeBtn = document.getElementById('pix-modal-close');
   const copyBtn = document.getElementById('pix-copy-btn');
   const pixInput = document.getElementById('pix-copy-input') as HTMLInputElement | null;
@@ -160,19 +156,29 @@ const { pix, coupleNames } = Astro.props;
   const coupleNames = modal?.dataset.coupleNames || '';
 
   function closeModal() {
-    if (!modal) return;
-    modal.classList.add('opacity-0', 'pointer-events-none');
-    modal.classList.remove('opacity-100', 'pointer-events-auto');
-    document.body.classList.remove('overflow-hidden');
+    if (modal?.open) {
+      modal.close();
+    }
   }
 
-  if (overlay) overlay.addEventListener('click', closeModal);
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
+
+  // Fechar ao clicar fora (backdrop nativo)
+  modal?.addEventListener('click', (e) => {
+    if (!modal) return;
+    const rect = modal.getBoundingClientRect();
+    const isInDialog = (
+      rect.top <= e.clientY &&
+      e.clientY <= rect.top + rect.height &&
+      rect.left <= e.clientX &&
+      e.clientX <= rect.left + rect.width
+    );
+    if (!isInDialog) {
+      modal.close();
+    }
   });
 
-  // Copiar código PIX
+  // Copiar código PIX com Clipboard API moderna
   if (copyBtn && pixInput) {
     copyBtn.addEventListener('click', async () => {
       try {
@@ -186,8 +192,7 @@ const { pix, coupleNames } = Astro.props;
         }, 3000);
       } catch {
         pixInput.select();
-        document.execCommand('copy');
-        (window as any).showToast?.('Código PIX copiado!');
+        (window as any).showToast?.('Selecione e copie o código acima');
       }
     });
   }
@@ -219,7 +224,7 @@ const { pix, coupleNames } = Astro.props;
     });
   }
 
-  (window as any).openPixModal = async function(gift: GiftPayload) {
+  async function openModal(gift: GiftPayload) {
     activeGift = gift;
     if (!modal) return;
 
@@ -256,21 +261,29 @@ const { pix, coupleNames } = Astro.props;
           }
         });
         qrContainer.innerHTML = `<img src="${qrDataUrl}" alt="QR Code PIX" class="w-[190px] h-[190px] mx-auto rounded-lg shadow-sm border border-gray-100" />`;
-      } catch (err) {
+      } catch {
         const fallbackUrl = `https://api.qrserver.com/v1/create-qr-code/?size=190x190&margin=4&data=${encodeURIComponent(activePixCode)}`;
         qrContainer.innerHTML = `<img src="${fallbackUrl}" alt="QR Code PIX" class="w-[190px] h-[190px] mx-auto rounded-lg shadow-sm border border-gray-100" />`;
       }
     }
 
-    // Limpar campos
+    // Limpar campos de recado
     const guestNameInput = document.getElementById('pix-guest-name') as HTMLInputElement | null;
     const guestMessageInput = document.getElementById('pix-guest-message') as HTMLTextAreaElement | null;
     if (guestNameInput) guestNameInput.value = '';
     if (guestMessageInput) guestMessageInput.value = '';
 
-    // Abrir modal
-    modal.classList.remove('opacity-0', 'pointer-events-none');
-    modal.classList.add('opacity-100', 'pointer-events-auto');
-    document.body.classList.add('overflow-hidden');
-  };
+    // Abertura nativa acessível via dialog API
+    modal.showModal();
+  }
+
+  // Ouvinte de evento desacoplado
+  window.addEventListener('open-pix-modal', ((e: CustomEvent<GiftPayload>) => {
+    if (e.detail) {
+      openModal(e.detail);
+    }
+  }) as EventListener);
+
+  // Compatibilidade com window.openPixModal
+  (window as any).openPixModal = openModal;
 </script>

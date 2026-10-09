@@ -1,4 +1,6 @@
 ---
+import LeafIcon from './LeafIcon.astro';
+
 interface Props {
   coupleNames?: string;
   weddingDateFormatted?: string;
@@ -9,9 +11,7 @@ const { coupleNames = "Tales & Camila", weddingDateFormatted = "19 de Dezembro d
 
 <footer class="bg-linen-dark py-12 border-t border-gray-200/60 text-center mt-auto">
   <div class="max-w-4xl mx-auto px-4">
-    <div class="w-8 h-4 mx-auto mb-3 opacity-60">
-      <img src="/assets/svgs/leaf-icon.svg" alt="Folha decorativa" class="w-full h-full" />
-    </div>
+    <LeafIcon class="w-8 h-4 mx-auto mb-3 opacity-60" />
     <p class="font-serif text-2xl text-gray-800 mb-1">{coupleNames}</p>
     <p class="font-sans text-xs text-gray-500 tracking-widest uppercase mb-6">{weddingDateFormatted}</p>
     <p class="font-sans text-xs text-gray-400">

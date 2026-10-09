@@ -79,9 +79,13 @@ const { gifts } = Astro.props;
         description: card.dataset.description || ''
       };
 
-      if ((window as any).openPixModal) {
-        (window as any).openPixModal(gift);
-      }
+      // Disparar CustomEvent desacoplado
+      window.dispatchEvent(
+        new CustomEvent('open-pix-modal', {
+          detail: gift,
+          bubbles: true
+        })
+      );
     });
 
     // Ordenação dinâmica
@@ -103,10 +107,6 @@ const { gifts } = Astro.props;
     }
   }
 
-  // Inicializar quando o DOM estiver pronto
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupGifts);
-  } else {
-    setupGifts();
-  }
+  setupGifts();
+  document.addEventListener('astro:page-load', setupGifts);
 </script>
