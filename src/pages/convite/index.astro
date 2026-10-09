@@ -1,6 +1,8 @@
 ---
 import InvitationLayout from '../../layouts/InvitationLayout.astro';
 import LeafIcon from '../../components/common/LeafIcon.astro';
+import { Image } from 'astro:assets';
+import coupleHeroImg from '../../assets/images/casal.jpg';
 import { weddingData } from '../../data/weddingData';
 import QRCode from 'qrcode';
 
@@ -102,11 +104,13 @@ const icsDataUri = `data:text/calendar;charset=utf8,${encodeURIComponent(icsCont
           </div>
 
           <div class="organic-frame w-full h-full overflow-hidden border-2 border-white bg-linen-light relative z-0 shadow-sm">
-            <img 
-              src={weddingData.couple.heroPhoto} 
+            <Image 
+              src={coupleHeroImg} 
               alt={coupleNames} 
-              width="192"
-              height="192"
+              width={384}
+              height={384}
+              quality={85}
+              format="webp"
               class="w-full h-full object-cover select-none"
             />
           </div>
