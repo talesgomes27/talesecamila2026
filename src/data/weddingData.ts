@@ -248,6 +248,27 @@ export const weddingData: WeddingData = {
       description: "Uma contribuição humanitária para devolver a paz de espírito após planejar a festa do século!",
       price: 200.00,
       image: "/assets/imagens/presentes/21-terapia-noiva.jpg"
+    },
+    {
+      id: 22,
+      title: "Cota para a noiva jogar o buquê na sua direção",
+      description: "Mira calibrada com precisão estratégica para você ser a próxima a subir ao altar!",
+      price: 150.00,
+      image: "/assets/imagens/presentes/22-buque-direcao.jpg"
+    },
+    {
+      id: 23,
+      title: "Cota para a noiva não jogar o buquê na direção da sua namorada",
+      description: "Seguro de emergência e alívio imediato para manter a paz no relacionamento por mais um ano!",
+      price: 250.00,
+      image: "/assets/imagens/presentes/23-anti-buque.jpg"
+    },
+    {
+      id: 24,
+      title: "Primeiro lugar a ser servido pelo garçom no rodízio",
+      description: "Acesso VIP garantido à primeira rodada de pizza quentinha saindo do forno d'O Teimoso!",
+      price: 120.00,
+      image: "/assets/imagens/presentes/24-primeiro-rodizio.jpg"
     }
   ],
 
