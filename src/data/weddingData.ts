@@ -275,7 +275,7 @@ export const weddingData: WeddingData = {
   rsvp: {
     title: "Confirmação de Presença",
     subtitle: "Sua presença é muito importante para nós!",
-    deadlineText: "Por favor, confirme sua presença até o dia 20 de Novembro de 2026.",
+    deadlineText: "Por favor, confirme sua presença até o dia 04 de Dezembro de 2026.",
     mode: "netlify",
     googleFormsUrl: "https://docs.google.com/forms/d/e/1FAIpQLSc.../viewform?embedded=true"
   },
