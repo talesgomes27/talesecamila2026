@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 400" fill="none" stroke="#507552" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Elegant botanical floral branch in line art style -->
+  <path d="M 40,380 Q 80,260 120,180 T 160,30" opacity="0.85"/>
+  <path d="M 70,310 C 30,300 20,270 40,250 C 65,260 75,290 70,310 Z" fill="#507552" fill-opacity="0.08"/>
+  <path d="M 68,308 Q 45,275 35,260"/>
+  
+  <path d="M 95,230 C 135,220 145,190 125,170 C 100,180 90,210 95,230 Z" fill="#507552" fill-opacity="0.08"/>
+  <path d="M 97,228 Q 120,195 130,180"/>
+
+  <path d="M 125,170 C 90,150 85,120 110,105 C 130,120 130,150 125,170 Z" fill="#507552" fill-opacity="0.08"/>
+  <path d="M 124,168 Q 105,135 100,118"/>
+
+  <path d="M 142,110 C 175,95 180,65 155,50 C 135,65 135,95 142,110 Z" fill="#507552" fill-opacity="0.08"/>
+  
+  <!-- Delicate buds and flower petals -->
+  <circle cx="160" cy="30" r="4" fill="#A39B75" fill-opacity="0.3"/>
+  <path d="M 156,28 C 150,15 165,10 168,22"/>
+  <path d="M 163,32 C 175,28 178,42 165,40"/>
+  
+  <path d="M 35,220 C 15,190 35,170 50,185 C 55,200 45,215 35,220 Z" fill="#507552" fill-opacity="0.05"/>
+  <path d="M 145,250 C 180,260 190,290 170,310 C 145,300 140,270 145,250 Z" fill="#507552" fill-opacity="0.05"/>
+  <path d="M 147,252 Q 170,285 178,300"/>
+</svg>

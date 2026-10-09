@@ -1,0 +1,112 @@
+---
+import type { GiftItem } from '../../types/wedding';
+import LeafIcon from '../common/LeafIcon.astro';
+import GiftCard from './GiftCard.astro';
+
+interface Props {
+  gifts: GiftItem[];
+}
+
+const { gifts } = Astro.props;
+---
+
+<section id="presentes" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+    <div class="w-10 h-5 mx-auto mb-3 opacity-80">
+      <LeafIcon />
+    </div>
+    <h2 class="font-serif text-3xl md:text-5xl text-olive-600 mb-4 font-normal">
+      Lista de Presentes
+    </h2>
+    <p class="font-sans text-sm md:text-base text-gray-600 font-light leading-relaxed">
+      A presença de vocês é o nosso maior presente! Se desejarem nos abençoar ainda mais, criamos cotas simbólicas de itens especiais para o nosso novo lar e nossa lua de mel.
+    </p>
+  </div>
+
+  <!-- Barra de Controles e Destaque PIX -->
+  <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 bg-linen-light p-4 rounded-2xl border border-olive-100">
+    <div class="flex items-center gap-2 text-olive-700 font-sans text-xs sm:text-sm font-medium">
+      <svg class="w-4 h-4 text-olive-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+      </svg>
+      <span>Presenteie diretamente pelo PIX</span>
+    </div>
+
+    <!-- Dropdown de Ordenação -->
+    <div class="flex items-center gap-2">
+      <label for="gifts-sort-select" class="font-sans text-xs sm:text-sm text-gray-600">Ordenar lista por:</label>
+      <select 
+        id="gifts-sort-select" 
+        class="font-sans text-xs sm:text-sm bg-linen border border-gray-200 rounded-lg px-3 py-1.5 text-gray-700 focus:outline-none focus:border-olive-600 cursor-pointer"
+      >
+        <option value="default">Destaques</option>
+        <option value="price-desc">Maior preço</option>
+        <option value="price-asc">Menor preço</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Grid de Presentes -->
+  <div id="gifts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+    {gifts.map(gift => (
+      <GiftCard gift={gift} />
+    ))}
+  </div>
+</section>
+
+<script>
+  function setupGifts() {
+    const grid = document.getElementById('gifts-grid');
+    const sortSelect = document.getElementById('gifts-sort-select') as HTMLSelectElement | null;
+    if (!grid) return;
+
+    // Preservar a ordem original padrão
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>('.gift-card'));
+
+    // Delegação de evento para os botões "Presentear"
+    grid.addEventListener('click', (e) => {
+      const target = (e.target as HTMLElement).closest<HTMLElement>('.presentear-btn');
+      if (!target) return;
+
+      const card = target.closest<HTMLElement>('.gift-card');
+      if (!card) return;
+
+      const gift = {
+        id: Number(card.dataset.id || 0),
+        title: card.dataset.title || '',
+        price: parseFloat(card.dataset.price || '0'),
+        image: card.dataset.image || '',
+        description: card.dataset.description || ''
+      };
+
+      if ((window as any).openPixModal) {
+        (window as any).openPixModal(gift);
+      }
+    });
+
+    // Ordenação dinâmica
+    if (sortSelect) {
+      sortSelect.addEventListener('change', () => {
+        const value = sortSelect.value;
+        const sorted = [...cards];
+
+        if (value === 'price-asc') {
+          sorted.sort((a, b) => parseFloat(a.dataset.price || '0') - parseFloat(b.dataset.price || '0'));
+        } else if (value === 'price-desc') {
+          sorted.sort((a, b) => parseFloat(b.dataset.price || '0') - parseFloat(a.dataset.price || '0'));
+        } else {
+          sorted.sort((a, b) => Number(a.dataset.id || 0) - Number(b.dataset.id || 0));
+        }
+
+        sorted.forEach(card => grid.appendChild(card));
+      });
+    }
+  }
+
+  // Inicializar quando o DOM estiver pronto
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupGifts);
+  } else {
+    setupGifts();
+  }
+</script>

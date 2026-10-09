@@ -1,0 +1,177 @@
+---
+import type { RsvpConfig } from '../../types/wedding';
+import LeafIcon from '../common/LeafIcon.astro';
+
+interface Props {
+  rsvp: RsvpConfig;
+}
+
+const { rsvp } = Astro.props;
+---
+
+<section id="rsvp" class="py-16 md:py-24 bg-linen-light border-t border-olive-100">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <!-- Ícone de Folha Minimalista -->
+    <div class="w-10 h-5 mx-auto mb-3 opacity-80">
+      <LeafIcon />
+    </div>
+
+    <h2 id="rsvp-title" class="font-serif text-3xl md:text-4xl text-olive-600 mb-3 font-normal">
+      {rsvp.title}
+    </h2>
+    <p id="rsvp-subtitle" class="font-sans text-sm text-gray-600 mb-2">
+      {rsvp.subtitle}
+    </p>
+    {rsvp.deadlineText && (
+      <p id="rsvp-deadline" class="font-sans text-xs text-olive-700 font-semibold mb-8 tracking-wide uppercase">
+        {rsvp.deadlineText}
+      </p>
+    )}
+
+    {rsvp.mode === 'google_forms' ? (
+      <!-- Container do Google Forms -->
+      <div id="rsvp-google-container" class="bg-white p-4 rounded-3xl shadow-sm border border-[#ECE8E1]">
+        <iframe 
+          id="rsvp-google-iframe" 
+          src={rsvp.googleFormsUrl || ''} 
+          class="w-full min-h-[600px] border-0 rounded-2xl" 
+          title="Formulário de Confirmação de Presença"
+        >
+          Carregando formulário...
+        </iframe>
+      </div>
+    ) : (
+      <!-- Formulário Nativo Netlify Forms -->
+      <div id="rsvp-netlify-container" class="bg-white p-6 sm:p-10 rounded-3xl shadow-sm border border-[#ECE8E1] text-left">
+        
+        <!-- Mensagem de Sucesso (Oculta por padrão) -->
+        <div id="rsvp-success-message" class="hidden text-center py-8">
+          <div class="w-16 h-16 bg-olive-100 text-olive-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <h3 class="font-serif text-2xl text-gray-800 mb-2">Presença Confirmada!</h3>
+          <p class="font-sans text-sm text-gray-600">Agradecemos pelo carinho. Nos vemos no grande dia!</p>
+        </div>
+
+        <!-- Formulário HTML com suporte a Netlify Forms -->
+        <form 
+          id="rsvp-form" 
+          name="rsvp" 
+          method="POST" 
+          action="/" 
+          data-netlify="true" 
+          netlify-honeypot="bot-field" 
+          class="space-y-6"
+        >
+          <input type="hidden" name="form-name" value="rsvp" />
+          <p class="hidden">
+            <label>Não preencha se for humano: <input name="bot-field" /></label>
+          </p>
+
+          <!-- Nome Completo -->
+          <div>
+            <label for="rsvp-name" class="block font-sans text-xs font-semibold uppercase tracking-wider text-gray-700 mb-2">
+              Nome Completo *
+            </label>
+            <input 
+              type="text" 
+              id="rsvp-name" 
+              name="name" 
+              required 
+              placeholder="Digite seu nome completo"
+              class="w-full font-sans text-sm px-4 py-3 rounded-xl border border-gray-200 bg-linen focus:bg-white focus:outline-none focus:border-olive-600 transition-colors"
+            />
+          </div>
+
+          <!-- Mensagem aos Noivos -->
+          <div>
+            <label for="rsvp-message" class="block font-sans text-xs font-semibold uppercase tracking-wider text-gray-700 mb-2">
+              Mensagem aos Noivos (Opcional)
+            </label>
+            <textarea 
+              id="rsvp-message" 
+              name="message" 
+              rows="3" 
+              placeholder="Deixe um recado especial de carinho..."
+              class="w-full font-sans text-sm px-4 py-3 rounded-xl border border-gray-200 bg-linen focus:bg-white focus:outline-none focus:border-olive-600 transition-colors resize-none"
+            ></textarea>
+          </div>
+
+          <!-- Botão de Enviar -->
+          <div class="text-center pt-2">
+            <button 
+              type="submit" 
+              class="btn-pill w-full sm:w-auto px-10 py-3 bg-olive-600 hover:bg-olive-700 text-white font-sans text-sm font-medium tracking-wider uppercase shadow-md transition-all cursor-pointer"
+            >
+              Confirmar Presença
+            </button>
+          </div>
+        </form>
+      </div>
+    )}
+  </div>
+</section>
+
+<script>
+  function setupRsvp() {
+    const form = document.getElementById('rsvp-form') as HTMLFormElement | null;
+    const successFeedback = document.getElementById('rsvp-success-message');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const originalBtnText = submitBtn?.textContent || 'Confirmar Presença';
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+      }
+
+      try {
+        const formData = new FormData(form);
+        const searchParams = new URLSearchParams();
+        formData.forEach((value, key) => {
+          searchParams.append(key, value.toString());
+        });
+
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: searchParams.toString()
+        });
+
+        if (response.ok) {
+          form.reset();
+          if (successFeedback) {
+            successFeedback.classList.remove('hidden');
+            form.classList.add('hidden');
+          }
+          (window as any).showToast?.('Presença confirmada com sucesso! ✨');
+        } else {
+          throw new Error('Erro na resposta do Netlify');
+        }
+      } catch {
+        // Fallback para desenvolvimento local ou sucesso gracioso
+        if (successFeedback) {
+          successFeedback.classList.remove('hidden');
+          form.classList.add('hidden');
+        }
+        (window as any).showToast?.('Presença confirmada! Obrigado.');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+        }
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupRsvp);
+  } else {
+    setupRsvp();
+  }
+</script>

@@ -1,0 +1,12 @@
+---
+interface Props {
+  class?: string;
+  alt?: string;
+}
+
+const { class: className = "w-10 h-5 mx-auto mb-3 opacity-80", alt = "Ícone de Folha" } = Astro.props;
+---
+
+<div class={className}>
+  <img src="/assets/svgs/leaf-icon.svg" alt={alt} class="w-full h-full" />
+</div>

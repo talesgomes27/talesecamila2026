@@ -1,0 +1,91 @@
+---
+interface Props {
+  targetDate: string;
+}
+
+const { targetDate } = Astro.props;
+---
+
+<section id="countdown-banner" class="bg-olive-600 text-white py-10 md:py-14 shadow-inner relative z-20" data-target-date={targetDate}>
+  <div class="max-w-4xl mx-auto px-4 text-center">
+    <h2 class="font-serif text-2xl md:text-3xl lg:text-4xl tracking-wide mb-8 font-normal">
+      Contagem Regressiva
+    </h2>
+
+    <!-- Grid dos Números do Cronômetro -->
+    <div id="countdown-grid" class="grid grid-cols-4 gap-2 sm:gap-4 max-w-2xl mx-auto">
+      
+      <!-- Dias -->
+      <div class="countdown-divider flex flex-col items-center">
+        <span id="countdown-days" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight">00</span>
+        <span class="font-sans text-[10px] sm:text-xs tracking-widest uppercase mt-2 text-white/80 font-medium">Dias</span>
+      </div>
+
+      <!-- Horas -->
+      <div class="countdown-divider flex flex-col items-center">
+        <span id="countdown-hours" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight">00</span>
+        <span class="font-sans text-[10px] sm:text-xs tracking-widest uppercase mt-2 text-white/80 font-medium">Horas</span>
+      </div>
+
+      <!-- Minutos -->
+      <div class="countdown-divider flex flex-col items-center">
+        <span id="countdown-minutes" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight">00</span>
+        <span class="font-sans text-[10px] sm:text-xs tracking-widest uppercase mt-2 text-white/80 font-medium">Minutos</span>
+      </div>
+
+      <!-- Segundos -->
+      <div class="flex flex-col items-center">
+        <span id="countdown-seconds" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight">00</span>
+        <span class="font-sans text-[10px] sm:text-xs tracking-widest uppercase mt-2 text-white/80 font-medium">Segundos</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  function initCountdownTimer() {
+    const banner = document.getElementById('countdown-banner');
+    if (!banner) return;
+
+    const dateStr = banner.dataset.targetDate;
+    if (!dateStr) return;
+
+    const targetTime = new Date(dateStr).getTime();
+    const daysEl = document.getElementById('countdown-days');
+    const hoursEl = document.getElementById('countdown-hours');
+    const minutesEl = document.getElementById('countdown-minutes');
+    const secondsEl = document.getElementById('countdown-seconds');
+
+    function update() {
+      const now = new Date().getTime();
+      const distance = targetTime - now;
+
+      if (distance <= 0) {
+        banner.innerHTML = `
+          <div class="py-8 text-center text-white">
+            <h2 class="font-serif text-3xl md:text-4xl mb-2">O grande dia chegou! ❤️</h2>
+            <p class="font-sans text-sm tracking-widest uppercase">Celebrando o nosso amor hoje</p>
+          </div>
+        `;
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+      if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+      if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+      if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+    }
+
+    update();
+    setInterval(update, 1000);
+  }
+
+  initCountdownTimer();
+  document.addEventListener('astro:page-load', initCountdownTimer);
+</script>

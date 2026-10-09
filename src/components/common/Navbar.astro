@@ -1,0 +1,81 @@
+---
+interface Props {
+  groomInit?: string;
+  brideInit?: string;
+}
+
+const { groomInit = "T", brideInit = "C" } = Astro.props;
+---
+
+<header id="navbar" class="fixed top-0 inset-x-0 z-40 transition-all duration-300 py-5 bg-transparent">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between">
+      <!-- Logo / Iniciais -->
+      <a href="#hero" class="font-serif text-2xl text-olive-800 tracking-wider hover:opacity-80 transition-opacity">
+        {groomInit} <span class="font-cormorant italic text-gold-accent">&</span> {brideInit}
+      </a>
+
+      <!-- Menu Desktop -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="#hero" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase transition-colors">Home</a>
+        <a href="#casal" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase transition-colors">O Casal</a>
+        <a href="#cerimonia" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase transition-colors">Cerimônia & Recepção</a>
+        <a href="#presentes" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase transition-colors">Lista de Presentes</a>
+        <a href="#rsvp" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase transition-colors">Confirme sua Presença</a>
+      </nav>
+
+      <!-- Botão Mobile Hamburger -->
+      <button id="mobile-menu-toggle" aria-label="Abrir menu de navegação" class="md:hidden text-gray-700 p-2 rounded-lg hover:bg-black/5 focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Menu Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden mt-3 pt-3 pb-4 px-4 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-gray-100 flex flex-col space-y-3">
+      <a href="#hero" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase py-2">Home</a>
+      <a href="#casal" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase py-2">O Casal</a>
+      <a href="#cerimonia" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase py-2">Cerimônia & Recepção</a>
+      <a href="#presentes" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase py-2">Lista de Presentes</a>
+      <a href="#rsvp" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase py-2">Confirme sua Presença</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  function setupNavbar() {
+    const navbar = document.getElementById('navbar');
+    const mobileToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    // Efeito blur/background no scroll
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        navbar?.classList.add('bg-[#FAF8F5]/90', 'backdrop-blur-md', 'shadow-sm', 'py-3');
+        navbar?.classList.remove('bg-transparent', 'py-5');
+      } else {
+        navbar?.classList.remove('bg-[#FAF8F5]/90', 'backdrop-blur-md', 'shadow-sm', 'py-3');
+        navbar?.classList.add('bg-transparent', 'py-5');
+      }
+    }, { passive: true });
+
+    // Mobile menu toggle
+    if (mobileToggle && mobileMenu) {
+      mobileToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+    }
+  }
+
+  // Executa no carregamento e em navegações
+  setupNavbar();
+  document.addEventListener('astro:page-load', setupNavbar);
+</script>

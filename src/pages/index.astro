@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import Countdown from '../components/home/Countdown.astro';
+import CoupleStory from '../components/home/CoupleStory.astro';
+import Ceremony from '../components/home/Ceremony.astro';
+import GiftsSection from '../components/home/GiftsSection.astro';
+import RsvpSection from '../components/home/RsvpSection.astro';
+import PixModal from '../components/home/PixModal.astro';
+import { weddingData } from '../data/weddingData';
+---
+
+<BaseLayout>
+  <Hero couple={weddingData.couple} />
+  <Countdown targetDate={weddingData.weddingDate} />
+  <CoupleStory story={weddingData.story} />
+  <Ceremony ceremony={weddingData.ceremony} />
+  <GiftsSection gifts={weddingData.gifts} />
+  <RsvpSection rsvp={weddingData.rsvp} />
+  <PixModal pix={weddingData.pix} coupleNames={weddingData.couple.names} />
+</BaseLayout>
