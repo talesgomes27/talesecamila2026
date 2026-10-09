@@ -14,20 +14,13 @@ const mapsUrl = weddingData.ceremony.mapsUrl;
 
 <InvitationLayout>
   <!-- Barra de Ações Superior (Mobile / Web) -->
-  <div class="no-print w-full max-w-xl mb-4 flex items-center justify-between text-xs text-gray-600 px-2">
+  <div class="no-print w-full max-w-xl mb-4 flex items-center justify-start text-xs text-gray-600 px-2">
     <a href="/" class="inline-flex items-center gap-1.5 font-medium hover:text-olive-700 transition-colors">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
       </svg>
       Ir para o site do casamento
     </a>
-
-    <button onclick="window.print()" class="inline-flex items-center gap-1.5 font-medium hover:text-olive-700 transition-colors bg-white/80 px-3 py-1.5 rounded-full border border-gray-200 shadow-sm cursor-pointer">
-      <svg class="w-4 h-4 text-olive-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
-      </svg>
-      Imprimir / Salvar PDF
-    </button>
   </div>
 
   <!-- Cartão do Convite -->
@@ -191,18 +184,6 @@ const mapsUrl = weddingData.ceremony.mapsUrl;
           </svg>
           Adicionar ao Calendário Google
         </a>
-
-        <!-- Botão Compartilhar via WhatsApp -->
-        <button 
-          id="btn-share-whatsapp" 
-          type="button"
-          class="w-full py-2.5 px-4 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-sans text-xs font-medium tracking-wide transition-colors flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
-        >
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z"/>
-          </svg>
-          Compartilhar Convite no WhatsApp
-        </button>
       </div>
 
     </div>
@@ -232,21 +213,6 @@ const mapsUrl = weddingData.ceremony.mapsUrl;
       qrContainer.innerHTML = `<img src="${url}" alt="QR Code do site" class="w-[130px] h-[130px] rounded-lg" />`;
     }).catch(() => {
       qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&margin=2&data=${encodeURIComponent(targetUrl)}" alt="QR Code do site" class="w-[130px] h-[130px] rounded-lg" />`;
-    });
-  }
-
-  // Compartilhar WhatsApp
-  const shareBtn = document.getElementById('btn-share-whatsapp');
-  if (shareBtn) {
-    shareBtn.addEventListener('click', () => {
-      const text = encodeURIComponent(
-        "💍 *Você está convidado para o Casamento de Tales & Camila!*\n\n" +
-        "📅 *Data:* 19 de Dezembro de 2026, às 16h00\n" +
-        "📍 *Local:* Beira Rio (no antigo Empresa Bar) - São Miguel do Guamá, PA\n\n" +
-        "Acesse o nosso site oficial para ver a lista de presentes e confirmar sua presença:\n" +
-        targetUrl
-      );
-      window.open(`https://wa.me/?text=${text}`, '_blank');
     });
   }
 </script>
