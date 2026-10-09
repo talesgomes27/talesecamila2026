@@ -66,30 +66,30 @@ const icsDataUri = `data:text/calendar;charset=utf8,${encodeURIComponent(icsCont
       
       <!-- Monograma / Iniciais -->
       <div class="inline-flex items-center justify-center mb-3">
-        <span class="font-serif text-2xl text-olive-700 tracking-wider">{weddingData.couple.groom.charAt(0)}</span>
-        <span class="font-cormorant italic text-lg text-gold-accent mx-1.5">&</span>
-        <span class="font-serif text-2xl text-olive-700 tracking-wider">{weddingData.couple.bride.charAt(0)}</span>
+        <span class="font-serif text-2xl text-olive-800 font-bold tracking-wider">{weddingData.couple.groom.charAt(0)}</span>
+        <span class="font-serif italic text-xl text-gold-accent font-semibold mx-2">&</span>
+        <span class="font-serif text-2xl text-olive-800 font-bold tracking-wider">{weddingData.couple.bride.charAt(0)}</span>
       </div>
 
       <!-- Versículo / Mensagem de Abertura -->
-      <p class="font-cormorant italic text-sm sm:text-base text-gray-600 max-w-md mx-auto mb-4 leading-relaxed">
+      <p class="font-serif italic text-base sm:text-lg text-gray-900 font-normal max-w-md mx-auto mb-4 leading-relaxed px-2">
         “E quem um dia irá dizer que existe razão nas coisas feitas pelo coração? E quem irá dizer que não existe razão…”
       </p>
 
       <!-- Texto Institucional do Convite -->
-      <p class="font-sans text-xs sm:text-sm text-gray-600 font-light max-w-md mx-auto mb-5 leading-relaxed">
+      <p class="font-sans text-xs sm:text-sm text-gray-800 font-medium max-w-md mx-auto mb-5 leading-relaxed tracking-wide px-2">
         Convidamos você para compartilhar esse momento tão nosso, repleto de amor, simplicidade e carinho:
       </p>
 
       <!-- Nomes dos Noivos -->
-      <h1 class="font-serif text-4xl sm:text-5xl text-gray-800 tracking-tight leading-none mb-1">
+      <h1 class="font-serif text-4xl sm:text-5xl text-gray-900 font-semibold tracking-tight leading-none mb-1">
         {weddingData.couple.groom}
-        <span class="block font-cormorant italic text-2xl sm:text-3xl text-gold-accent my-1">&</span>
+        <span class="block font-serif italic text-2xl sm:text-3xl text-gold-accent font-normal my-1">&</span>
         {weddingData.couple.bride}
       </h1>
 
       <!-- Ícone Folha Minimalista -->
-      <div class="w-8 h-4 mx-auto my-3 opacity-75">
+      <div class="w-8 h-4 mx-auto my-3 opacity-90">
         <LeafIcon />
       </div>
 
@@ -97,11 +97,11 @@ const icsDataUri = `data:text/calendar;charset=utf8,${encodeURIComponent(icsCont
       <div class="my-6 flex justify-center">
         <div class="relative w-40 h-40 sm:w-48 sm:h-48">
           <!-- Folhagens decorativas ao redor da moldura -->
-          <div class="absolute -inset-5 pointer-events-none z-10 opacity-70 select-none">
+          <div class="absolute -inset-5 pointer-events-none z-10 opacity-75 select-none">
             <img src="/assets/svgs/hero-frame-leaves.svg" alt="Folhagens decorativas" class="w-full h-full object-contain" />
           </div>
 
-          <div class="organic-frame w-full h-full overflow-hidden border-2 border-white bg-linen-light relative z-0">
+          <div class="organic-frame w-full h-full overflow-hidden border-2 border-white bg-linen-light relative z-0 shadow-sm">
             <img 
               src={weddingData.couple.heroPhoto} 
               alt={coupleNames} 
@@ -114,59 +114,59 @@ const icsDataUri = `data:text/calendar;charset=utf8,${encodeURIComponent(icsCont
       </div>
 
       <!-- Data e Horário em Destaque -->
-      <div class="my-6 py-3 border-t border-b border-olive-200/80 max-w-md mx-auto">
-        <p class="font-sans text-xs tracking-widest uppercase text-olive-700 font-semibold mb-1">
+      <div class="my-6 py-3.5 border-y-2 border-olive-300/80 max-w-md mx-auto">
+        <p class="font-sans text-xs sm:text-sm tracking-[0.2em] uppercase text-olive-800 font-bold mb-1">
           Sábado
         </p>
-        <p class="font-serif text-2xl sm:text-3xl text-gray-800 tracking-wide font-medium">
+        <p class="font-serif text-2xl sm:text-3xl md:text-4xl text-gray-900 tracking-wider font-semibold">
           19 | DEZEMBRO | 2026
         </p>
-        <p class="font-sans text-xs tracking-widest text-gray-600 mt-1 uppercase">
+        <p class="font-sans text-xs sm:text-sm tracking-[0.2em] text-gray-800 font-bold mt-1 uppercase">
           ÀS {time}
         </p>
       </div>
 
       <!-- Local da Cerimônia e Recepção -->
-      <div class="mb-5">
-        <p class="font-serif text-lg sm:text-xl text-gray-800 font-medium mb-1">
+      <div class="mb-6">
+        <p class="font-serif text-2xl sm:text-3xl text-gray-900 font-bold mb-1">
           Beira Rio
         </p>
-        <p class="font-sans text-xs text-olive-700 italic mb-1.5">
+        <p class="font-sans text-sm text-olive-800 font-semibold italic mb-1.5">
           (No antigo Empresa Bar)
         </p>
-        <p class="font-sans text-xs text-gray-500 max-w-xs mx-auto leading-relaxed">
+        <p class="font-sans text-xs sm:text-sm text-gray-700 font-medium max-w-xs mx-auto leading-relaxed">
           {address}
         </p>
       </div>
 
       <!-- Às margens do Rio Guamá -->
-      <div class="my-5 max-w-sm mx-auto px-4">
-        <p class="font-cormorant italic text-sm sm:text-base text-olive-800/90 leading-relaxed">
-          "Às margens do rio Guamá, onde o tempo desacelera e a vida encontra seu melhor curso, escolhemos celebrar o amor."
+      <div class="my-6 max-w-md mx-auto px-4">
+        <p class="font-serif italic text-base sm:text-lg text-gray-900 font-medium leading-relaxed">
+          “Às margens do rio Guamá, onde o tempo desacelera e a vida encontra seu melhor curso, escolhemos celebrar o amor.”
         </p>
       </div>
 
       <!-- Informações Úteis / Traje & Dica da Noiva -->
-      <div class="my-6 p-4 sm:p-5 rounded-2xl bg-linen/75 border border-olive-100 text-center max-w-sm mx-auto shadow-sm space-y-3.5">
+      <div class="my-6 p-5 sm:p-6 rounded-2xl bg-white border border-olive-200 shadow-sm text-center max-w-sm mx-auto space-y-4">
         <div>
-          <span class="inline-block font-sans text-[11px] font-semibold uppercase tracking-widest text-olive-800 mb-0.5">
+          <span class="inline-block font-sans text-xs sm:text-sm font-bold uppercase tracking-wider text-olive-900 mb-1">
             Traje: Casual Chique
           </span>
-          <p class="font-sans text-xs text-gray-500 italic">
+          <p class="font-sans text-xs sm:text-sm text-gray-700 font-medium">
             (Pedimos apenas a gentileza de não usar trajes em tons de verde)
           </p>
         </div>
 
-        <div class="w-12 h-px bg-olive-200/70 mx-auto"></div>
+        <div class="w-16 h-px bg-olive-200 mx-auto"></div>
 
         <div>
-          <p class="font-serif text-xs font-semibold text-olive-700 tracking-wide mb-1 flex items-center justify-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-gold-accent" fill="currentColor" viewBox="0 0 20 20">
+          <p class="font-serif text-sm font-bold text-olive-800 tracking-wide mb-1.5 flex items-center justify-center gap-1.5">
+            <svg class="w-4 h-4 text-gold-accent" fill="currentColor" viewBox="0 0 20 20">
               <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
             </svg>
             <span>Dica da Noiva</span>
           </p>
-          <p class="font-sans text-xs text-gray-600 leading-relaxed">
+          <p class="font-sans text-xs sm:text-sm text-gray-800 font-medium leading-relaxed">
             Meninas, o terreno é arenoso: evitem vestidos longos e salto fino; apostem no comprimento mídi e salto bloco!
           </p>
         </div>
@@ -176,8 +176,8 @@ const icsDataUri = `data:text/calendar;charset=utf8,${encodeURIComponent(icsCont
       <div class="w-16 h-px bg-gold-accent/40 mx-auto mb-6"></div>
 
       <!-- Seção do QR Code & Site -->
-      <div class="bg-white/80 backdrop-blur-sm p-4 sm:p-5 rounded-2xl border border-olive-100 max-w-sm mx-auto shadow-sm">
-        <p class="font-sans text-[11px] uppercase tracking-wider text-gray-600 font-medium mb-3">
+      <div class="bg-white p-5 rounded-2xl border border-olive-200 max-w-sm mx-auto shadow-sm">
+        <p class="font-sans text-xs uppercase tracking-wider text-gray-800 font-bold mb-3">
           Aponte a câmera para o QR Code:
         </p>
 
@@ -193,10 +193,10 @@ const icsDataUri = `data:text/calendar;charset=utf8,${encodeURIComponent(icsCont
           />
         </div>
 
-        <p class="font-sans text-xs font-semibold text-olive-700 mt-2">
+        <p class="font-sans text-sm font-bold text-olive-800 mt-2.5">
           {siteUrl.replace(/^https?:\/\//, '')}
         </p>
-        <p class="font-sans text-[10px] text-gray-400 mt-0.5">
+        <p class="font-sans text-xs text-gray-600 mt-1 font-medium">
           Confirmação de presença e lista de presentes
         </p>
       </div>
