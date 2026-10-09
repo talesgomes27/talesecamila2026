@@ -66,8 +66,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
-  <!-- QRCode.js via CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <style>
     body {
@@ -242,31 +240,12 @@
       </div>
 
       <!-- Divisor Sutil -->
-      <div class="w-16 h-px bg-gold-accent/40 mx-auto mb-6"></div>
-
-      <!-- Seção do QR Code & Site -->
-      <div class="bg-white/80 backdrop-blur-sm p-4 sm:p-5 rounded-2xl border border-olive-100 max-w-sm mx-auto shadow-sm">
-        <p class="font-sans text-[11px] uppercase tracking-wider text-gray-600 font-medium mb-3">
-          Aponte a câmera para o QR Code:
-        </p>
-
-        <!-- Container do QR Code Dinâmico -->
-        <div id="convite-qrcode" class="flex justify-center items-center my-2 p-1.5 bg-white rounded-xl inline-block shadow-sm border border-gray-100">
-          <!-- Gerado via JS apontando para o site -->
-        </div>
-
-        <p class="font-sans text-xs font-semibold text-olive-700 mt-2">
-          talesecamila2026.netlify.app
-        </p>
-        <p class="font-sans text-[10px] text-gray-400 mt-0.5">
-          Confirmação de presença e lista de presentes
-        </p>
-      </div>
+      <div class="w-16 h-px bg-gold-accent/40 mx-auto my-6"></div>
 
       <!-- =====================================================================
            BOTÕES DE AÇÃO DIGITAL (Exibidos na Web/Celular, ocultos na Impressão)
            ===================================================================== -->
-      <div class="no-print mt-8 space-y-3 max-w-sm mx-auto">
+      <div class="no-print space-y-3 max-w-sm mx-auto">
         <!-- Botão Acessar Site -->
         <a 
           href="https://talesecamila2026.netlify.app" 
@@ -346,24 +325,6 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const siteUrl = "https://talesecamila2026.netlify.app";
-      const qrContainer = document.getElementById('convite-qrcode');
-
-      // Gerar QR Code do site
-      if (qrContainer) {
-        if (typeof QRCode !== 'undefined') {
-          new QRCode(qrContainer, {
-            text: siteUrl,
-            width: 130,
-            height: 130,
-            colorDark: "#2D3748",
-            colorLight: "#FFFFFF",
-            correctLevel: QRCode.CorrectLevel.M
-          });
-        } else {
-          // Fallback seguro de imagem
-          qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&margin=2&data=${encodeURIComponent(siteUrl)}" alt="QR Code do site" class="w-[130px] h-[130px] rounded-lg" />`;
-        }
-      }
 
       // Compartilhar via WhatsApp
       const shareBtn = document.getElementById('btn-share-whatsapp');

@@ -4,23 +4,10 @@ import LeafIcon from '../../components/common/LeafIcon.astro';
 import { Image } from 'astro:assets';
 import coupleHeroImg from '../../assets/images/casal.jpg';
 import { weddingData } from '../../data/weddingData';
-import QRCode from 'qrcode';
-
-const siteUrl = weddingData.meta.siteUrl;
 const coupleNames = weddingData.couple.names;
 const address = weddingData.ceremony.address;
 const time = weddingData.ceremony.time;
 const mapsUrl = weddingData.ceremony.mapsUrl;
-
-// Geração estática em tempo de build (Zero JavaScript enviado ao cliente)
-const qrCodeDataUrl = await QRCode.toDataURL(siteUrl, {
-  width: 260,
-  margin: 1,
-  color: {
-    dark: '#2D3748',
-    light: '#FFFFFF'
-  }
-});
 
 // Arquivo iCal / ICS data URI para Apple Calendar / Outlook
 const icsContent = [
@@ -177,36 +164,10 @@ const icsDataUri = `data:text/calendar;charset=utf8,${encodeURIComponent(icsCont
       </div>
 
       <!-- Divisor Sutil -->
-      <div class="w-16 h-px bg-gold-accent/40 mx-auto mb-6"></div>
-
-      <!-- Seção do QR Code & Site -->
-      <div class="bg-white p-5 rounded-2xl border border-olive-200 max-w-sm mx-auto shadow-sm">
-        <p class="font-sans text-xs uppercase tracking-wider text-gray-800 font-bold mb-3">
-          Aponte a câmera para o QR Code:
-        </p>
-
-        <!-- Container do QR Code (Gerado no Build Time pelo SSG) -->
-        <div class="flex justify-center items-center my-2 p-1.5 bg-white rounded-xl inline-block shadow-sm border border-gray-100">
-          <img 
-            src={qrCodeDataUrl} 
-            alt="QR Code para o site do casamento" 
-            width="130" 
-            height="130" 
-            loading="eager"
-            class="w-[130px] h-[130px] rounded-lg"
-          />
-        </div>
-
-        <p class="font-sans text-sm font-bold text-olive-800 mt-2.5">
-          {siteUrl.replace(/^https?:\/\//, '')}
-        </p>
-        <p class="font-sans text-xs text-gray-600 mt-1 font-medium">
-          Confirmação de presença e lista de presentes
-        </p>
-      </div>
+      <div class="w-16 h-px bg-gold-accent/40 mx-auto my-6"></div>
 
       <!-- Botões de Ação Digital -->
-      <div class="no-print mt-8 space-y-3 max-w-sm mx-auto">
+      <div class="no-print space-y-3 max-w-sm mx-auto">
         <!-- Botão Acessar Site -->
         <a 
           href="/" 
