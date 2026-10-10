@@ -9,7 +9,7 @@ export interface CoupleInfo {
 
 export interface GalleryPhoto {
   url: string;
-  caption: string;
+  caption?: string;
 }
 
 export interface CoupleStory {

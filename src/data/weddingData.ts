@@ -21,62 +21,20 @@ export const weddingData: WeddingData = {
     bridePhoto: "/assets/imagens/noiva.jpg",
     text: "Tudo começou com uma bela amizade. Os anos passaram, as responsabilidades da vida adulta nos levaram por direções diferentes e ficamos um tempo afastados. Quis o destino — e a bênção de um banho de rio — que a gente se reencontrasse. Ali, na leveza daquele dia e de forma totalmente inesperada, descobrimos que o que tínhamos era muito maior: era o amor das nossas vidas nascendo. Vamos casar e reunir nossa família e amigos queridos para brindar a essa história que sempre esteve escrita para acontecer!",
     gallery: [
-      {
-        url: "/assets/imagens/carrossel/01.jpg.jpeg",
-        caption: "Caminhando de mãos dadas pelo pátio histórico"
-      },
-      {
-        url: "/assets/imagens/carrossel/02.png",
-        caption: "O abraço seguro e acolhedor"
-      },
-      {
-        url: "/assets/imagens/carrossel/03.png",
-        caption: "O carinho em cada detalhe"
-      },
-      {
-        url: "/assets/imagens/carrossel/04.jpg.jpeg",
-        caption: "Nossos sorrisos sob o céu aberto"
-      },
-      {
-        url: "/assets/imagens/carrossel/05.png",
-        caption: "A leveza e a alegria de estarmos juntos"
-      },
-      {
-        url: "/assets/imagens/carrossel/06.png",
-        caption: "Cumplicidade e muito afeto"
-      },
-      {
-        url: "/assets/imagens/carrossel/08.png",
-        caption: "Construindo nossa história passo a passo"
-      },
-      {
-        url: "/assets/imagens/carrossel/09.png",
-        caption: "Quando o olhar revela tudo que sentimos"
-      },
-      {
-        url: "/assets/imagens/carrossel/10.png",
-        caption: "Parceria e companheirismo para toda a vida"
-      },
-      {
-        url: "/assets/imagens/carrossel/11.png",
-        caption: "Na beira do rio ao entardecer"
-      },
-      {
-        url: "/assets/imagens/carrossel/12.png",
-        caption: "O dourado do pôr do sol abençoando nossa união"
-      },
-      {
-        url: "/assets/imagens/carrossel/13.png",
-        caption: "Celebrando cada momento desse sonho"
-      },
-      {
-        url: "/assets/imagens/carrossel/14.jpg.jpeg",
-        caption: "Sob o charme das luzes noturnas"
-      },
-      {
-        url: "/assets/imagens/carrossel/15.png",
-        caption: "Contando os dias para o nosso sim!"
-      }
+      { url: "/assets/imagens/carrossel/01.jpg.jpeg" },
+      { url: "/assets/imagens/carrossel/02.png" },
+      { url: "/assets/imagens/carrossel/03.png" },
+      { url: "/assets/imagens/carrossel/04.jpg.jpeg" },
+      { url: "/assets/imagens/carrossel/05.png" },
+      { url: "/assets/imagens/carrossel/06.png" },
+      { url: "/assets/imagens/carrossel/08.png" },
+      { url: "/assets/imagens/carrossel/09.png" },
+      { url: "/assets/imagens/carrossel/10.png" },
+      { url: "/assets/imagens/carrossel/11.png" },
+      { url: "/assets/imagens/carrossel/12.png" },
+      { url: "/assets/imagens/carrossel/13.png" },
+      { url: "/assets/imagens/carrossel/14.jpg.jpeg" },
+      { url: "/assets/imagens/carrossel/15.png" }
     ]
   },
 

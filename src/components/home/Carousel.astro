@@ -33,7 +33,7 @@ const photosWithImages = gallery.map(item => {
           {item.imageMeta ? (
             <Image 
               src={item.imageMeta} 
-              alt={item.caption || "Foto do casal Tales e Camila"} 
+              alt="Foto do casal Tales e Camila" 
               width={750}
               height={1000}
               quality={85}
@@ -44,17 +44,11 @@ const photosWithImages = gallery.map(item => {
           ) : (
             <img 
               src={item.url} 
-              alt={item.caption || "Foto do casal Tales e Camila"} 
+              alt="Foto do casal Tales e Camila" 
               loading={index === 0 ? "eager" : "lazy"} 
               decoding="async" 
               class="w-full h-full object-cover pointer-events-none" 
             />
-          )}
-
-          {item.caption && (
-            <div class="absolute bottom-0 inset-x-0 z-20 bg-gradient-to-t from-black/85 via-black/40 to-transparent pt-12 pb-4 px-4 text-white text-center">
-              <p class="font-sans text-xs sm:text-sm md:text-base tracking-wide italic drop-shadow-sm">{item.caption}</p>
-            </div>
           )}
         </div>
       ))}
