@@ -43,12 +43,12 @@ const icsDataUri = `data:text/calendar;charset=utf8,${encodeURIComponent(icsCont
   <main class="invitation-card relative w-full max-w-xl bg-[#FAF8F5] rounded-3xl shadow-2xl p-6 sm:p-10 card-border overflow-hidden">
     
     <!-- Ilustrações Botânicas nos Cantos -->
-    <div class="absolute -top-6 -left-6 w-28 sm:w-36 pointer-events-none opacity-40 select-none">
-      <img src="/assets/svgs/botanical-branch.svg" alt="Ramo floral" class="w-full h-auto" />
+    <div class="absolute -top-6 -left-6 w-28 sm:w-36 pointer-events-none opacity-40 select-none" aria-hidden="true">
+      <img src="/assets/svgs/botanical-branch.svg" alt="" width="144" height="216" decoding="async" class="w-full h-auto" />
     </div>
 
-    <div class="absolute -bottom-8 -right-8 w-28 sm:w-36 pointer-events-none opacity-40 select-none rotate-180">
-      <img src="/assets/svgs/botanical-branch.svg" alt="Ramo floral" class="w-full h-auto" />
+    <div class="absolute -bottom-8 -right-8 w-28 sm:w-36 pointer-events-none opacity-40 select-none rotate-180" aria-hidden="true">
+      <img src="/assets/svgs/botanical-branch.svg" alt="" width="144" height="216" decoding="async" class="w-full h-auto" />
     </div>
 
     <div class="relative z-10 text-center">
@@ -86,11 +86,11 @@ const icsDataUri = `data:text/calendar;charset=utf8,${encodeURIComponent(icsCont
       <div class="my-6 flex justify-center">
         <div class="relative w-40 h-40 sm:w-48 sm:h-48">
           <!-- Folhagens decorativas ao redor da moldura -->
-          <div class="absolute -inset-5 pointer-events-none z-10 opacity-75 select-none">
-            <img src="/assets/svgs/hero-frame-leaves.svg" alt="Folhagens decorativas" class="w-full h-full object-contain" />
+          <div class="absolute -inset-5 pointer-events-none z-10 opacity-75 select-none" aria-hidden="true">
+            <img src="/assets/svgs/hero-frame-leaves.svg" alt="" width="240" height="240" decoding="async" class="w-full h-full object-contain" />
           </div>
 
-          <div class="organic-frame w-full h-full overflow-hidden border-2 border-white bg-linen-light relative z-0 shadow-sm">
+          <div class="organic-hero-frame w-full h-full overflow-hidden border-2 border-white bg-linen-light relative z-0 shadow-sm">
             <Image 
               src={coupleHeroImg} 
               alt={coupleNames} 
@@ -98,6 +98,8 @@ const icsDataUri = `data:text/calendar;charset=utf8,${encodeURIComponent(icsCont
               height={384}
               quality={85}
               format="webp"
+              loading="eager"
+              fetchpriority="high"
               class="w-full h-full object-cover select-none"
             />
           </div>

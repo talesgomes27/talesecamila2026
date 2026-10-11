@@ -7,7 +7,7 @@ interface Props {
   whatsappFallback?: string;
 }
 
-const { rsvp, whatsappFallback = "5591981000000" } = Astro.props;
+const { rsvp, whatsappFallback = "5591984611907" } = Astro.props;
 ---
 
 <section id="rsvp" class="py-16 md:py-24 bg-linen-light border-t border-olive-100">
@@ -29,137 +29,122 @@ const { rsvp, whatsappFallback = "5591981000000" } = Astro.props;
       </p>
     )}
 
-    {rsvp.mode === 'google_forms' ? (
-      <div id="rsvp-google-container" class="bg-white p-4 rounded-3xl shadow-sm border border-[#ECE8E1]">
-        <iframe 
-          id="rsvp-google-iframe" 
-          src={rsvp.googleFormsUrl || ''} 
-          class="w-full min-h-[600px] border-0 rounded-2xl" 
-          title="Formulário de Confirmação de Presença"
-          loading="lazy"
-        >
-          Carregando formulário...
-        </iframe>
+    <div id="rsvp-netlify-container" class="bg-white p-6 sm:p-10 rounded-3xl shadow-sm border border-linen-dark text-left">
+      
+      <!-- Mensagem de Sucesso (Oculta por padrão) -->
+      <div id="rsvp-success-message" class="hidden text-center py-8 animate-fade-in" role="status">
+        <div class="w-16 h-16 bg-olive-100 text-olive-600 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+        </div>
+        <h3 class="font-serif text-2xl text-gray-800 mb-2">Presença Confirmada!</h3>
+        <p class="font-sans text-sm text-gray-600">Agradecemos pelo carinho. Nos vemos no grande dia!</p>
       </div>
-    ) : (
-      <div id="rsvp-netlify-container" class="bg-white p-6 sm:p-10 rounded-3xl shadow-sm border border-[#ECE8E1] text-left">
+
+      <!-- Mensagem de Erro de Conexão (Oculta por padrão) -->
+      <div id="rsvp-error-message" class="hidden text-center py-6 animate-fade-in" role="alert">
+        <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-3">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+        </div>
+        <h4 class="font-sans font-semibold text-gray-800 text-sm mb-1">Não foi possível enviar a confirmação</h4>
+        <p class="font-sans text-xs text-gray-500 mb-4">Pode ter ocorrido instabilidade na rede. Tente reenviar ou confirme diretamente com os noivos via WhatsApp.</p>
+        <div class="flex flex-wrap justify-center gap-2">
+          <button id="rsvp-retry-btn" type="button" class="btn-pill px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-sans text-xs font-medium transition-colors cursor-pointer">
+            Tentar Novamente
+          </button>
+          <a 
+            id="rsvp-whatsapp-fallback" 
+            href="#" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="btn-pill px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-sans text-xs font-medium flex items-center gap-1.5 transition-colors shadow-sm"
+          >
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z"/>
+            </svg>
+            Confirmar pelo WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Formulário HTML com suporte a Netlify Forms -->
+      <form 
+        id="rsvp-form" 
+        name="rsvp" 
+        method="POST" 
+        action="/" 
+        data-netlify="true" 
+        netlify-honeypot="bot-field" 
+        data-whatsapp-phone={whatsappFallback}
+        class="space-y-6"
+      >
+        <input type="hidden" name="form-name" value="rsvp" />
         
-        <!-- Mensagem de Sucesso (Oculta por padrão) -->
-        <div id="rsvp-success-message" class="hidden text-center py-8 animate-fade-in" role="status">
-          <div class="w-16 h-16 bg-olive-100 text-olive-600 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-            </svg>
-          </div>
-          <h3 class="font-serif text-2xl text-gray-800 mb-2">Presença Confirmada!</h3>
-          <p class="font-sans text-sm text-gray-600">Agradecemos pelo carinho. Nos vemos no grande dia!</p>
+        <!-- Honeypot posicionado fora de tela para proteção contra bots -->
+        <div class="absolute -left-[9999px] top-auto opacity-0" aria-hidden="true" tabindex="-1">
+          <label>Não preencha se for humano: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
         </div>
 
-        <!-- Mensagem de Erro de Conexão (Oculta por padrão) -->
-        <div id="rsvp-error-message" class="hidden text-center py-6 animate-fade-in" role="alert">
-          <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-3">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-            </svg>
-          </div>
-          <h4 class="font-sans font-semibold text-gray-800 text-sm mb-1">Não foi possível enviar a confirmação</h4>
-          <p class="font-sans text-xs text-gray-500 mb-4">Pode ter ocorrido instabilidade na rede. Tente reenviar ou confirme diretamente com os noivos via WhatsApp.</p>
-          <div class="flex flex-wrap justify-center gap-2">
-            <button id="rsvp-retry-btn" type="button" class="btn-pill px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-sans text-xs font-medium transition-colors">
-              Tentar Novamente
-            </button>
-            <a 
-              id="rsvp-whatsapp-fallback" 
-              href="#" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              class="btn-pill px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-sans text-xs font-medium flex items-center gap-1.5 transition-colors shadow-sm"
-            >
-              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z"/>
-              </svg>
-              Confirmar pelo WhatsApp
-            </a>
-          </div>
+        <!-- Nome Completo -->
+        <div>
+          <label for="rsvp-name" class="block font-sans text-xs font-semibold uppercase tracking-wider text-gray-700 mb-2">
+            Nome Completo *
+          </label>
+          <input 
+            type="text" 
+            id="rsvp-name" 
+            name="name" 
+            required 
+            minlength="3"
+            maxlength="100"
+            placeholder="Digite seu nome completo"
+            class="w-full font-sans text-sm px-4 py-3 rounded-xl border border-gray-200 bg-linen focus:bg-white focus:outline-none focus:border-olive-600 transition-colors"
+          />
         </div>
 
-        <!-- Formulário HTML com suporte a Netlify Forms -->
-        <form 
-          id="rsvp-form" 
-          name="rsvp" 
-          method="POST" 
-          action="/" 
-          data-netlify="true" 
-          netlify-honeypot="bot-field" 
-          data-whatsapp-phone={whatsappFallback}
-          class="space-y-6"
-        >
-          <input type="hidden" name="form-name" value="rsvp" />
-          
-          <!-- Honeypot posicionado fora de tela para proteção contra bots -->
-          <div class="absolute -left-[9999px] top-auto opacity-0" aria-hidden="true" tabindex="-1">
-            <label>Não preencha se for humano: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
-          </div>
+        <!-- Mensagem aos Noivos -->
+        <div>
+          <label for="rsvp-message" class="block font-sans text-xs font-semibold uppercase tracking-wider text-gray-700 mb-2">
+            Mensagem aos Noivos (Opcional)
+          </label>
+          <textarea 
+            id="rsvp-message" 
+            name="message" 
+            rows="3" 
+            maxlength="500"
+            placeholder="Deixe um recado especial de carinho..."
+            class="w-full font-sans text-sm px-4 py-3 rounded-xl border border-gray-200 bg-linen focus:bg-white focus:outline-none focus:border-olive-600 transition-colors resize-none"
+          ></textarea>
+        </div>
 
-          <!-- Nome Completo -->
-          <div>
-            <label for="rsvp-name" class="block font-sans text-xs font-semibold uppercase tracking-wider text-gray-700 mb-2">
-              Nome Completo *
-            </label>
-            <input 
-              type="text" 
-              id="rsvp-name" 
-              name="name" 
-              required 
-              minlength="3"
-              maxlength="100"
-              placeholder="Digite seu nome completo"
-              class="w-full font-sans text-sm px-4 py-3 rounded-xl border border-gray-200 bg-linen focus:bg-white focus:outline-none focus:border-olive-600 transition-colors"
-            />
-          </div>
-
-          <!-- Mensagem aos Noivos -->
-          <div>
-            <label for="rsvp-message" class="block font-sans text-xs font-semibold uppercase tracking-wider text-gray-700 mb-2">
-              Mensagem aos Noivos (Opcional)
-            </label>
-            <textarea 
-              id="rsvp-message" 
-              name="message" 
-              rows="3" 
-              maxlength="500"
-              placeholder="Deixe um recado especial de carinho..."
-              class="w-full font-sans text-sm px-4 py-3 rounded-xl border border-gray-200 bg-linen focus:bg-white focus:outline-none focus:border-olive-600 transition-colors resize-none"
-            ></textarea>
-          </div>
-
-          <!-- Botão de Enviar -->
-          <div class="text-center pt-2">
-            <button 
-              type="submit" 
-              id="rsvp-submit-btn"
-              class="btn-pill w-full sm:w-auto px-10 py-3 bg-olive-600 hover:bg-olive-700 text-white font-sans text-sm font-medium tracking-wider uppercase shadow-md transition-all cursor-pointer"
-            >
-              Confirmar Presença
-            </button>
-          </div>
-        </form>
-      </div>
-    )}
+        <!-- Botão de Enviar -->
+        <div class="text-center pt-2">
+          <button 
+            type="submit" 
+            id="rsvp-submit-btn"
+            class="btn-pill w-full sm:w-auto px-10 py-3 bg-olive-600 hover:bg-olive-700 text-white font-sans text-sm font-medium tracking-wider uppercase shadow-md transition-colors cursor-pointer"
+          >
+            Confirmar Presença
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </section>
 
 <script>
-  function setupRsvp() {
-    const form = document.getElementById('rsvp-form') as HTMLFormElement | null;
-    const successFeedback = document.getElementById('rsvp-success-message');
-    const errorFeedback = document.getElementById('rsvp-error-message');
-    const retryBtn = document.getElementById('rsvp-retry-btn');
-    const whatsappFallback = document.getElementById('rsvp-whatsapp-fallback') as HTMLAnchorElement | null;
-    const submitBtn = document.getElementById('rsvp-submit-btn') as HTMLButtonElement | null;
+  const form = document.getElementById('rsvp-form') as HTMLFormElement | null;
+  const successFeedback = document.getElementById('rsvp-success-message');
+  const errorFeedback = document.getElementById('rsvp-error-message');
+  const retryBtn = document.getElementById('rsvp-retry-btn');
+  const whatsappFallback = document.getElementById('rsvp-whatsapp-fallback') as HTMLAnchorElement | null;
+  const submitBtn = document.getElementById('rsvp-submit-btn') as HTMLButtonElement | null;
+  const loadedAt = Date.now();
 
-    if (!form) return;
-
+  if (form) {
     retryBtn?.addEventListener('click', () => {
       errorFeedback?.classList.add('hidden');
       form.classList.remove('hidden');
@@ -167,62 +152,67 @@ const { rsvp, whatsappFallback = "5591981000000" } = Astro.props;
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const originalBtnText = submitBtn?.textContent || 'Confirmar Presença';
+      const formData = new FormData(form);
+
+      // Defesa Honeypot + Tempo mínimo anti-bot (1.5s)
+      if (formData.get('bot-field') || Date.now() - loadedAt < 1500) return;
+
+      // Sanitização e validação de fronteira
+      const rawName = String(formData.get('name') || '').trim().replace(/\s+/g, ' ');
+      const rawMessage = String(formData.get('message') || '').trim();
+      if (rawName.length < 3) {
+        window.dispatchEvent(new CustomEvent('site-toast', { detail: { message: 'Por favor, informe seu nome completo.' } }));
+        return;
+      }
+
+      // Cooldown contra duplo envio
+      if (sessionStorage.getItem('rsvp_submitted') === rawName.toLowerCase()) {
+        form.classList.add('hidden');
+        successFeedback?.classList.remove('hidden');
+        return;
+      }
 
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Enviando...';
       }
-
       errorFeedback?.classList.add('hidden');
 
       try {
-        const formData = new FormData(form);
-        const searchParams = new URLSearchParams();
-        formData.forEach((value, key) => {
-          searchParams.append(key, value.toString());
-        });
+        const body = new URLSearchParams({
+          'form-name': 'rsvp',
+          name: rawName.slice(0, 100),
+          message: rawMessage.slice(0, 500)
+        }).toString();
 
         const response = await fetch('/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: searchParams.toString()
+          body
         });
 
-        if (response.ok) {
-          form.reset();
-          form.classList.add('hidden');
-          if (successFeedback) {
-            successFeedback.classList.remove('hidden');
-          }
-          (window as any).showToast?.('Presença confirmada com sucesso! ✨');
-        } else {
-          throw new Error(`Netlify Forms status: ${response.status}`);
-        }
-      } catch (err) {
-        console.error('Erro ao enviar RSVP:', err);
-        form.classList.add('hidden');
-        if (errorFeedback) {
-          errorFeedback.classList.remove('hidden');
-        }
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-        // Configurar botão de WhatsApp como contingência direta
-        const nameInput = form.querySelector<HTMLInputElement>('#rsvp-name');
-        const guestName = (nameInput?.value || '').trim() || 'Convidado';
-        const phone = form.dataset.whatsappPhone || '5591981000000';
+        sessionStorage.setItem('rsvp_submitted', rawName.toLowerCase());
+        form.reset();
+        form.classList.add('hidden');
+        successFeedback?.classList.remove('hidden');
+        window.dispatchEvent(new CustomEvent('site-toast', { detail: { message: 'Presença confirmada com sucesso! ✨' } }));
+      } catch {
+        form.classList.add('hidden');
+        errorFeedback?.classList.remove('hidden');
+
+        const phone = form.dataset.whatsappPhone || '5591984611907';
         if (whatsappFallback) {
-          const text = encodeURIComponent(`Olá! Tentei confirmar pelo site, mas houve instabilidade de conexão. Meu nome é *${guestName}* e confirmo minha presença no casamento de Tales & Camila! ❤️`);
+          const text = encodeURIComponent(`Olá! Tentei confirmar pelo site, mas houve instabilidade de conexão. Meu nome é *${rawName}* e confirmo minha presença no casamento de Tales & Camila! ❤️`);
           whatsappFallback.href = `https://wa.me/${phone}?text=${text}`;
         }
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.textContent = originalBtnText;
+          submitBtn.textContent = 'Confirmar Presença';
         }
       }
     });
   }
-
-  setupRsvp();
-  document.addEventListener('astro:page-load', setupRsvp);
 </script>

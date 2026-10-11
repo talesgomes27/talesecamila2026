@@ -7,12 +7,12 @@ interface Props {
 const { groomInit = "T", brideInit = "C" } = Astro.props;
 ---
 
-<header id="navbar" class="fixed top-0 inset-x-0 z-40 transition-all duration-300 py-5 bg-transparent">
+<header id="navbar" class="fixed top-0 inset-x-0 z-40 transition-[background-color,padding,box-shadow] duration-300 py-5 bg-transparent">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between">
       <!-- Logo / Iniciais -->
       <a href="#hero" class="font-serif text-2xl text-olive-800 tracking-wider hover:opacity-80 transition-opacity">
-        {groomInit} <span class="font-cormorant italic text-gold-accent">&</span> {brideInit}
+        {groomInit} <span class="font-serif italic text-gold-accent">&</span> {brideInit}
       </a>
 
       <!-- Menu Desktop -->
@@ -56,49 +56,35 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
 </header>
 
 <script>
-  let isScrollListenerBound = false;
+  const navbar = document.getElementById('navbar');
+  const mobileToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
 
   function onWindowScroll() {
-    const navbar = document.getElementById('navbar');
     if (!navbar) return;
-
-    if (window.scrollY > 40) {
-      navbar.classList.add('bg-[#FAF8F5]/90', 'backdrop-blur-md', 'shadow-sm', 'py-3');
-      navbar.classList.remove('bg-transparent', 'py-5');
-    } else {
-      navbar.classList.remove('bg-[#FAF8F5]/90', 'backdrop-blur-md', 'shadow-sm', 'py-3');
-      navbar.classList.add('bg-transparent', 'py-5');
-    }
+    const scrolled = window.scrollY > 40;
+    navbar.classList.toggle('bg-linen/90', scrolled);
+    navbar.classList.toggle('backdrop-blur-md', scrolled);
+    navbar.classList.toggle('shadow-sm', scrolled);
+    navbar.classList.toggle('py-3', scrolled);
+    navbar.classList.toggle('bg-transparent', !scrolled);
+    navbar.classList.toggle('py-5', !scrolled);
   }
 
-  function setupNavbar() {
-    const mobileToggle = document.getElementById('mobile-menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const navLinks = document.querySelectorAll('.nav-link');
+  window.addEventListener('scroll', onWindowScroll, { passive: true });
+  onWindowScroll();
 
-    // Registrar scroll listener uma única vez de forma passiva
-    if (!isScrollListenerBound) {
-      window.addEventListener('scroll', onWindowScroll, { passive: true });
-      isScrollListenerBound = true;
-    }
-    onWindowScroll();
+  if (mobileToggle && mobileMenu) {
+    mobileToggle.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.toggle('hidden');
+      mobileToggle.setAttribute('aria-expanded', String(!isHidden));
+    });
 
-    // Mobile menu toggle com sincronização de atributos ARIA
-    if (mobileToggle && mobileMenu) {
-      mobileToggle.onclick = () => {
-        const isHidden = mobileMenu.classList.toggle('hidden');
-        mobileToggle.setAttribute('aria-expanded', String(!isHidden));
-      };
-
-      navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.add('hidden');
-          mobileToggle.setAttribute('aria-expanded', 'false');
-        });
+    mobileMenu.querySelectorAll('.nav-link').forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileToggle.setAttribute('aria-expanded', 'false');
       });
-    }
+    });
   }
-
-  setupNavbar();
-  document.addEventListener('astro:page-load', setupNavbar);
 </script>

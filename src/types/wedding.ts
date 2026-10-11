@@ -56,8 +56,6 @@ export interface RsvpConfig {
   title: string;
   subtitle: string;
   deadlineText: string;
-  mode: 'netlify' | 'google_forms';
-  googleFormsUrl?: string;
 }
 
 export interface MetaConfig {

@@ -1,13 +1,14 @@
 ---
-import type { GiftItem } from '../../types/wedding';
+import type { GiftItem, PixConfig } from '../../types/wedding';
 import LeafIcon from '../common/LeafIcon.astro';
 import GiftCard from './GiftCard.astro';
 
 interface Props {
   gifts: GiftItem[];
+  pix: PixConfig;
 }
 
-const { gifts } = Astro.props;
+const { gifts, pix } = Astro.props;
 ---
 
 <section id="presentes" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,21 +50,18 @@ const { gifts } = Astro.props;
   <!-- Grid de Presentes -->
   <div id="gifts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
     {gifts.map(gift => (
-      <GiftCard gift={gift} />
+      <GiftCard gift={gift} pix={pix} />
     ))}
   </div>
 </section>
 
 <script>
-  function setupGifts() {
-    const grid = document.getElementById('gifts-grid');
-    const sortSelect = document.getElementById('gifts-sort-select') as HTMLSelectElement | null;
-    if (!grid) return;
+  const grid = document.getElementById('gifts-grid');
+  const sortSelect = document.getElementById('gifts-sort-select') as HTMLSelectElement | null;
 
-    // Preservar a ordem original padrão
+  if (grid) {
     const cards = Array.from(grid.querySelectorAll<HTMLElement>('.gift-card'));
 
-    // Delegação de evento para os botões "Presentear"
     grid.addEventListener('click', (e) => {
       const target = (e.target as HTMLElement).closest<HTMLElement>('.presentear-btn');
       if (!target) return;
@@ -71,42 +69,32 @@ const { gifts } = Astro.props;
       const card = target.closest<HTMLElement>('.gift-card');
       if (!card) return;
 
-      const gift = {
-        id: Number(card.dataset.id || 0),
-        title: card.dataset.title || '',
-        price: parseFloat(card.dataset.price || '0'),
-        image: card.dataset.image || '',
-        description: card.dataset.description || ''
-      };
-
-      // Disparar CustomEvent desacoplado
       window.dispatchEvent(
         new CustomEvent('open-pix-modal', {
-          detail: gift,
-          bubbles: true
+          detail: {
+            title: card.dataset.title || '',
+            priceFormatted: card.dataset.priceFormatted || '',
+            image: card.dataset.image || '',
+            pixCode: card.dataset.pixCode || '',
+            pixQr: card.dataset.pixQr || ''
+          }
         })
       );
     });
 
-    // Ordenação dinâmica
-    if (sortSelect) {
-      sortSelect.addEventListener('change', () => {
-        const value = sortSelect.value;
-        const sorted = [...cards];
+    sortSelect?.addEventListener('change', () => {
+      const value = sortSelect.value;
+      const sorted = [...cards];
 
-        if (value === 'price-asc') {
-          sorted.sort((a, b) => parseFloat(a.dataset.price || '0') - parseFloat(b.dataset.price || '0'));
-        } else if (value === 'price-desc') {
-          sorted.sort((a, b) => parseFloat(b.dataset.price || '0') - parseFloat(a.dataset.price || '0'));
-        } else {
-          sorted.sort((a, b) => Number(a.dataset.id || 0) - Number(b.dataset.id || 0));
-        }
+      if (value === 'price-asc') {
+        sorted.sort((a, b) => parseFloat(a.dataset.price || '0') - parseFloat(b.dataset.price || '0'));
+      } else if (value === 'price-desc') {
+        sorted.sort((a, b) => parseFloat(b.dataset.price || '0') - parseFloat(a.dataset.price || '0'));
+      } else {
+        sorted.sort((a, b) => Number(a.dataset.id || 0) - Number(b.dataset.id || 0));
+      }
 
-        sorted.forEach(card => grid.appendChild(card));
-      });
-    }
+      sorted.forEach(card => grid.appendChild(card));
+    });
   }
-
-  setupGifts();
-  document.addEventListener('astro:page-load', setupGifts);
 </script>

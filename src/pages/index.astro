@@ -15,7 +15,7 @@ import { weddingData } from '../data/weddingData';
   <Countdown targetDate={weddingData.weddingDate} />
   <CoupleStory story={weddingData.story} />
   <Ceremony ceremony={weddingData.ceremony} />
-  <GiftsSection gifts={weddingData.gifts} />
-  <RsvpSection rsvp={weddingData.rsvp} />
+  <GiftsSection gifts={weddingData.gifts} pix={weddingData.pix} />
+  <RsvpSection rsvp={weddingData.rsvp} whatsappFallback={weddingData.pix.whatsappNumber} />
   <PixModal pix={weddingData.pix} coupleNames={weddingData.couple.names} />
 </BaseLayout>

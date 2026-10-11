@@ -56,7 +56,7 @@ export const weddingData: WeddingData = {
     recipientName: "Tales Wilhame Gomes da Silva",
     bank: "Nubank",
     city: "SAO MIGUEL DO GUAMA",
-    whatsappNumber: "5511999999999"
+    whatsappNumber: "5591984611907"
   },
 
   gifts: [
@@ -233,9 +233,7 @@ export const weddingData: WeddingData = {
   rsvp: {
     title: "Confirmação de Presença",
     subtitle: "Sua presença é muito importante para nós!",
-    deadlineText: "Por favor, confirme sua presença até o dia 04 de Dezembro de 2026.",
-    mode: "netlify",
-    googleFormsUrl: "https://docs.google.com/forms/d/e/1FAIpQLSc.../viewform?embedded=true"
+    deadlineText: "Por favor, confirme sua presença até o dia 04 de Dezembro de 2026."
   },
 
   meta: {

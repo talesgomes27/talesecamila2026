@@ -24,8 +24,7 @@ export default {
         }
       },
       fontFamily: {
-        serif: ['"Playfair Display"', '"Cormorant Garamond"', 'Georgia', 'serif'],
-        cormorant: ['"Cormorant Garamond"', 'serif'],
+        serif: ['"Playfair Display"', 'Georgia', 'serif'],
         sans: ['"Montserrat"', 'system-ui', 'sans-serif']
       }
     }

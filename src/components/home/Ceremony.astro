@@ -113,13 +113,14 @@ const { ceremony } = Astro.props;
     </div>
 
     <!-- Mapa Interativo Embutido -->
-    <div class="w-full h-72 md:h-96 rounded-3xl overflow-hidden shadow-sm border border-[#ECE8E1] bg-gray-100">
+    <div class="w-full h-72 md:h-96 rounded-3xl overflow-hidden shadow-sm border border-linen-dark bg-gray-100">
       <iframe 
         id="ceremony-maps-iframe" 
         src={ceremony.mapsEmbedUrl} 
         class="w-full h-full border-0" 
         allowfullscreen="" 
         loading="lazy" 
+        sandbox="allow-scripts allow-same-origin allow-popups"
         referrerpolicy="strict-origin-when-cross-origin" 
         title="Mapa do local do casamento"
       ></iframe>

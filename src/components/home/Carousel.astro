@@ -9,175 +9,87 @@ interface Props {
 
 const { gallery } = Astro.props;
 
-// Carregar dinamicamente imagens do carrossel para processamento automatizado via Sharp (WebP responsivo)
-const carouselImages = import.meta.glob<{ default: ImageMetadata }>('../../assets/images/carrossel/*.{jpeg,jpg,png}', { eager: true });
+const carouselImages = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/images/carrossel/*.{jpeg,jpg,png}',
+  { eager: true }
+);
 
-const photosWithImages = gallery.map(item => {
-  const filename = item.url.split('/').pop() || '';
-  const matchKey = Object.keys(carouselImages).find(k => k.endsWith(filename));
-  return {
-    ...item,
-    imageMeta: matchKey ? carouselImages[matchKey].default : null
-  };
-});
+const photos = gallery
+  .map((item) => {
+    const filename = item.url.split('/').pop() || '';
+    const matchKey = Object.keys(carouselImages).find((k) => k.endsWith(filename));
+    return matchKey ? { ...item, imageMeta: carouselImages[matchKey].default } : null;
+  })
+  .filter((item): item is NonNullable<typeof item> => item !== null);
 ---
 
-<div id="carousel-container" class="relative max-w-[460px] sm:max-w-[500px] mx-auto w-full select-none">
-  <!-- Moldura com a proporção exata 3:4 das fotos originais -->
-  <div class="relative w-full aspect-[3/4] overflow-hidden rounded-2xl shadow-xl bg-stone-900 group">
-    <!-- Trilho dos Slides -->
-    <div id="carousel-track" class="carousel-track flex w-full h-full" style="touch-action: pan-y;">
-      {photosWithImages.map((item, index) => (
-        <div class="carousel-slide flex-shrink-0 w-full h-full relative overflow-hidden flex items-center justify-center">
-          <!-- Imagem principal otimizada em WebP preenchendo toda a proporção 3:4 -->
-          {item.imageMeta ? (
-            <Image 
-              src={item.imageMeta} 
-              alt="Foto do casal Tales e Camila" 
-              width={750}
-              height={1000}
-              quality={85}
-              format="webp"
-              loading={index === 0 ? "eager" : "lazy"} 
-              class="w-full h-full object-cover pointer-events-none" 
-            />
-          ) : (
-            <img 
-              src={item.url} 
-              alt="Foto do casal Tales e Camila" 
-              loading={index === 0 ? "eager" : "lazy"} 
-              decoding="async" 
-              class="w-full h-full object-cover pointer-events-none" 
-            />
-          )}
+<div id="carousel-container" class="relative max-w-[460px] sm:max-w-[500px] mx-auto w-full select-none group">
+  <div class="relative w-full aspect-[3/4] overflow-hidden rounded-2xl shadow-xl bg-stone-900">
+    <!-- Trilho Nativo CSS Scroll Snap -->
+    <div
+      id="carousel-track"
+      class="flex w-full h-full overflow-x-auto snap-x snap-mandatory motion-safe:scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+    >
+      {photos.map((item, index) => (
+        <div class="w-full h-full flex-shrink-0 snap-center relative">
+          <Image
+            src={item.imageMeta}
+            alt={item.caption || `Foto ${index + 1} do casal Tales e Camila`}
+            width={750}
+            height={1000}
+            quality={82}
+            format="webp"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover pointer-events-none"
+          />
         </div>
       ))}
     </div>
 
-    <!-- Botão Anterior -->
-    <button 
-      id="carousel-prev" 
-      aria-label="Foto anterior" 
-      class="absolute left-3 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-gray-800 flex items-center justify-center backdrop-blur-sm transition-all shadow-md focus:outline-none opacity-80 group-hover:opacity-100 cursor-pointer"
+    <button
+      id="carousel-prev"
+      type="button"
+      aria-label="Foto anterior"
+      class="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/85 hover:bg-white text-gray-800 flex items-center justify-center backdrop-blur-sm transition-opacity shadow-md opacity-80 group-hover:opacity-100 cursor-pointer"
     >
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
       </svg>
     </button>
 
-    <!-- Botão Próximo -->
-    <button 
-      id="carousel-next" 
-      aria-label="Próxima foto" 
-      class="absolute right-3 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-gray-800 flex items-center justify-center backdrop-blur-sm transition-all shadow-md focus:outline-none opacity-80 group-hover:opacity-100 cursor-pointer"
+    <button
+      id="carousel-next"
+      type="button"
+      aria-label="Próxima foto"
+      class="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/85 hover:bg-white text-gray-800 flex items-center justify-center backdrop-blur-sm transition-opacity shadow-md opacity-80 group-hover:opacity-100 cursor-pointer"
     >
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
       </svg>
     </button>
-  </div>
-
-  <!-- Indicadores (Dots) -->
-  <div id="carousel-dots" class="flex flex-wrap justify-center items-center gap-1.5 sm:gap-2 mt-4 px-2">
-    {photosWithImages.map((_, i) => (
-      <button 
-        aria-label={`Ir para foto ${i + 1}`} 
-        class={`carousel-dot w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 cursor-pointer ${i === 0 ? 'bg-olive-600 scale-125' : 'bg-gray-300 hover:bg-olive-400'}`} 
-        data-index={i}
-      ></button>
-    ))}
   </div>
 </div>
 
 <script>
-  let autoPlayTimer: ReturnType<typeof setInterval> | null = null;
+  const track = document.getElementById('carousel-track');
+  const prev = document.getElementById('carousel-prev');
+  const next = document.getElementById('carousel-next');
 
-  function setupCarousel() {
-    if (autoPlayTimer) {
-      clearInterval(autoPlayTimer);
-      autoPlayTimer = null;
-    }
+  if (track) {
+    const step = (dir: number) => {
+      const max = track.scrollWidth - track.clientWidth;
+      const nextPos = track.scrollLeft + dir * track.clientWidth;
+      track.scrollTo({ left: nextPos > max + 10 ? 0 : nextPos < -10 ? max : nextPos, behavior: 'smooth' });
+    };
 
-    const track = document.getElementById('carousel-track');
-    const dotsContainer = document.getElementById('carousel-dots');
-    const prevBtn = document.getElementById('carousel-prev');
-    const nextBtn = document.getElementById('carousel-next');
-    const carouselContainer = document.getElementById('carousel-container');
+    prev?.addEventListener('click', () => step(-1));
+    next?.addEventListener('click', () => step(1));
 
-    if (!track) return;
-    const slides = track.querySelectorAll('.carousel-slide');
-    const totalSlides = slides.length;
-    if (totalSlides === 0) return;
-
-    let currentIndex = 0;
-
-    function updateCarousel(newIndex: number) {
-      currentIndex = (newIndex + totalSlides) % totalSlides;
-      if (track) {
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-      }
-
-      if (dotsContainer) {
-        const dots = dotsContainer.querySelectorAll('.carousel-dot');
-        dots.forEach((dot, idx) => {
-          if (idx === currentIndex) {
-            dot.classList.remove('bg-gray-300', 'hover:bg-olive-400');
-            dot.classList.add('bg-olive-600', 'scale-125');
-          } else {
-            dot.classList.remove('bg-olive-600', 'scale-125');
-            dot.classList.add('bg-gray-300', 'hover:bg-olive-400');
-          }
-        });
-      }
-    }
-
-    if (prevBtn) prevBtn.onclick = () => updateCarousel(currentIndex - 1);
-    if (nextBtn) nextBtn.onclick = () => updateCarousel(currentIndex + 1);
-
-    if (dotsContainer) {
-      dotsContainer.onclick = (e) => {
-        const target = (e.target as HTMLElement).closest('.carousel-dot') as HTMLElement;
-        if (target && target.dataset.index) {
-          const idx = parseInt(target.dataset.index, 10);
-          updateCarousel(idx);
-        }
-      };
-    }
-
-    // Touch Swipe móvel com prevenção de scroll colateral
-    let startX = 0;
-    let endX = 0;
-
-    track.addEventListener('touchstart', (e: TouchEvent) => {
-      startX = e.touches[0].clientX;
-    }, { passive: true });
-
-    track.addEventListener('touchend', (e: TouchEvent) => {
-      endX = e.changedTouches[0].clientX;
-      const diff = startX - endX;
-      if (Math.abs(diff) > 40) {
-        if (diff > 0) {
-          updateCarousel(currentIndex + 1);
-        } else {
-          updateCarousel(currentIndex - 1);
-        }
-      }
-    }, { passive: true });
-
-    // Autoplay seguro com controle de timer
-    autoPlayTimer = setInterval(() => updateCarousel(currentIndex + 1), 6000);
-
-    if (carouselContainer) {
-      carouselContainer.onmouseenter = () => {
-        if (autoPlayTimer) clearInterval(autoPlayTimer);
-      };
-      carouselContainer.onmouseleave = () => {
-        if (autoPlayTimer) clearInterval(autoPlayTimer);
-        autoPlayTimer = setInterval(() => updateCarousel(currentIndex + 1), 6000);
-      };
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let timer = setInterval(() => step(1), 6000);
+      track.addEventListener('pointerenter', () => clearInterval(timer));
+      track.addEventListener('pointerleave', () => (timer = setInterval(() => step(1), 6000)));
     }
   }
-
-  setupCarousel();
-  document.addEventListener('astro:page-load', setupCarousel);
 </script>

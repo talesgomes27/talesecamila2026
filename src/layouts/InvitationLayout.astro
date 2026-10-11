@@ -1,5 +1,4 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
 import { weddingData } from '../data/weddingData';
 import '../styles/global.css';
 
@@ -29,9 +28,6 @@ const fullOgImageUrl = new URL(ogImage, Astro.site || 'https://talesecamila2026.
   <link rel="icon" type="image/svg+xml" href="/assets/svgs/leaf-icon.svg" />
   <title>{title}</title>
 
-  <!-- View Transitions para transição suave de página -->
-  <ViewTransitions />
-
   <!-- Metatags Open Graph / WhatsApp Preview -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content={canonicalURL} />
@@ -51,12 +47,10 @@ const fullOgImageUrl = new URL(ogImage, Astro.site || 'https://talesecamila2026.
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={fullOgImageUrl} />
 
-  <!-- Otimização de Fontes (DNS Prefetch & Preconnect) -->
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <!-- Otimização de Fontes (Apenas os pesos efetivamente usados) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
   <style is:global>
     body.convite-body {
@@ -65,16 +59,6 @@ const fullOgImageUrl = new URL(ogImage, Astro.site || 'https://talesecamila2026.
       background-image: radial-gradient(#E5DFD5 0.75px, transparent 0.75px);
       background-size: 24px 24px;
       color: #2D3748;
-    }
-
-    .organic-frame {
-      border-radius: 54% 46% 62% 38% / 48% 58% 42% 52%;
-      box-shadow: 0 16px 36px -12px rgba(80, 117, 82, 0.25);
-    }
-
-    .organic-frame img {
-      object-fit: cover;
-      object-position: center 38%;
     }
 
     .card-border {

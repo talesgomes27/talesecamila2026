@@ -54,17 +54,17 @@ const { pix, coupleNames } = Astro.props;
         </div>
       </div>
 
-      <!-- QR Code Dinâmico -->
+      <!-- QR Code pré-gerado no Build (Zero-JS library no cliente) -->
       <div class="text-center">
         <p class="font-sans text-xs text-gray-500 mb-3">Abra o app do seu banco e escaneie o código abaixo:</p>
-        <div id="pix-qrcode-container" class="flex justify-center items-center min-h-[190px] p-2 bg-white rounded-2xl border border-gray-100 inline-block mx-auto shadow-sm">
-          <!-- QR Code inserido aqui dinamicamente -->
+        <div class="flex justify-center items-center min-h-[190px] p-2 bg-white rounded-2xl border border-gray-100 inline-block mx-auto shadow-sm">
+          <img id="pix-qrcode-img" src="" alt="QR Code PIX" width="190" height="190" class="w-[190px] h-[190px] mx-auto rounded-lg" />
         </div>
       </div>
 
       <!-- Código PIX Copia e Cola -->
       <div>
-        <label class="block font-sans text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">
+        <label for="pix-copy-input" class="block font-sans text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">
           Ou use o PIX Copia e Cola:
         </label>
         <div class="flex items-center gap-2">
@@ -101,11 +101,13 @@ const { pix, coupleNames } = Astro.props;
             type="text" 
             id="pix-guest-name" 
             placeholder="Seu nome" 
+            maxlength="80"
             class="w-full font-sans text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 bg-linen focus:bg-white focus:outline-none focus:border-olive-600"
           />
           <textarea 
             id="pix-guest-message" 
             rows="2" 
+            maxlength="400"
             placeholder="Escreva uma mensagem especial de felicitações..." 
             class="w-full font-sans text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 bg-linen focus:bg-white focus:outline-none focus:border-olive-600 resize-none"
           ></textarea>
@@ -128,20 +130,15 @@ const { pix, coupleNames } = Astro.props;
 </dialog>
 
 <script>
-  import { generatePixPayload } from '../../utils/pix';
-  import { formatCurrency } from '../../utils/currency';
-  import QRCode from 'qrcode';
-
-  interface GiftPayload {
-    id: number;
+  interface GiftModalDetail {
     title: string;
-    price: number;
+    priceFormatted: string;
     image: string;
-    description?: string;
+    pixCode: string;
+    pixQr: string;
   }
 
-  let activeGift: GiftPayload | null = null;
-  let activePixCode = '';
+  let activeGift: GiftModalDetail | null = null;
 
   const modal = document.getElementById('pix-modal') as HTMLDialogElement | null;
   const closeBtn = document.getElementById('pix-modal-close');
@@ -149,141 +146,73 @@ const { pix, coupleNames } = Astro.props;
   const pixInput = document.getElementById('pix-copy-input') as HTMLInputElement | null;
   const sendWhatsappBtn = document.getElementById('pix-send-whatsapp-btn');
 
-  const pixKey = modal?.dataset.pixKey || '';
-  const recipientName = modal?.dataset.pixRecipient || '';
-  const city = modal?.dataset.pixCity || 'SAO MIGUEL DO GUAMA';
-  const whatsappNumber = modal?.dataset.pixWhatsapp || '';
-  const coupleNames = modal?.dataset.coupleNames || '';
+  closeBtn?.addEventListener('click', () => modal?.close());
 
-  function closeModal() {
-    if (modal?.open) {
-      modal.close();
-    }
-  }
-
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-
-  // Fechar ao clicar fora (backdrop nativo)
+  // Fechar ao clicar fora (backdrop nativo do <dialog>)
   modal?.addEventListener('click', (e) => {
-    if (!modal) return;
-    const rect = modal.getBoundingClientRect();
-    const isInDialog = (
-      rect.top <= e.clientY &&
-      e.clientY <= rect.top + rect.height &&
-      rect.left <= e.clientX &&
-      e.clientX <= rect.left + rect.width
-    );
-    if (!isInDialog) {
-      modal.close();
-    }
+    if (e.target === modal) modal.close();
   });
 
   // Copiar código PIX com Clipboard API moderna
-  if (copyBtn && pixInput) {
-    copyBtn.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(activePixCode);
-        (window as any).showToast?.('Código PIX copiado com sucesso! ✓');
-        copyBtn.textContent = 'Copiado!';
-        copyBtn.classList.replace('bg-olive-600', 'bg-emerald-600');
-        setTimeout(() => {
-          copyBtn.textContent = 'Copiar Código';
-          copyBtn.classList.replace('bg-emerald-600', 'bg-olive-600');
-        }, 3000);
-      } catch {
-        pixInput.select();
-        (window as any).showToast?.('Selecione e copie o código acima');
-      }
-    });
-  }
+  copyBtn?.addEventListener('click', async () => {
+    if (!activeGift || !pixInput) return;
+    try {
+      await navigator.clipboard.writeText(activeGift.pixCode);
+      window.dispatchEvent(new CustomEvent('site-toast', { detail: { message: 'Código PIX copiado com sucesso! ✓' } }));
+      copyBtn.textContent = 'Copiado!';
+      copyBtn.classList.replace('bg-olive-600', 'bg-emerald-600');
+      setTimeout(() => {
+        copyBtn.textContent = 'Copiar Código';
+        copyBtn.classList.replace('bg-emerald-600', 'bg-olive-600');
+      }, 3000);
+    } catch {
+      pixInput.select();
+      window.dispatchEvent(new CustomEvent('site-toast', { detail: { message: 'Selecione e copie o código acima' } }));
+    }
+  });
 
   // Enviar WhatsApp
-  if (sendWhatsappBtn) {
-    sendWhatsappBtn.addEventListener('click', () => {
-      if (!activeGift) return;
-      const guestNameInput = document.getElementById('pix-guest-name') as HTMLInputElement | null;
-      const guestMessageInput = document.getElementById('pix-guest-message') as HTMLTextAreaElement | null;
+  sendWhatsappBtn?.addEventListener('click', () => {
+    if (!activeGift || !modal) return;
+    const whatsappNumber = modal.dataset.pixWhatsapp || '';
+    const coupleNames = modal.dataset.coupleNames || '';
+    const guestNameInput = document.getElementById('pix-guest-name') as HTMLInputElement | null;
+    const guestMessageInput = document.getElementById('pix-guest-message') as HTMLTextAreaElement | null;
 
-      const guestName = (guestNameInput?.value || '').trim() || 'Um convidado querido';
-      const guestMessage = (guestMessageInput?.value || '').trim();
+    const guestName = (guestNameInput?.value || '').trim() || 'Um convidado querido';
+    const guestMessage = (guestMessageInput?.value || '').trim();
 
-      if (!whatsappNumber) {
-        alert('Número de WhatsApp não configurado.');
-        return;
-      }
+    if (!whatsappNumber) return;
 
-      let text = `Olá ${coupleNames}! ❤️\n\n`;
-      text += `Acabei de escolher o presente: *${activeGift.title}* (${formatCurrency(activeGift.price)}) na lista de vocês!\n\n`;
-      if (guestMessage) {
-        text += `Mensagem com carinho: "${guestMessage}"\n\n`;
-      }
-      text += `Abraços de: *${guestName}*`;
+    let text = `Olá ${coupleNames}! ❤️\n\n`;
+    text += `Acabei de escolher o presente: *${activeGift.title}* (${activeGift.priceFormatted}) na lista de vocês!\n\n`;
+    if (guestMessage) {
+      text += `Mensagem com carinho: "${guestMessage}"\n\n`;
+    }
+    text += `Abraços de: *${guestName}*`;
 
-      const encoded = encodeURIComponent(text);
-      window.open(`https://wa.me/${whatsappNumber}?text=${encoded}`, '_blank');
-    });
-  }
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+  });
 
-  async function openModal(gift: GiftPayload) {
-    activeGift = gift;
-    if (!modal) return;
+  window.addEventListener('open-pix-modal', ((e: CustomEvent<GiftModalDetail>) => {
+    if (!e.detail || !modal) return;
+    activeGift = e.detail;
 
     const titleEl = document.getElementById('pix-modal-gift-title');
     const priceEl = document.getElementById('pix-modal-gift-price');
     const imgEl = document.getElementById('pix-modal-gift-img') as HTMLImageElement | null;
-    const qrContainer = document.getElementById('pix-qrcode-container');
-
-    if (titleEl) titleEl.textContent = gift.title;
-    if (priceEl) priceEl.textContent = formatCurrency(gift.price);
-    if (imgEl) imgEl.src = gift.image;
-
-    // Gerar Payload PIX oficial
-    activePixCode = generatePixPayload({
-      key: pixKey,
-      recipientName: recipientName,
-      city: city,
-      amount: gift.price,
-      txid: `GIFT${gift.id}`
-    });
-
-    if (pixInput) pixInput.value = activePixCode;
-
-    // Gerar QR Code
-    if (qrContainer) {
-      qrContainer.innerHTML = '';
-      try {
-        const qrDataUrl = await QRCode.toDataURL(activePixCode, {
-          width: 190,
-          margin: 1,
-          color: {
-            dark: '#2D3748',
-            light: '#FFFFFF'
-          }
-        });
-        qrContainer.innerHTML = `<img src="${qrDataUrl}" alt="QR Code PIX" class="w-[190px] h-[190px] mx-auto rounded-lg shadow-sm border border-gray-100" />`;
-      } catch {
-        const fallbackUrl = `https://api.qrserver.com/v1/create-qr-code/?size=190x190&margin=4&data=${encodeURIComponent(activePixCode)}`;
-        qrContainer.innerHTML = `<img src="${fallbackUrl}" alt="QR Code PIX" class="w-[190px] h-[190px] mx-auto rounded-lg shadow-sm border border-gray-100" />`;
-      }
-    }
-
-    // Limpar campos de recado
+    const qrImg = document.getElementById('pix-qrcode-img') as HTMLImageElement | null;
     const guestNameInput = document.getElementById('pix-guest-name') as HTMLInputElement | null;
     const guestMessageInput = document.getElementById('pix-guest-message') as HTMLTextAreaElement | null;
+
+    if (titleEl) titleEl.textContent = activeGift.title;
+    if (priceEl) priceEl.textContent = activeGift.priceFormatted;
+    if (imgEl) imgEl.src = activeGift.image;
+    if (qrImg) qrImg.src = activeGift.pixQr;
+    if (pixInput) pixInput.value = activeGift.pixCode;
     if (guestNameInput) guestNameInput.value = '';
     if (guestMessageInput) guestMessageInput.value = '';
 
-    // Abertura nativa acessível via dialog API
     modal.showModal();
-  }
-
-  // Ouvinte de evento desacoplado
-  window.addEventListener('open-pix-modal', ((e: CustomEvent<GiftPayload>) => {
-    if (e.detail) {
-      openModal(e.detail);
-    }
   }) as EventListener);
-
-  // Compatibilidade com window.openPixModal
-  (window as any).openPixModal = openModal;
 </script>
