@@ -25,7 +25,7 @@ const { ceremony } = Astro.props;
     <!-- Card do Local em Arquitetura Double-Bezel -->
     <div class="double-bezel mb-10 text-left">
       <div class="double-bezel-core overflow-hidden">
-        <!-- Foto do LocalEmoldurada -->
+        <!-- Foto do Local Emoldurada -->
         <div class="m-1.5 sm:m-2 rounded-[calc(1.625rem-0.25rem)] h-72 sm:h-96 md:h-[460px] overflow-hidden bg-linen-light relative flex items-center justify-center">
           <Image 
             id="ceremony-venue-photo" 
@@ -33,9 +33,12 @@ const { ceremony } = Astro.props;
             alt={ceremony.venueName} 
             width={960}
             height={540}
-            quality={85}
+            widths={[480, 960]}
+            sizes="(max-width: 640px) calc(100vw - 48px), 860px"
+            quality={80}
             format="webp"
             loading="lazy"
+            decoding="async"
             class="relative z-10 w-full h-full object-cover object-center select-none" 
           />
           <div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-[inherit] z-20 pointer-events-none"></div>

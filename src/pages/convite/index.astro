@@ -76,11 +76,14 @@ const mapsUrl = weddingData.ceremony.mapsUrl;
             <Image 
               src={coupleHeroImg} 
               alt={coupleNames} 
-              width={384}
-              height={384}
+              width={768}
+              height={768}
+              widths={[384, 512, 768]}
+              sizes="(max-width: 640px) 160px, 192px"
               quality={85}
               format="webp"
               loading="eager"
+              decoding="sync"
               fetchpriority="high"
               class="w-full h-full object-cover rounded-[inherit] select-none"
             />

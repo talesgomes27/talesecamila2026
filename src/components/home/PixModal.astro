@@ -140,10 +140,46 @@ const { pix, coupleNames } = Astro.props;
     priceFormatted: string;
     image: string;
     pixCode: string;
-    pixQr: string;
   }
 
   let activeGift: GiftModalDetail | null = null;
+  const qrCache = new Map<string, string>();
+  let qrModulePromise: Promise<typeof import('qrcode')> | null = null;
+
+  function loadQrModule() {
+    if (!qrModulePromise) {
+      qrModulePromise = import('qrcode');
+    }
+    return qrModulePromise;
+  }
+
+  // Pré-carregar o gerador de QR Code em tempo ocioso (Zero bloqueio da thread principal)
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(() => {
+      void loadQrModule();
+    });
+  } else {
+    setTimeout(() => {
+      void loadQrModule();
+    }, 1500);
+  }
+
+  async function getQrDataUrl(payload: string): Promise<string> {
+    const cached = qrCache.get(payload);
+    if (cached) return cached;
+
+    const QRCode = await loadQrModule();
+    const dataUrl = await QRCode.toDataURL(payload, {
+      width: 380,
+      margin: 1,
+      color: {
+        dark: '#2D3748',
+        light: '#FFFFFF'
+      }
+    });
+    qrCache.set(payload, dataUrl);
+    return dataUrl;
+  }
 
   const modal = document.getElementById('pix-modal') as HTMLDialogElement | null;
   const closeBtn = document.getElementById('pix-modal-close');
@@ -224,11 +260,18 @@ const { pix, coupleNames } = Astro.props;
     if (titleEl) titleEl.textContent = activeGift.title;
     if (priceEl) priceEl.textContent = activeGift.priceFormatted;
     if (imgEl) imgEl.src = activeGift.image;
-    if (qrImg) qrImg.src = activeGift.pixQr;
     if (pixInput) pixInput.value = activeGift.pixCode;
     if (guestNameInput) guestNameInput.value = '';
     if (guestMessageInput) guestMessageInput.value = '';
 
     modal.showModal();
+
+    if (qrImg && activeGift.pixCode) {
+      void getQrDataUrl(activeGift.pixCode).then((dataUrl) => {
+        if (activeGift?.pixCode === e.detail.pixCode) {
+          qrImg.src = dataUrl;
+        }
+      });
+    }
   }) as EventListener);
 </script>

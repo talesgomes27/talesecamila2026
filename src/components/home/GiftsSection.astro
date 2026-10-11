@@ -1,7 +1,6 @@
 ---
 import type { GiftItem, PixConfig } from '../../types/wedding';
 import { generatePixPayload } from '../../utils/pix';
-import QRCode from 'qrcode';
 import GiftCard from './GiftCard.astro';
 
 interface Props {
@@ -17,15 +16,6 @@ const freePixPayload = generatePixPayload({
   recipientName: pix.recipientName,
   city: pix.city,
   txid: 'PIXLIVRE'
-});
-
-const freePixQr = await QRCode.toDataURL(freePixPayload, {
-  width: 190,
-  margin: 1,
-  color: {
-    dark: '#2D3748',
-    light: '#FFFFFF'
-  }
 });
 ---
 
@@ -56,7 +46,6 @@ const freePixQr = await QRCode.toDataURL(freePixPayload, {
           id="custom-pix-btn"
           type="button"
           data-pix-code={freePixPayload}
-          data-pix-qr={freePixQr}
           class="btn-pill min-h-[44px] inline-flex items-center gap-2 py-2.5 px-5 bg-olive-800 hover:bg-olive-900 text-linen font-sans text-xs uppercase tracking-[0.16em] font-medium cursor-pointer"
         >
           Contribuir com Valor Livre
@@ -98,8 +87,7 @@ const freePixQr = await QRCode.toDataURL(freePixPayload, {
           title: 'Contribuição com Valor Livre',
           priceFormatted: 'Valor livre no app do seu banco',
           image: '/assets/svgs/leaf-icon.svg',
-          pixCode: customPixBtn.dataset.pixCode || '',
-          pixQr: customPixBtn.dataset.pixQr || ''
+          pixCode: customPixBtn.dataset.pixCode || ''
         }
       })
     );
@@ -123,8 +111,7 @@ const freePixQr = await QRCode.toDataURL(freePixPayload, {
             title: card.dataset.title || '',
             priceFormatted: card.dataset.priceFormatted || '',
             image: cardImg?.currentSrc || cardImg?.src || '',
-            pixCode: card.dataset.pixCode || '',
-            pixQr: card.dataset.pixQr || ''
+            pixCode: card.dataset.pixCode || ''
           }
         })
       );

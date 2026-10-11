@@ -4,7 +4,6 @@ import { Image } from 'astro:assets';
 import type { GiftItem, PixConfig } from '../../types/wedding';
 import { formatCurrency } from '../../utils/currency';
 import { generatePixPayload } from '../../utils/pix';
-import QRCode from 'qrcode';
 
 interface Props {
   gift: GiftItem;
@@ -30,15 +29,6 @@ const pixPayload = generatePixPayload({
   amount: gift.price,
   txid: `GIFT${gift.id}`
 });
-
-const qrDataUrl = await QRCode.toDataURL(pixPayload, {
-  width: 190,
-  margin: 1,
-  color: {
-    dark: '#2D3748',
-    light: '#FFFFFF'
-  }
-});
 ---
 
 <article 
@@ -48,7 +38,6 @@ const qrDataUrl = await QRCode.toDataURL(pixPayload, {
   data-price-formatted={formattedPrice}
   data-title={gift.title}
   data-pix-code={pixPayload}
-  data-pix-qr={qrDataUrl}
 >
   <div class="double-bezel-core overflow-hidden flex-1 flex flex-col">
     <div class="relative overflow-hidden aspect-[4/3] bg-linen-light m-1.5 rounded-[calc(1.625rem-0.25rem)]">
@@ -58,7 +47,9 @@ const qrDataUrl = await QRCode.toDataURL(pixPayload, {
           alt={gift.title} 
           width={480}
           height={360}
-          quality={82}
+          widths={[360, 480]}
+          sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1024px) 45vw, 360px"
+          quality={78}
           format="webp"
           loading="lazy" 
           decoding="async"

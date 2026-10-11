@@ -45,8 +45,8 @@ const { couple } = Astro.props;
         </div>
       </div>
 
-      <!-- Foto do Casal com Moldura Orgânica e Duplo Anel (Coluna Direita) -->
-      <div class="md:col-span-6 flex justify-center items-center relative order-1 md:order-2 stagger-item" style="--stagger-index: 1;">
+      <!-- Foto do Casal com Moldura Orgânica e Duplo Anel (Coluna Direita — LCP Frame 0 sem opacity:0) -->
+      <div class="md:col-span-6 flex justify-center items-center relative order-1 md:order-2">
         <div class="relative w-64 h-64 sm:w-80 sm:h-80 md:w-[400px] md:h-[400px]">
           
           <!-- Folhagens ao redor da moldura -->
@@ -67,6 +67,7 @@ const { couple } = Astro.props;
               quality={85}
               format="webp"
               loading="eager"
+              decoding="sync"
               fetchpriority="high"
               class="w-full h-full object-cover rounded-[inherit] ring-1 ring-black/5"
             />

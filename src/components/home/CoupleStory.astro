@@ -33,9 +33,12 @@ const { story } = Astro.props;
           alt={story.groomName} 
           width={384}
           height={384}
-          quality={85}
+          widths={[288, 384]}
+          sizes="(max-width: 640px) 144px, 192px"
+          quality={82}
           format="webp"
           loading="lazy"
+          decoding="async"
           class="w-full h-full object-cover rounded-[inherit] motion-safe:group-hover:scale-[1.03] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]" 
           style="object-position: center center;" 
         />
@@ -55,9 +58,12 @@ const { story } = Astro.props;
           alt={story.brideName} 
           width={384}
           height={384}
-          quality={85}
+          widths={[288, 384]}
+          sizes="(max-width: 640px) 144px, 192px"
+          quality={82}
           format="webp"
           loading="lazy"
+          decoding="async"
           class="w-full h-full object-cover rounded-[inherit] motion-safe:group-hover:scale-[1.03] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]" 
           style="object-position: center center;" 
         />
