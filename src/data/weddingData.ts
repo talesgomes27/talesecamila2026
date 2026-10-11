@@ -10,7 +10,7 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
     heroPhoto: "/assets/imagens/casal.jpg"
   },
 
-  weddingDate: "2026-12-19T16:30:00",
+  weddingDate: "2026-12-19T16:30:00-03:00",
 
   story: {
     title: "O Casal",
@@ -48,7 +48,34 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
     address: "Av. Lauro Sodré, 187 - São Miguel do Guamá, PA, 68660-000",
     mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d997.0542474066214!2d-47.485272!3d-1.623415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zAv.%20Lauro%20Sodr%C3%A9%2C%20187%20-%20S%C3%A3o%20Miguel%20do%20Guam%C3%A1%2C%20PA%2C%2068660-000!5e0!3m2!1spt-BR!2sbr!4v1789923462646!5m2!1spt-BR!2sbr",
     mapsUrl: "https://maps.app.goo.gl/ugTke1R91TTHsNFE9",
-    wazeUrl: "https://waze.com/ul?ll=-1.623415,-47.485272&navigate=yes"
+    wazeUrl: "https://waze.com/ul?ll=-1.623415,-47.485272&navigate=yes",
+    faq: [
+      {
+        question: "Qual o melhor horário para chegar?",
+        answer: "Recomendamos chegar por volta das 16h15 para se acomodar com tranquilidade e aproveitar a luz dourada do pôr do sol às margens do Rio Guamá. Nossa cerimônia iniciará pontualmente às 16h30."
+      },
+      {
+        question: "Qual é o traje recomendado?",
+        answer: "O traje é Casual Chique. Pedimos com carinho que evitem roupas em tons de verde e branco. Dica especial da noiva para as mulheres: como o terreno do espaço é arenoso, evitem vestidos longos e salto agulha — apostem no comprimento mídi e em salto bloco ou rasteira elegante!"
+      },
+      {
+        question: "Onde posso estacionar?",
+        answer: "O estacionamento será na própria Orla do Rio Guamá, que fica bem próxima ao local do casamento (Beira Rio, no antigo Empresa Bar — Av. Lauro Sodré, 187), com acesso fácil a pé."
+      },
+      {
+        question: "Vem de outra cidade? Sugestões de hotéis próximos ao Centro",
+        answer: "Para quem deseja aproveitar a festa com calma e precisa de uma diária em São Miguel do Guamá, separamos opções bem localizadas no Centro (próximas à Orla) e na BR-010:",
+        items: [
+          "Hotel Madalena — Rua Justo Chermont, Centro (em frente à Orla do Rio Guamá, recepção 24h e café da manhã) • Tel/WhatsApp: (91) 99294-2018",
+          "Hotel Pousada Rio Guamá — Rua 7 de Setembro, s/n, Centro (próximo à BR-010) • Tel: (91) 3446-2032",
+          "Hotel Holser — Rodovia BR-010 (em frente ao Posto Eco, prático para quem chega pela rodovia)"
+        ]
+      },
+      {
+        question: "Até quando confirmar presença e como funcionam os presentes?",
+        answer: "Pedimos a gentileza de confirmar sua presença aqui pelo site até o dia 04 de Dezembro de 2026. Nossa lista de presentes é 100% virtual via PIX (com opção de itens divertidos da lista ou contribuição de valor livre) e você pode enviar um recado direto para o nosso WhatsApp!"
+      }
+    ]
   },
 
   pix: {

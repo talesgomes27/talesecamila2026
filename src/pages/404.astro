@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LeafIcon from '../components/common/LeafIcon.astro';
+import { weddingData } from '../data/weddingData';
+---
+
+<BaseLayout title={`Página não encontrada | ${weddingData.couple.names}`}>
+  <section class="min-h-[75dvh] flex items-center justify-center py-24 px-4 sm:px-6">
+    <div class="double-bezel max-w-lg w-full text-center">
+      <div class="double-bezel-core p-8 sm:p-12">
+        <span class="eyebrow-tag mb-4">Erro 404</span>
+        <h1 class="font-serif text-4xl sm:text-5xl text-olive-900 font-normal tracking-[-0.02em] mb-3">
+          Caminho não encontrado
+        </h1>
+        <LeafIcon class="w-9 h-4 mx-auto my-4 opacity-70" />
+        <p class="font-sans text-sm text-ink-muted font-light leading-relaxed mb-8">
+          Parece que este endereço mudou ou não existe. Use os atalhos abaixo para acessar o nosso site de casamento ou o convite digital:
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="/"
+            class="btn-pill min-h-[44px] px-7 py-2.5 bg-olive-800 hover:bg-olive-900 text-linen font-sans text-xs uppercase tracking-[0.18em] font-medium inline-flex items-center justify-center"
+          >
+            Ir para o Site Principal
+          </a>
+          <a
+            href="/convite/"
+            class="btn-pill min-h-[44px] px-7 py-2.5 bg-linen hover:bg-linen-dark text-olive-900 ring-1 ring-olive-900/15 font-sans text-xs uppercase tracking-[0.18em] font-medium inline-flex items-center justify-center"
+          >
+            Abrir Convite Digital
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

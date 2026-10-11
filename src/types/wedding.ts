@@ -27,6 +27,12 @@ export const CoupleStorySchema = z.object({
   gallery: z.array(GalleryPhotoSchema).min(1, { message: "A galeria deve conter ao menos 1 foto" }),
 });
 
+export const FaqItemSchema = z.object({
+  question: z.string().trim().min(5),
+  answer: z.string().trim().min(10),
+  items: z.array(z.string().trim().min(3)).optional(),
+});
+
 export const CeremonyInfoSchema = z.object({
   title: z.string().trim().min(3),
   venueName: z.string().trim().min(3),
@@ -38,6 +44,7 @@ export const CeremonyInfoSchema = z.object({
   mapsEmbedUrl: z.string().url({ message: "mapsEmbedUrl deve ser uma URL válida" }),
   mapsUrl: z.string().url({ message: "mapsUrl deve ser uma URL válida" }),
   wazeUrl: z.string().url({ message: "wazeUrl deve ser uma URL válida" }),
+  faq: z.array(FaqItemSchema).optional(),
 });
 
 export const PixConfigSchema = z.object({
@@ -93,6 +100,7 @@ export const WeddingDataSchema = z.object({
 export type CoupleInfo = z.infer<typeof CoupleInfoSchema>;
 export type GalleryPhoto = z.infer<typeof GalleryPhotoSchema>;
 export type CoupleStory = z.infer<typeof CoupleStorySchema>;
+export type FaqItem = z.infer<typeof FaqItemSchema>;
 export type CeremonyInfo = z.infer<typeof CeremonyInfoSchema>;
 export type PixConfig = z.infer<typeof PixConfigSchema>;
 export type GiftItem = z.infer<typeof GiftItemSchema>;

@@ -40,8 +40,27 @@ const { couple } = Astro.props;
         </div>
 
         <!-- Data Formatada em Moldura Editorial -->
-        <div class="inline-flex items-center space-x-3 text-ink-muted font-sans tracking-[0.28em] text-xs sm:text-sm border-y border-gold-accent/35 py-2 px-6 stagger-item" style="--stagger-index: 3;">
+        <div class="inline-flex items-center space-x-3 text-ink-muted font-sans tracking-[0.28em] text-xs sm:text-sm border-y border-gold-accent/35 py-2 px-6 mb-8 stagger-item" style="--stagger-index: 3;">
           <span>{couple.displayDate}</span>
+        </div>
+
+        <!-- Atalhos de Ação Rápida na Dobra Principal (Hit Area >= 44px) -->
+        <div id="hero-ctas" class="flex flex-wrap items-center justify-center gap-3 w-full sm:w-auto stagger-item" style="--stagger-index: 4;">
+          <a
+            href="#rsvp"
+            class="btn-pill min-h-[44px] w-full sm:w-auto px-7 py-2.5 bg-olive-800 hover:bg-olive-900 text-linen font-sans text-xs uppercase tracking-[0.18em] font-medium inline-flex items-center justify-center gap-2"
+          >
+            <span>Confirmar Presença</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7" />
+            </svg>
+          </a>
+          <a
+            href="#presentes"
+            class="btn-pill min-h-[44px] w-full sm:w-auto px-7 py-2.5 bg-white/85 hover:bg-white text-olive-900 ring-1 ring-olive-900/15 font-sans text-xs uppercase tracking-[0.18em] font-medium inline-flex items-center justify-center gap-2"
+          >
+            <span>Lista de Presentes</span>
+          </a>
         </div>
       </div>
 
