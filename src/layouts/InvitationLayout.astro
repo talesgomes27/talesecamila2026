@@ -1,5 +1,6 @@
 ---
 import { weddingData } from '../data/weddingData';
+import { buildSocialMetadata } from '../utils/socialMetadata';
 import '../styles/global.css';
 
 interface Props {
@@ -10,12 +11,19 @@ interface Props {
 
 const {
   title = `Convite de Casamento | ${weddingData.couple.names}`,
-  description = `Você está convidado para celebrar o casamento de ${weddingData.couple.names} no dia ${weddingData.ceremony.dateFormatted}, às ${weddingData.ceremony.time} em São Miguel do Guamá - PA. Clique para abrir seu convite!`,
+  description = `Você está convidado para celebrar o casamento de ${weddingData.couple.names} no dia ${weddingData.ceremony.dateFormatted}, às ${weddingData.ceremony.time}, em São Miguel do Guamá - PA. Toque para abrir seu convite!`,
   ogImage = weddingData.meta.ogImage
 } = Astro.props;
 
-const canonicalURL = new URL('/convite/', Astro.site || 'https://talesecamila2026.netlify.app');
-const fullOgImageUrl = new URL(ogImage, Astro.site || 'https://talesecamila2026.netlify.app').href;
+const social = buildSocialMetadata({
+  title,
+  ogTitle: `💍 Convite de Casamento | ${weddingData.couple.names} (19.12.2026 às ${weddingData.ceremony.time})`,
+  description,
+  path: Astro.url.pathname || '/convite/',
+  siteOrigin: Astro.site || weddingData.meta.siteUrl,
+  image: ogImage,
+  siteName: `Convite ${weddingData.couple.names}`,
+});
 ---
 
 <!DOCTYPE html>
@@ -24,29 +32,40 @@ const fullOgImageUrl = new URL(ogImage, Astro.site || 'https://talesecamila2026.
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#F3EFEA" />
-  <meta name="description" content={description} />
-  <link rel="canonical" href={canonicalURL} />
-  <link rel="icon" type="image/svg+xml" href="/assets/svgs/leaf-icon.svg" />
-  <title>{title}</title>
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content={weddingData.couple.names} />
+  <link rel="manifest" href="/site.webmanifest" />
 
-  <!-- Metatags Open Graph / WhatsApp Preview -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={canonicalURL} />
-  <meta property="og:title" content={`💍 Convite de Casamento | ${weddingData.couple.names}`} />
-  <meta property="og:description" content={description} />
-  <meta property="og:image" content={fullOgImageUrl} />
-  <meta property="og:image:secure_url" content={fullOgImageUrl} />
-  <meta property="og:image:type" content="image/jpeg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content={`Convite de Casamento de ${weddingData.couple.names}`} />
-  <meta property="og:site_name" content={`Convite ${weddingData.couple.names}`} />
+  <title>{social.title}</title>
+  <meta name="description" content={social.description} />
+  <link rel="canonical" href={social.canonicalUrl} />
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={`💍 Convite de Casamento | ${weddingData.couple.names}`} />
-  <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={fullOgImageUrl} />
+  <!-- Metatags Open Graph / WhatsApp Preview (Gold Standard) -->
+  <meta property="og:type" content={social.openGraph.type} />
+  <meta property="og:locale" content={social.openGraph.locale} />
+  <meta property="og:url" content={social.openGraph.url} />
+  <meta property="og:title" content={social.openGraph.title} />
+  <meta property="og:description" content={social.openGraph.description} />
+  <meta property="og:image" content={social.openGraph.image.url} />
+  <meta property="og:image:secure_url" content={social.openGraph.image.secureUrl} />
+  <meta property="og:image:type" content={social.openGraph.image.type} />
+  <meta property="og:image:width" content={String(social.openGraph.image.width)} />
+  <meta property="og:image:height" content={String(social.openGraph.image.height)} />
+  <meta property="og:image:alt" content={social.openGraph.image.alt} />
+  <meta property="og:site_name" content={social.openGraph.siteName} />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content={social.twitter.card} />
+  <meta name="twitter:title" content={social.twitter.title} />
+  <meta name="twitter:description" content={social.twitter.description} />
+  <meta name="twitter:image" content={social.twitter.image} />
+  <meta name="twitter:image:alt" content={social.twitter.imageAlt} />
+
+  <!-- Dados Estruturados do Evento (Schema.org/SocialEvent) -->
+  <script type="application/ld+json" set:html={social.jsonLd} />
 
   <!-- Otimização de Fontes (Carregamento Não-Bloqueante + Pesos Enxutos) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
