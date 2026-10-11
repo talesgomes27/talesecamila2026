@@ -1,4 +1,6 @@
 ---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
 import type { GiftItem, PixConfig } from '../../types/wedding';
 import { formatCurrency } from '../../utils/currency';
 import { generatePixPayload } from '../../utils/pix';
@@ -11,6 +13,15 @@ interface Props {
 
 const { gift, pix } = Astro.props;
 const formattedPrice = formatCurrency(gift.price);
+
+const giftImages = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/images/presentes/*.{jpeg,jpg,png}',
+  { eager: true }
+);
+
+const filename = gift.image.split('/').pop() || '';
+const matchKey = Object.keys(giftImages).find((k) => k.endsWith(filename));
+const imageMeta = matchKey ? giftImages[matchKey].default : null;
 
 const pixPayload = generatePixPayload({
   key: pix.key,
@@ -36,20 +47,33 @@ const qrDataUrl = await QRCode.toDataURL(pixPayload, {
   data-price={gift.price}
   data-price-formatted={formattedPrice}
   data-title={gift.title}
-  data-image={gift.image}
   data-pix-code={pixPayload}
   data-pix-qr={qrDataUrl}
 >
   <div class="relative overflow-hidden aspect-[4/3] bg-linen-light">
-    <img 
-      src={gift.image} 
-      alt={gift.title} 
-      width="400"
-      height="300"
-      loading="lazy" 
-      decoding="async"
-      class="w-full h-full object-cover motion-safe:group-hover:scale-105 transition-transform duration-500" 
-    />
+    {imageMeta ? (
+      <Image 
+        src={imageMeta} 
+        alt={gift.title} 
+        width={480}
+        height={360}
+        quality={82}
+        format="webp"
+        loading="lazy" 
+        decoding="async"
+        class="gift-card-img w-full h-full object-cover motion-safe:group-hover:scale-105 transition-transform duration-500" 
+      />
+    ) : (
+      <img 
+        src={gift.image} 
+        alt={gift.title} 
+        width="480"
+        height="360"
+        loading="lazy" 
+        decoding="async"
+        class="gift-card-img w-full h-full object-cover motion-safe:group-hover:scale-105 transition-transform duration-500" 
+      />
+    )}
     <div class="absolute inset-0 bg-black/5 pointer-events-none"></div>
   </div>
   <div class="p-5 md:p-6 flex-1 flex flex-col justify-between text-center">

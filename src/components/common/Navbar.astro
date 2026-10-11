@@ -87,4 +87,28 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
       });
     });
   }
+
+  // Scroll Spy nativo com IntersectionObserver para destacar a seção ativa
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-link');
+  const sections = document.querySelectorAll<HTMLElement>('section[id]');
+
+  if (sections.length && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const activeHref = `#${entry.target.id}`;
+            navLinks.forEach((link) => {
+              const isActive = link.getAttribute('href') === activeHref;
+              link.classList.toggle('text-olive-700', isActive);
+              link.classList.toggle('font-semibold', isActive);
+              link.classList.toggle('text-gray-700', !isActive);
+            });
+          }
+        });
+      },
+      { rootMargin: '-35% 0px -55% 0px' }
+    );
+    sections.forEach((sec) => observer.observe(sec));
+  }
 </script>

@@ -1,5 +1,7 @@
 ---
 import type { GiftItem, PixConfig } from '../../types/wedding';
+import { generatePixPayload } from '../../utils/pix';
+import QRCode from 'qrcode';
 import LeafIcon from '../common/LeafIcon.astro';
 import GiftCard from './GiftCard.astro';
 
@@ -9,6 +11,23 @@ interface Props {
 }
 
 const { gifts, pix } = Astro.props;
+
+// Pré-gerar código PIX com valor aberto (sem campo 54) em tempo de build
+const freePixPayload = generatePixPayload({
+  key: pix.key,
+  recipientName: pix.recipientName,
+  city: pix.city,
+  txid: 'PIXLIVRE'
+});
+
+const freePixQr = await QRCode.toDataURL(freePixPayload, {
+  width: 190,
+  margin: 1,
+  color: {
+    dark: '#2D3748',
+    light: '#FFFFFF'
+  }
+});
 ---
 
 <section id="presentes" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,13 +43,24 @@ const { gifts, pix } = Astro.props;
     </p>
   </div>
 
-  <!-- Barra de Controles e Destaque PIX -->
+  <!-- Barra de Controles e PIX de Valor Livre -->
   <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 bg-linen-light p-4 rounded-2xl border border-olive-100">
-    <div class="flex items-center gap-2 text-olive-700 font-sans text-xs sm:text-sm font-medium">
-      <svg class="w-4 h-4 text-olive-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-      </svg>
-      <span>Presenteie diretamente pelo PIX</span>
+    <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3">
+      <div class="flex items-center gap-2 text-olive-700 font-sans text-xs sm:text-sm font-medium">
+        <svg class="w-4 h-4 text-olive-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+        <span>Quer escolher outro valor?</span>
+      </div>
+      <button
+        id="custom-pix-btn"
+        type="button"
+        data-pix-code={freePixPayload}
+        data-pix-qr={freePixQr}
+        class="btn-pill inline-flex items-center gap-1.5 py-1.5 px-4 bg-olive-600 hover:bg-olive-700 text-white font-sans text-xs font-medium tracking-wide shadow-sm cursor-pointer"
+      >
+        Contribuir com Valor Livre (PIX)
+      </button>
     </div>
 
     <!-- Dropdown de Ordenação -->
@@ -58,6 +88,21 @@ const { gifts, pix } = Astro.props;
 <script>
   const grid = document.getElementById('gifts-grid');
   const sortSelect = document.getElementById('gifts-sort-select') as HTMLSelectElement | null;
+  const customPixBtn = document.getElementById('custom-pix-btn');
+
+  customPixBtn?.addEventListener('click', () => {
+    window.dispatchEvent(
+      new CustomEvent('open-pix-modal', {
+        detail: {
+          title: 'Contribuição com Valor Livre',
+          priceFormatted: 'Valor livre no app do seu banco',
+          image: '/assets/svgs/leaf-icon.svg',
+          pixCode: customPixBtn.dataset.pixCode || '',
+          pixQr: customPixBtn.dataset.pixQr || ''
+        }
+      })
+    );
+  });
 
   if (grid) {
     const cards = Array.from(grid.querySelectorAll<HTMLElement>('.gift-card'));
@@ -69,12 +114,14 @@ const { gifts, pix } = Astro.props;
       const card = target.closest<HTMLElement>('.gift-card');
       if (!card) return;
 
+      const cardImg = card.querySelector<HTMLImageElement>('.gift-card-img');
+
       window.dispatchEvent(
         new CustomEvent('open-pix-modal', {
           detail: {
             title: card.dataset.title || '',
             priceFormatted: card.dataset.priceFormatted || '',
-            image: card.dataset.image || '',
+            image: cardImg?.currentSrc || cardImg?.src || '',
             pixCode: card.dataset.pixCode || '',
             pixQr: card.dataset.pixQr || ''
           }

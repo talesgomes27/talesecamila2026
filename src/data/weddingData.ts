@@ -242,3 +242,24 @@ export const weddingData: WeddingData = {
     description: "Site de Casamento de Tales & Camila. Informações da cerimônia, lista de presentes com PIX e confirmação de presença."
   }
 };
+
+const icsContent = [
+  'BEGIN:VCALENDAR',
+  'VERSION:2.0',
+  'PRODID:-//Tales & Camila//Casamento 2026//PT',
+  'BEGIN:VEVENT',
+  'UID:casamento-tales-camila-20261219@talesecamila2026.netlify.app',
+  'DTSTAMP:20261008T120000Z',
+  'DTSTART:20261219T193000Z',
+  'DTEND:20261220T020000Z',
+  'SUMMARY:Casamento de Tales & Camila',
+  'DESCRIPTION:Casamento de Tales & Camila. Site: https://talesecamila2026.netlify.app',
+  'LOCATION:Beira Rio, no antigo Empresa Bar - Av. Lauro Sodré, 187 - São Miguel do Guamá, PA',
+  'END:VEVENT',
+  'END:VCALENDAR'
+].join('\r\n');
+
+export const calendarLinks = {
+  googleUrl: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Casamento+de+Tales+%26+Camila&dates=20261219T193000Z/20261220T020000Z&details=Casamento+de+Tales+%26+Camila.+Mais+informa%C3%A7%C3%B5es:+https://talesecamila2026.netlify.app&location=Beira+Rio,+no+antigo+Empresa+Bar+-+Av.+Lauro+Sodr%C3%A9,+187+-+S%C3%A3o+Miguel+do+Guam%C3%A1,+PA',
+  icsDataUri: `data:text/calendar;charset=utf8,${encodeURIComponent(icsContent)}`
+};

@@ -1,5 +1,6 @@
 ---
 import type { CeremonyInfo } from '../../types/wedding';
+import { calendarLinks } from '../../data/weddingData';
 import LeafIcon from '../common/LeafIcon.astro';
 import { Image } from 'astro:assets';
 import venueImg from '../../assets/images/cerimonia.jpeg';
@@ -21,7 +22,7 @@ const { ceremony } = Astro.props;
     </h2>
 
     <!-- Card do Local -->
-    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-[#ECE8E1] mb-8 text-left">
+    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-linen-dark mb-8 text-left">
       <!-- Foto do Local com ambient blur leve e otimizado pelo Astro -->
       <div class="w-full h-72 sm:h-96 md:h-[460px] overflow-hidden bg-linen-light relative flex items-center justify-center">
         <Image 
@@ -81,7 +82,7 @@ const { ceremony } = Astro.props;
           {ceremony.address}
         </p>
 
-        <!-- Botões de Ação para Rotas -->
+        <!-- Botões de Ação para Rotas e Agenda -->
         <div class="flex flex-wrap justify-center gap-3">
           <a 
             id="ceremony-maps-btn" 
@@ -107,6 +108,29 @@ const { ceremony } = Astro.props;
               <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.04 3H5.81l1.04-3zM19 17H5v-4.66l.12-.34h13.77l.11.34V17z"/>
             </svg>
             Abrir no Waze
+          </a>
+
+          <a 
+            href={calendarLinks.googleUrl} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="btn-pill inline-flex items-center gap-2 py-2.5 px-5 bg-linen hover:bg-linen-dark text-gray-700 border border-gray-200 font-sans text-xs sm:text-sm font-medium tracking-wide shadow-sm"
+          >
+            <svg class="w-4 h-4 text-olive-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            Google Agenda
+          </a>
+
+          <a 
+            href={calendarLinks.icsDataUri} 
+            download="casamento-tales-e-camila.ics"
+            class="btn-pill inline-flex items-center gap-2 py-2.5 px-5 bg-linen hover:bg-linen-dark text-gray-700 border border-gray-200 font-sans text-xs sm:text-sm font-medium tracking-wide shadow-sm"
+          >
+            <svg class="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.99.6-2.63 1.35-.57.66-.97 1.73-.84 2.76 1 .08 2.03-.51 2.55-1.26z"/>
+            </svg>
+            Apple / iCal
           </a>
         </div>
       </div>

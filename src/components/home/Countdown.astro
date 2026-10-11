@@ -4,16 +4,6 @@ interface Props {
 }
 
 const { targetDate } = Astro.props;
-
-// Pré-cálculo em tempo de build/SSR para evitar flash "00" e Cumulative Layout Shift
-const targetTime = new Date(targetDate).getTime();
-const now = new Date().getTime();
-const initialDistance = Math.max(0, targetTime - now);
-
-const initialDays = String(Math.floor(initialDistance / (1000 * 60 * 60 * 24))).padStart(2, '0');
-const initialHours = String(Math.floor((initialDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-const initialMinutes = String(Math.floor((initialDistance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-const initialSeconds = String(Math.floor((initialDistance % (1000 * 60)) / 1000)).padStart(2, '0');
 ---
 
 <section id="countdown-banner" class="bg-olive-600 text-white py-10 md:py-14 shadow-inner relative z-20" data-target-date={targetDate}>
@@ -23,29 +13,29 @@ const initialSeconds = String(Math.floor((initialDistance % (1000 * 60)) / 1000)
     </h2>
 
     <!-- Grid dos Números do Cronômetro -->
-    <div id="countdown-grid" class="grid grid-cols-4 gap-2 sm:gap-4 max-w-2xl mx-auto">
+    <div id="countdown-grid" class="grid grid-cols-4 gap-2 sm:gap-4 max-w-2xl mx-auto opacity-0 transition-opacity duration-300">
       
       <!-- Dias -->
       <div class="countdown-divider flex flex-col items-center">
-        <span id="countdown-days" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight">{initialDays}</span>
+        <span id="countdown-days" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight tabular-nums">--</span>
         <span class="font-sans text-[10px] sm:text-xs tracking-widest uppercase mt-2 text-white/80 font-medium">Dias</span>
       </div>
 
       <!-- Horas -->
       <div class="countdown-divider flex flex-col items-center">
-        <span id="countdown-hours" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight">{initialHours}</span>
+        <span id="countdown-hours" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight tabular-nums">--</span>
         <span class="font-sans text-[10px] sm:text-xs tracking-widest uppercase mt-2 text-white/80 font-medium">Horas</span>
       </div>
 
       <!-- Minutos -->
       <div class="countdown-divider flex flex-col items-center">
-        <span id="countdown-minutes" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight">{initialMinutes}</span>
+        <span id="countdown-minutes" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight tabular-nums">--</span>
         <span class="font-sans text-[10px] sm:text-xs tracking-widest uppercase mt-2 text-white/80 font-medium">Minutos</span>
       </div>
 
       <!-- Segundos -->
       <div class="flex flex-col items-center">
-        <span id="countdown-seconds" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight">{initialSeconds}</span>
+        <span id="countdown-seconds" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight tabular-nums">--</span>
         <span class="font-sans text-[10px] sm:text-xs tracking-widest uppercase mt-2 text-white/80 font-medium">Segundos</span>
       </div>
 
@@ -55,6 +45,7 @@ const initialSeconds = String(Math.floor((initialDistance % (1000 * 60)) / 1000)
 
 <script>
   const banner = document.getElementById('countdown-banner');
+  const grid = document.getElementById('countdown-grid');
   const dateStr = banner?.dataset.targetDate;
 
   if (banner && dateStr) {
@@ -81,6 +72,7 @@ const initialSeconds = String(Math.floor((initialDistance % (1000 * 60)) / 1000)
       if (hoursEl) hoursEl.textContent = String(Math.floor((distance % 86400000) / 3600000)).padStart(2, '0');
       if (minutesEl) minutesEl.textContent = String(Math.floor((distance % 3600000) / 60000)).padStart(2, '0');
       if (secondsEl) secondsEl.textContent = String(Math.floor((distance % 60000) / 1000)).padStart(2, '0');
+      grid?.classList.remove('opacity-0');
     };
 
     const timer = setInterval(update, 1000);
