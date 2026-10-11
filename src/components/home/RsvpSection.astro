@@ -39,7 +39,7 @@ const { rsvp, whatsappFallback = "5591984611907" } = Astro.props;
             </svg>
           </div>
           <h3 class="font-serif text-2xl sm:text-3xl text-olive-900 mb-2 font-normal">Presença Confirmada!</h3>
-          <p class="font-sans text-sm text-ink-muted font-light">Que alegria ter você conosco! Recebemos sua confirmação e seu recado com todo carinho. Nos vemos no dia 16 de maio!</p>
+          <p class="font-sans text-sm text-ink-muted font-light">Que alegria ter você conosco! Recebemos sua confirmação com todo carinho. Nos vemos no grande dia!</p>
         </div>
 
         <!-- Mensagem de Erro de Conexão (Oculta por padrão) -->
@@ -224,7 +224,7 @@ const { rsvp, whatsappFallback = "5591984611907" } = Astro.props;
         const phone = form.dataset.whatsappPhone || '5591984611907';
         if (whatsappFallback) {
           const msgSuffix = rawMessage ? `\n\n_“${rawMessage}”_` : '';
-          const text = encodeURIComponent(`Olá, Tales e Camila! ✨\n\nMeu nome é *${rawName}* e confirmo minha presença no casamento de vocês no dia 16/05/2026!${msgSuffix}`);
+          const text = encodeURIComponent(`Olá, Tales e Camila! ✨\n\nMeu nome é *${rawName}* e confirmo minha presença no casamento de vocês!${msgSuffix}`);
           whatsappFallback.href = `https://wa.me/${phone}?text=${text}`;
         }
       } finally {

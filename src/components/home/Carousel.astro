@@ -28,7 +28,11 @@ const photos = gallery
     <!-- Trilho Nativo CSS Scroll Snap -->
     <div
       id="carousel-track"
-      class="flex w-full h-full overflow-x-auto snap-x snap-mandatory motion-safe:scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      tabindex="0"
+      role="region"
+      aria-roledescription="carrossel"
+      aria-label="Galeria de fotos do casal — use as setas do teclado para navegar"
+      class="flex w-full h-full overflow-x-auto snap-x snap-mandatory motion-safe:scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:outline-offset-[-4px]"
     >
       {photos.map((item, index) => (
         <div class="w-full h-full flex-shrink-0 snap-center relative">
