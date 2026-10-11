@@ -180,33 +180,49 @@ const { ceremony } = Astro.props;
           </h3>
         </div>
 
-        <div class="space-y-3.5">
+        <div class="space-y-4">
           {ceremony.faq.map((item, idx) => (
-            <details class="faq-item double-bezel group" open={idx === 0}>
-              <summary class="double-bezel-core min-h-[56px] px-5 sm:px-7 py-4 flex items-center justify-between gap-4 cursor-pointer list-none select-none [&::-webkit-details-marker]:hidden">
-                <span class="font-serif text-lg sm:text-xl text-olive-900 font-normal leading-snug">
-                  {item.question}
-                </span>
-                <span class="w-8 h-8 rounded-full bg-linen ring-1 ring-olive-900/10 flex items-center justify-center flex-shrink-0 text-olive-800 transition-transform duration-200 group-open:rotate-45" aria-hidden="true">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v14m-7-7h14"/>
-                  </svg>
-                </span>
-              </summary>
-              <div class="px-5 sm:px-7 pb-5 pt-2 text-ink-muted font-sans text-xs sm:text-sm leading-relaxed font-light border-t border-olive-900/[0.06] bg-white/90 rounded-b-[1.625rem]">
-                <p>{item.answer}</p>
-                {item.items && item.items.length > 0 && (
-                  <ul class="mt-3 space-y-2 text-ink">
-                    {item.items.map((sub) => (
-                      <li class="flex items-start gap-2.5">
-                        <span class="w-1.5 h-1.5 rounded-full bg-gold-accent mt-2 flex-shrink-0" aria-hidden="true"></span>
-                        <span>{sub}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            </details>
+            <div class="double-bezel">
+              <details class="faq-item double-bezel-core group overflow-hidden" open={idx === 0}>
+                <summary class="group/summary min-h-[60px] px-6 sm:px-8 py-4 sm:py-5 flex items-center justify-between gap-4 cursor-pointer list-none select-none [&::-webkit-details-marker]:hidden rounded-[calc(2rem-0.375rem)] sm:rounded-[calc(2rem-0.5rem)] group-open:rounded-b-none focus-visible:outline-offset-[-2px]">
+                  <span class="font-serif text-lg sm:text-xl text-olive-900 group-hover/summary:text-olive-700 transition-colors font-normal leading-snug">
+                    {item.question}
+                  </span>
+                  <span class="w-8 h-8 rounded-full bg-linen ring-1 ring-olive-900/10 flex items-center justify-center flex-shrink-0 text-olive-800 transition-all duration-200 group-hover/summary:ring-olive-900/25 group-open:rotate-45 group-open:bg-olive-800 group-open:text-linen group-open:ring-olive-800" aria-hidden="true">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 5v14m-7-7h14"/>
+                    </svg>
+                  </span>
+                </summary>
+                <div class="px-6 sm:px-8 pb-6 pt-0 text-ink-muted font-sans text-xs sm:text-sm leading-relaxed font-light">
+                  <div class="h-px w-full bg-olive-900/[0.08] mb-4" aria-hidden="true"></div>
+                  <p>{item.answer}</p>
+                  {item.items && item.items.length > 0 && (
+                    <ul class="mt-3.5 space-y-2.5 text-ink">
+                      {item.items.map((sub) => {
+                        const [title, ...rest] = sub.split(' — ');
+                        const detail = rest.join(' — ');
+                        return (
+                          <li class="flex items-start gap-2.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-gold-accent mt-2 flex-shrink-0" aria-hidden="true"></span>
+                            <span>
+                              {detail ? (
+                                <>
+                                  <strong class="font-medium text-olive-900">{title}</strong>
+                                  <span class="text-ink-muted"> — {detail}</span>
+                                </>
+                              ) : (
+                                sub
+                              )}
+                            </span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </div>
+              </details>
+            </div>
           ))}
         </div>
       </div>
