@@ -1,6 +1,6 @@
-import type { WeddingData } from '../types/wedding';
+import { WeddingDataSchema, type WeddingData } from '../types/wedding';
 
-export const weddingData: WeddingData = {
+export const weddingData: WeddingData = WeddingDataSchema.parse({
   couple: {
     groom: "Tales",
     bride: "Camila",
@@ -241,7 +241,7 @@ export const weddingData: WeddingData = {
     ogImage: "/assets/imagens/preview-convite.jpg",
     description: "Site de Casamento de Tales & Camila. Informações da cerimônia, lista de presentes com PIX e confirmação de presença."
   }
-};
+});
 
 const icsContent = [
   'BEGIN:VCALENDAR',

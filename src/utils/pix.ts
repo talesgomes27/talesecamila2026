@@ -1,10 +1,14 @@
-export interface PixPayloadParams {
-  key: string;
-  recipientName: string;
-  city?: string;
-  amount?: number;
-  txid?: string;
-}
+import { z } from 'astro/zod';
+
+export const PixPayloadParamsSchema = z.object({
+  key: z.string().trim().min(1, { message: "Chave PIX obrigatória" }),
+  recipientName: z.string().trim().min(1, { message: "Nome do recebedor obrigatório" }),
+  city: z.string().trim().default('SAO MIGUEL DO GUAMA'),
+  amount: z.number().positive({ message: "Valor do PIX deve ser positivo" }).optional(),
+  txid: z.string().trim().default('***'),
+});
+
+export type PixPayloadParams = z.input<typeof PixPayloadParamsSchema>;
 
 function formatField(id: string, value: string): string {
   const len = String(value.length).padStart(2, '0');
@@ -42,8 +46,9 @@ export function calculateCRC16(payload: string): string {
 /**
  * Gera a string oficial do PIX Copia e Cola (Padrão EMVCo / Banco Central do Brasil)
  */
-export function generatePixPayload({ key, recipientName, city = 'SAO MIGUEL DO GUAMA', amount, txid = '***' }: PixPayloadParams): string {
-  const normKey = key.trim();
+export function generatePixPayload(params: PixPayloadParams): string {
+  const { key, recipientName, city, amount, txid } = PixPayloadParamsSchema.parse(params);
+  const normKey = key;
   const normName = normalizeText(recipientName || 'CASAMENTO').slice(0, 25);
   const normCity = normalizeText(city || 'SAO MIGUEL DO GUAMA').slice(0, 15);
   const normTxid = (txid || '***').replace(/[^a-zA-Z0-9]/g, '').slice(0, 25) || '***';

@@ -7,68 +7,82 @@ interface Props {
 const { groomInit = "T", brideInit = "C" } = Astro.props;
 ---
 
-<header id="navbar" class="fixed top-0 inset-x-0 z-40 transition-[background-color,padding,box-shadow] duration-300 py-5 bg-transparent">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<header id="navbar" class="fixed top-4 sm:top-6 inset-x-0 z-40 px-4 sm:px-6 pointer-events-none">
+  <div
+    id="navbar-pill"
+    class="pointer-events-auto max-w-4xl mx-auto rounded-full px-5 sm:px-7 py-3 transition-[background-color,box-shadow,transform] duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] bg-linen/80 backdrop-blur-xl ring-1 ring-olive-900/[0.08] shadow-[0_12px_36px_-12px_rgba(29,44,30,0.10)]"
+  >
     <div class="flex items-center justify-between">
       <!-- Logo / Iniciais -->
-      <a href="#hero" class="font-serif text-2xl text-olive-800 tracking-wider hover:opacity-80 transition-opacity">
-        {groomInit} <span class="font-serif italic text-gold-accent">&</span> {brideInit}
+      <a href="#hero" class="font-serif text-xl sm:text-2xl text-olive-900 tracking-wider hover:opacity-75 transition-opacity duration-200">
+        {groomInit} <span class="font-serif italic text-gold-accent font-normal">&</span> {brideInit}
       </a>
 
       <!-- Menu Desktop -->
-      <nav class="hidden md:flex items-center space-x-8" aria-label="Navegação principal">
-        <a href="#hero" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase transition-colors">Home</a>
-        <a href="#casal" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase transition-colors">O Casal</a>
-        <a href="#cerimonia" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase transition-colors">Cerimônia & Recepção</a>
-        <a href="#presentes" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase transition-colors">Lista de Presentes</a>
-        <a href="#rsvp" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase transition-colors">Confirme sua Presença</a>
+      <nav class="hidden md:flex items-center space-x-7" aria-label="Navegação principal">
+        <a href="#hero" class="nav-link font-sans text-[11px] tracking-[0.2em] text-ink-muted hover:text-olive-800 uppercase transition-colors duration-200">Início</a>
+        <a href="#casal" class="nav-link font-sans text-[11px] tracking-[0.2em] text-ink-muted hover:text-olive-800 uppercase transition-colors duration-200">O Casal</a>
+        <a href="#cerimonia" class="nav-link font-sans text-[11px] tracking-[0.2em] text-ink-muted hover:text-olive-800 uppercase transition-colors duration-200">A Celebração</a>
+        <a href="#presentes" class="nav-link font-sans text-[11px] tracking-[0.2em] text-ink-muted hover:text-olive-800 uppercase transition-colors duration-200">Presentes</a>
+        <a href="#rsvp" class="nav-link font-sans text-[11px] tracking-[0.2em] text-ink-muted hover:text-olive-800 uppercase transition-colors duration-200">Confirme Presença</a>
       </nav>
 
-      <!-- Botão Mobile Hamburger com Acessibilidade ARIA -->
+      <!-- Botão Mobile Hamburger com Morph de 2 Linhas em X (200ms, Hit Area 44x44px) -->
       <button 
         id="mobile-menu-toggle" 
         type="button"
         aria-label="Abrir menu de navegação" 
         aria-expanded="false" 
         aria-controls="mobile-menu"
-        class="md:hidden text-gray-700 p-2 rounded-lg hover:bg-black/5 focus:outline-none cursor-pointer"
+        class="md:hidden relative w-11 h-11 -mr-1.5 rounded-full flex items-center justify-center text-olive-900 hover:bg-olive-900/5 active:scale-95 focus:outline-none transition-[transform,background-color] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer"
       >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
+        <span class="sr-only">Menu</span>
+        <span id="burger-line-1" class="absolute w-4 h-[1.25px] bg-current -translate-y-1 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]"></span>
+        <span id="burger-line-2" class="absolute w-4 h-[1.25px] bg-current translate-y-1 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]"></span>
       </button>
     </div>
+  </div>
 
-    <!-- Menu Mobile Dropdown -->
-    <div 
-      id="mobile-menu" 
-      class="hidden md:hidden mt-3 pt-3 pb-4 px-4 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-gray-100 flex flex-col space-y-3"
-      role="region"
-      aria-label="Menu móvel"
-    >
-      <a href="#hero" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase py-2">Home</a>
-      <a href="#casal" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase py-2">O Casal</a>
-      <a href="#cerimonia" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase py-2">Cerimônia & Recepção</a>
-      <a href="#presentes" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase py-2">Lista de Presentes</a>
-      <a href="#rsvp" class="nav-link font-sans text-xs tracking-widest text-gray-700 hover:text-olive-700 uppercase py-2">Confirme sua Presença</a>
-    </div>
+  <!-- Menu Mobile Dropdown Glass (Origin-Aware Popover com CSS Transition Interrompível) -->
+  <div 
+    id="mobile-menu" 
+    data-open="false"
+    class="md:hidden origin-top max-w-4xl mx-auto mt-2.5 p-4 bg-linen/95 backdrop-blur-2xl rounded-3xl shadow-[0_24px_48px_-12px_rgba(29,44,30,0.18)] ring-1 ring-olive-900/10 flex flex-col space-y-1.5 text-center transition-[opacity,transform,visibility] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] data-[open=false]:opacity-0 data-[open=false]:scale-95 data-[open=false]:-translate-y-1.5 data-[open=false]:pointer-events-none data-[open=false]:invisible data-[open=true]:opacity-100 data-[open=true]:scale-100 data-[open=true]:translate-y-0 data-[open=true]:pointer-events-auto data-[open=true]:visible"
+    role="region"
+    aria-label="Menu móvel"
+  >
+    <a href="#hero" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-xs tracking-[0.22em] text-ink-muted hover:text-olive-800 uppercase rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">Início</a>
+    <a href="#casal" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-xs tracking-[0.22em] text-ink-muted hover:text-olive-800 uppercase rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">O Casal</a>
+    <a href="#cerimonia" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-xs tracking-[0.22em] text-ink-muted hover:text-olive-800 uppercase rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">A Celebração</a>
+    <a href="#presentes" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-xs tracking-[0.22em] text-ink-muted hover:text-olive-800 uppercase rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">Lista de Presentes</a>
+    <a href="#rsvp" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-xs tracking-[0.22em] text-ink-muted hover:text-olive-800 uppercase rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">Confirme sua Presença</a>
   </div>
 </header>
 
 <script>
-  const navbar = document.getElementById('navbar');
+  const navbarPill = document.getElementById('navbar-pill');
   const mobileToggle = document.getElementById('mobile-menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
+  const line1 = document.getElementById('burger-line-1');
+  const line2 = document.getElementById('burger-line-2');
+
+  function setMenuOpen(open: boolean) {
+    if (!mobileMenu || !mobileToggle) return;
+    mobileMenu.dataset.open = String(open);
+    mobileToggle.setAttribute('aria-expanded', String(open));
+    line1?.classList.toggle('-translate-y-1', !open);
+    line1?.classList.toggle('rotate-45', open);
+    line2?.classList.toggle('translate-y-1', !open);
+    line2?.classList.toggle('-rotate-45', open);
+  }
 
   function onWindowScroll() {
-    if (!navbar) return;
-    const scrolled = window.scrollY > 40;
-    navbar.classList.toggle('bg-linen/90', scrolled);
-    navbar.classList.toggle('backdrop-blur-md', scrolled);
-    navbar.classList.toggle('shadow-sm', scrolled);
-    navbar.classList.toggle('py-3', scrolled);
-    navbar.classList.toggle('bg-transparent', !scrolled);
-    navbar.classList.toggle('py-5', !scrolled);
+    if (!navbarPill) return;
+    const scrolled = window.scrollY > 36;
+    navbarPill.classList.toggle('bg-white/90', scrolled);
+    navbarPill.classList.toggle('shadow-[0_16px_40px_-10px_rgba(29,44,30,0.16)]', scrolled);
+    navbarPill.classList.toggle('bg-linen/80', !scrolled);
+    navbarPill.classList.toggle('shadow-[0_12px_36px_-12px_rgba(29,44,30,0.10)]', !scrolled);
   }
 
   window.addEventListener('scroll', onWindowScroll, { passive: true });
@@ -76,15 +90,12 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
 
   if (mobileToggle && mobileMenu) {
     mobileToggle.addEventListener('click', () => {
-      const isHidden = mobileMenu.classList.toggle('hidden');
-      mobileToggle.setAttribute('aria-expanded', String(!isHidden));
+      const isOpen = mobileMenu.dataset.open === 'true';
+      setMenuOpen(!isOpen);
     });
 
     mobileMenu.querySelectorAll('.nav-link').forEach((link) => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-      });
+      link.addEventListener('click', () => setMenuOpen(false));
     });
   }
 
@@ -100,9 +111,9 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
             const activeHref = `#${entry.target.id}`;
             navLinks.forEach((link) => {
               const isActive = link.getAttribute('href') === activeHref;
-              link.classList.toggle('text-olive-700', isActive);
-              link.classList.toggle('font-semibold', isActive);
-              link.classList.toggle('text-gray-700', !isActive);
+              link.classList.toggle('text-olive-800', isActive);
+              link.classList.toggle('font-medium', isActive);
+              link.classList.toggle('text-ink-muted', !isActive);
             });
           }
         });

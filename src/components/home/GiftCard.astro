@@ -42,7 +42,7 @@ const qrDataUrl = await QRCode.toDataURL(pixPayload, {
 ---
 
 <article 
-  class="gift-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-[transform,box-shadow] duration-300 motion-safe:hover:-translate-y-1 flex flex-col border border-linen-dark group"
+  class="gift-card double-bezel hover-lift flex flex-col group"
   data-id={gift.id}
   data-price={gift.price}
   data-price-formatted={formattedPrice}
@@ -50,46 +50,63 @@ const qrDataUrl = await QRCode.toDataURL(pixPayload, {
   data-pix-code={pixPayload}
   data-pix-qr={qrDataUrl}
 >
-  <div class="relative overflow-hidden aspect-[4/3] bg-linen-light">
-    {imageMeta ? (
-      <Image 
-        src={imageMeta} 
-        alt={gift.title} 
-        width={480}
-        height={360}
-        quality={82}
-        format="webp"
-        loading="lazy" 
-        decoding="async"
-        class="gift-card-img w-full h-full object-cover motion-safe:group-hover:scale-105 transition-transform duration-500" 
-      />
-    ) : (
-      <img 
-        src={gift.image} 
-        alt={gift.title} 
-        width="480"
-        height="360"
-        loading="lazy" 
-        decoding="async"
-        class="gift-card-img w-full h-full object-cover motion-safe:group-hover:scale-105 transition-transform duration-500" 
-      />
-    )}
-    <div class="absolute inset-0 bg-black/5 pointer-events-none"></div>
-  </div>
-  <div class="p-5 md:p-6 flex-1 flex flex-col justify-between text-center">
-    <div>
-      <h3 class="font-sans font-medium text-gray-800 text-base md:text-lg mb-2 line-clamp-2">{gift.title}</h3>
-      {gift.description && <p class="font-sans text-xs text-gray-500 mb-4 line-clamp-2">{gift.description}</p>}
+  <div class="double-bezel-core overflow-hidden flex-1 flex flex-col">
+    <div class="relative overflow-hidden aspect-[4/3] bg-linen-light m-1.5 rounded-[calc(1.625rem-0.25rem)]">
+      {imageMeta ? (
+        <Image 
+          src={imageMeta} 
+          alt={gift.title} 
+          width={480}
+          height={360}
+          quality={82}
+          format="webp"
+          loading="lazy" 
+          decoding="async"
+          class="gift-card-img w-full h-full object-cover transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]" 
+        />
+      ) : (
+        <img 
+          src={gift.image} 
+          alt={gift.title} 
+          width="480"
+          height="360"
+          loading="lazy" 
+          decoding="async"
+          class="gift-card-img w-full h-full object-cover transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]" 
+        />
+      )}
+      <div class="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-[inherit] pointer-events-none"></div>
     </div>
-    <div class="pt-2">
-      <p class="font-serif text-2xl font-bold text-gray-900 mb-4">{formattedPrice}</p>
-      <button 
-        type="button" 
-        class="presentear-btn w-full py-2.5 px-6 rounded-full bg-olive-600 hover:bg-olive-700 motion-safe:active:scale-95 text-white font-sans text-sm font-medium tracking-wide transition-colors duration-200 shadow-sm hover:shadow cursor-pointer"
-        data-gift-id={gift.id}
-      >
-        Presentear
-      </button>
+
+    <div class="p-5 md:p-6 flex-1 flex flex-col justify-between text-center">
+      <div>
+        <h3 class="font-serif text-xl sm:text-[22px] text-olive-900 leading-snug mb-2 line-clamp-2 font-normal tracking-[-0.01em]">
+          {gift.title}
+        </h3>
+        {gift.description && (
+          <p class="font-sans text-xs text-ink-muted leading-relaxed mb-5 line-clamp-2 font-light">
+            {gift.description}
+          </p>
+        )}
+      </div>
+
+      <div class="pt-3 border-t border-olive-900/[0.06]">
+        <p class="font-serif text-2xl sm:text-3xl font-normal tracking-[-0.02em] text-olive-900 mb-4">
+          {formattedPrice}
+        </p>
+        <button 
+          type="button" 
+          class="presentear-btn btn-pill w-full min-h-[48px] py-2 pl-6 pr-2 bg-olive-800 hover:bg-olive-900 text-linen font-sans text-xs uppercase tracking-[0.18em] font-medium flex items-center justify-between cursor-pointer"
+          data-gift-id={gift.id}
+        >
+          <span class="mx-auto pl-4">Presentear</span>
+          <span class="btn-trailing-icon w-9 h-9 rounded-full bg-white/10 flex items-center justify-center transition-[transform,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 17L17 7M17 7H8M17 7V16" />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </article>

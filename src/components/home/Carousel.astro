@@ -23,8 +23,8 @@ const photos = gallery
   .filter((item): item is NonNullable<typeof item> => item !== null);
 ---
 
-<div id="carousel-container" class="relative max-w-[460px] sm:max-w-[500px] mx-auto w-full select-none group">
-  <div class="relative w-full aspect-[3/4] overflow-hidden rounded-2xl shadow-xl bg-stone-900">
+<div id="carousel-container" class="double-bezel relative max-w-[460px] sm:max-w-[500px] mx-auto w-full select-none group">
+  <div class="double-bezel-core relative w-full aspect-[3/4] overflow-hidden bg-stone-900">
     <!-- Trilho Nativo CSS Scroll Snap -->
     <div
       id="carousel-track"
@@ -51,10 +51,10 @@ const photos = gallery
       id="carousel-prev"
       type="button"
       aria-label="Foto anterior"
-      class="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/85 hover:bg-white text-gray-800 flex items-center justify-center backdrop-blur-sm transition-opacity shadow-md opacity-80 group-hover:opacity-100 cursor-pointer"
+      class="btn-pill absolute left-3.5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-linen/85 hover:bg-white text-olive-900 ring-1 ring-black/5 flex items-center justify-center backdrop-blur-md opacity-90 group-hover:opacity-100 cursor-pointer"
     >
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7" />
       </svg>
     </button>
 
@@ -62,12 +62,21 @@ const photos = gallery
       id="carousel-next"
       type="button"
       aria-label="Próxima foto"
-      class="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white/85 hover:bg-white text-gray-800 flex items-center justify-center backdrop-blur-sm transition-opacity shadow-md opacity-80 group-hover:opacity-100 cursor-pointer"
+      class="btn-pill absolute right-3.5 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-linen/85 hover:bg-white text-olive-900 ring-1 ring-black/5 flex items-center justify-center backdrop-blur-md opacity-90 group-hover:opacity-100 cursor-pointer"
     >
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7" />
       </svg>
     </button>
+
+    <!-- Affordance Visual de Swipe: Contador Editorial (ex: 1 / 15) -->
+    <div
+      id="carousel-counter"
+      aria-live="polite"
+      class="absolute bottom-3.5 right-3.5 z-20 px-3 py-1 rounded-full bg-linen/85 backdrop-blur-md ring-1 ring-black/5 font-sans text-[11px] tracking-[0.18em] text-olive-900 tabular-nums pointer-events-none"
+    >
+      1 / {photos.length}
+    </div>
   </div>
 </div>
 
@@ -75,8 +84,19 @@ const photos = gallery
   const track = document.getElementById('carousel-track');
   const prev = document.getElementById('carousel-prev');
   const next = document.getElementById('carousel-next');
+  const counter = document.getElementById('carousel-counter');
 
   if (track) {
+    const total = track.children.length;
+
+    const updateCounter = () => {
+      if (!counter || !track.clientWidth) return;
+      const current = Math.min(total, Math.max(1, Math.round(track.scrollLeft / track.clientWidth) + 1));
+      counter.textContent = `${current} / ${total}`;
+    };
+
+    track.addEventListener('scroll', updateCounter, { passive: true });
+
     const step = (dir: number) => {
       const max = track.scrollWidth - track.clientWidth;
       const nextPos = track.scrollLeft + dir * track.clientWidth;

@@ -6,37 +6,40 @@ interface Props {
 const { targetDate } = Astro.props;
 ---
 
-<section id="countdown-banner" class="bg-olive-600 text-white py-10 md:py-14 shadow-inner relative z-20" data-target-date={targetDate}>
+<section id="countdown-banner" class="bg-olive-900 text-linen py-12 md:py-16 border-y border-gold-accent/30 relative z-20" data-target-date={targetDate}>
   <div class="max-w-4xl mx-auto px-4 text-center">
-    <h2 class="font-serif text-2xl md:text-3xl lg:text-4xl tracking-wide mb-8 font-normal">
+    <p class="font-sans text-[10px] uppercase tracking-[0.28em] text-gold-light mb-2">
+      19 de Dezembro de 2026
+    </p>
+    <h2 class="font-serif italic text-2xl md:text-3xl tracking-wide mb-8 font-normal text-linen/95">
       Contagem Regressiva
     </h2>
 
     <!-- Grid dos Números do Cronômetro -->
-    <div id="countdown-grid" class="grid grid-cols-4 gap-2 sm:gap-4 max-w-2xl mx-auto opacity-0 transition-opacity duration-300">
+    <div id="countdown-grid" class="grid grid-cols-4 gap-2 sm:gap-4 max-w-2xl mx-auto opacity-0 transition-opacity duration-500">
       
       <!-- Dias -->
       <div class="countdown-divider flex flex-col items-center">
-        <span id="countdown-days" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight tabular-nums">--</span>
-        <span class="font-sans text-[10px] sm:text-xs tracking-widest uppercase mt-2 text-white/80 font-medium">Dias</span>
+        <span id="countdown-days" class="font-serif text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight tabular-nums text-linen">--</span>
+        <span class="font-sans text-[10px] tracking-[0.24em] uppercase mt-2.5 text-gold-light font-medium">Dias</span>
       </div>
 
       <!-- Horas -->
       <div class="countdown-divider flex flex-col items-center">
-        <span id="countdown-hours" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight tabular-nums">--</span>
-        <span class="font-sans text-[10px] sm:text-xs tracking-widest uppercase mt-2 text-white/80 font-medium">Horas</span>
+        <span id="countdown-hours" class="font-serif text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight tabular-nums text-linen">--</span>
+        <span class="font-sans text-[10px] tracking-[0.24em] uppercase mt-2.5 text-gold-light font-medium">Horas</span>
       </div>
 
       <!-- Minutos -->
       <div class="countdown-divider flex flex-col items-center">
-        <span id="countdown-minutes" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight tabular-nums">--</span>
-        <span class="font-sans text-[10px] sm:text-xs tracking-widest uppercase mt-2 text-white/80 font-medium">Minutos</span>
+        <span id="countdown-minutes" class="font-serif text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight tabular-nums text-linen">--</span>
+        <span class="font-sans text-[10px] tracking-[0.24em] uppercase mt-2.5 text-gold-light font-medium">Minutos</span>
       </div>
 
       <!-- Segundos -->
       <div class="flex flex-col items-center">
-        <span id="countdown-seconds" class="font-sans text-3xl sm:text-5xl md:text-6xl font-light tracking-tight tabular-nums">--</span>
-        <span class="font-sans text-[10px] sm:text-xs tracking-widest uppercase mt-2 text-white/80 font-medium">Segundos</span>
+        <span id="countdown-seconds" class="font-serif text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight tabular-nums text-linen">--</span>
+        <span class="font-sans text-[10px] tracking-[0.24em] uppercase mt-2.5 text-gold-light font-medium">Segundos</span>
       </div>
 
     </div>

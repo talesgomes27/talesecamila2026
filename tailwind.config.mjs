@@ -6,21 +6,27 @@ export default {
       colors: {
         linen: {
           DEFAULT: '#FAF8F5',
-          light: '#F5F3EF',
-          dark: '#ECE8E1'
+          light: '#F5F2EC',
+          dark: '#EAE4DA'
         },
         olive: {
-          50: '#F2F6F3',
-          100: '#E3ECE4',
-          200: '#C8D9C9',
-          500: '#628E64',
-          600: '#507552',
-          700: '#406042',
-          800: '#324B34',
-          900: '#233524'
+          50: '#F3F6F3',
+          100: '#E4ECE5',
+          200: '#C9D9CA',
+          500: '#5E8760',
+          600: '#4C6E4E',
+          700: '#3B573D',
+          800: '#2B412D',
+          900: '#1D2C1E'
         },
         gold: {
-          accent: '#A39B75'
+          accent: '#9E9368',
+          light: '#C5BC97'
+        },
+        ink: {
+          DEFAULT: '#1E241F',
+          muted: '#5C5A54',
+          subtle: '#8A867E'
         }
       },
       fontFamily: {

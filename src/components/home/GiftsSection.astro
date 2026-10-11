@@ -2,7 +2,6 @@
 import type { GiftItem, PixConfig } from '../../types/wedding';
 import { generatePixPayload } from '../../utils/pix';
 import QRCode from 'qrcode';
-import LeafIcon from '../common/LeafIcon.astro';
 import GiftCard from './GiftCard.astro';
 
 interface Props {
@@ -30,55 +29,57 @@ const freePixQr = await QRCode.toDataURL(freePixPayload, {
 });
 ---
 
-<section id="presentes" class="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-  <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-    <div class="w-10 h-5 mx-auto mb-3 opacity-80">
-      <LeafIcon />
+<section id="presentes" class="py-24 md:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal-on-scroll">
+  <div class="text-center max-w-2xl mx-auto mb-14 sm:mb-20">
+    <div class="mb-4">
+      <span class="eyebrow-tag">Cap. III • Mimos & Lua de Mel</span>
     </div>
-    <h2 class="font-serif text-3xl md:text-5xl text-olive-600 mb-4 font-normal">
+    <h2 class="font-serif text-4xl md:text-5xl text-olive-900 tracking-[-0.02em] mb-5 font-normal">
       Lista de Presentes
     </h2>
-    <p class="font-sans text-sm md:text-base text-gray-600 font-light leading-relaxed">
+    <p class="font-sans text-sm sm:text-base text-ink-muted font-light leading-[1.85]">
       Como nosso lar já está montado com muito amor, optamos por não receber presentes físicos. Criamos uma lista virtual com opções em PIX para nossa nova fase e lua de mel:
     </p>
   </div>
 
-  <!-- Barra de Controles e PIX de Valor Livre -->
-  <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 bg-linen-light p-4 rounded-2xl border border-olive-100">
-    <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3">
-      <div class="flex items-center gap-2 text-olive-700 font-sans text-xs sm:text-sm font-medium">
-        <svg class="w-4 h-4 text-olive-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-        </svg>
-        <span>Quer escolher outro valor?</span>
+  <!-- Barra de Controles e PIX de Valor Livre em Double-Bezel -->
+  <div class="double-bezel mb-10">
+    <div class="double-bezel-core flex flex-col sm:flex-row items-center justify-between gap-4 px-5 py-4">
+      <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3">
+        <div class="flex items-center gap-2 text-olive-800 font-sans text-xs sm:text-sm font-medium">
+          <svg class="w-4 h-4 text-gold-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
+          </svg>
+          <span>Prefere presentear com outro valor?</span>
+        </div>
+        <button
+          id="custom-pix-btn"
+          type="button"
+          data-pix-code={freePixPayload}
+          data-pix-qr={freePixQr}
+          class="btn-pill min-h-[44px] inline-flex items-center gap-2 py-2.5 px-5 bg-olive-800 hover:bg-olive-900 text-linen font-sans text-xs uppercase tracking-[0.16em] font-medium cursor-pointer"
+        >
+          Contribuir com Valor Livre
+        </button>
       </div>
-      <button
-        id="custom-pix-btn"
-        type="button"
-        data-pix-code={freePixPayload}
-        data-pix-qr={freePixQr}
-        class="btn-pill inline-flex items-center gap-1.5 py-1.5 px-4 bg-olive-600 hover:bg-olive-700 text-white font-sans text-xs font-medium tracking-wide shadow-sm cursor-pointer"
-      >
-        Contribuir com Valor Livre (PIX)
-      </button>
-    </div>
 
-    <!-- Dropdown de Ordenação -->
-    <div class="flex items-center gap-2">
-      <label for="gifts-sort-select" class="font-sans text-xs sm:text-sm text-gray-600">Ordenar lista por:</label>
-      <select 
-        id="gifts-sort-select" 
-        class="font-sans text-xs sm:text-sm bg-linen border border-gray-200 rounded-lg px-3 py-1.5 text-gray-700 focus:outline-none focus:border-olive-600 cursor-pointer"
-      >
-        <option value="default">Destaques</option>
-        <option value="price-desc">Maior preço</option>
-        <option value="price-asc">Menor preço</option>
-      </select>
+      <!-- Dropdown de Ordenação (Zero Auto-Zoom iOS + Hit Area 44px) -->
+      <div class="flex items-center gap-2.5">
+        <label for="gifts-sort-select" class="font-sans text-xs uppercase tracking-[0.16em] text-ink-subtle">Ordenar:</label>
+        <select 
+          id="gifts-sort-select" 
+          class="font-sans text-base sm:text-sm min-h-[44px] bg-linen/80 ring-1 ring-olive-900/10 rounded-full px-4 py-1.5 text-olive-900 focus:outline-none focus:ring-olive-700 cursor-pointer"
+        >
+          <option value="default">Destaques</option>
+          <option value="price-desc">Maior valor</option>
+          <option value="price-asc">Menor valor</option>
+        </select>
+      </div>
     </div>
   </div>
 
   <!-- Grid de Presentes -->
-  <div id="gifts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+  <div id="gifts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 sm:gap-9">
     {gifts.map(gift => (
       <GiftCard gift={gift} pix={pix} />
     ))}
@@ -142,6 +143,19 @@ const freePixQr = await QRCode.toDataURL(freePixPayload, {
       }
 
       sorted.forEach(card => grid.appendChild(card));
+
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'animate' in grid) {
+        grid.animate(
+          [
+            { opacity: 0.45, filter: 'blur(2px)', transform: 'translateY(6px)' },
+            { opacity: 1, filter: 'blur(0px)', transform: 'translateY(0)' }
+          ],
+          {
+            duration: 220,
+            easing: 'cubic-bezier(0.23, 1, 0.32, 1)'
+          }
+        );
+      }
     });
   }
 </script>
