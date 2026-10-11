@@ -238,7 +238,7 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
 
   meta: {
     siteUrl: "https://talesecamila2026.netlify.app",
-    ogImage: "/assets/imagens/preview-convite.jpg?v=2",
+    ogImage: "/assets/og-convite.jpg",
     description: "Site de Casamento de Tales & Camila. Informações da cerimônia, lista de presentes com PIX e confirmação de presença."
   }
 });

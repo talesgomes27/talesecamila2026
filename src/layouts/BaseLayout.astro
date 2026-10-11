@@ -34,19 +34,13 @@ const social = buildSocialMetadata({
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#FAF8F5" />
-  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <meta name="apple-mobile-web-app-title" content={weddingData.couple.names} />
-  <link rel="manifest" href="/site.webmanifest" />
 
+  <!-- Metatags Principais -->
   <title>{social.title}</title>
   <meta name="description" content={social.description} />
   <link rel="canonical" href={social.canonicalUrl} />
 
-  <!-- Metatags Open Graph / WhatsApp Preview (Gold Standard) -->
+  <!-- Open Graph / WhatsApp / Facebook -->
   <meta property="og:type" content={social.openGraph.type} />
   <meta property="og:locale" content={social.openGraph.locale} />
   <meta property="og:url" content={social.openGraph.url} />
@@ -60,12 +54,20 @@ const social = buildSocialMetadata({
   <meta property="og:image:alt" content={social.openGraph.image.alt} />
   <meta property="og:site_name" content={social.openGraph.siteName} />
 
-  <!-- Twitter / X Card -->
+  <!-- Twitter Cards -->
   <meta name="twitter:card" content={social.twitter.card} />
   <meta name="twitter:title" content={social.twitter.title} />
   <meta name="twitter:description" content={social.twitter.description} />
   <meta name="twitter:image" content={social.twitter.image} />
   <meta name="twitter:image:alt" content={social.twitter.imageAlt} />
+
+  <meta name="theme-color" content="#FAF8F5" />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content={weddingData.couple.names} />
+  <link rel="manifest" href="/site.webmanifest" />
 
   <!-- Dados Estruturados do Evento (Schema.org/SocialEvent) -->
   <script type="application/ld+json" set:html={social.jsonLd} />

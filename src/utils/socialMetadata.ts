@@ -5,6 +5,7 @@ export interface SocialMetadataInput {
   ogTitle?: string;
   description: string;
   ogDescription?: string;
+  twitterDescription?: string;
   path: string;
   siteOrigin?: string | URL;
   image?: string;
@@ -49,10 +50,11 @@ export function buildSocialMetadata({
   ogTitle,
   description,
   ogDescription,
+  twitterDescription,
   path,
   siteOrigin,
   image = weddingData.meta.ogImage,
-  imageAlt = `Convite de Casamento de ${weddingData.couple.names} — 19.12.2026 às ${weddingData.ceremony.time}`,
+  imageAlt = 'Convite de Casamento de Tales e Camila',
   imageWidth = 1200,
   imageHeight = 630,
   siteName = `Casamento ${weddingData.couple.names}`,
@@ -76,6 +78,7 @@ export function buildSocialMetadata({
 
   const resolvedOgTitle = ogTitle || title;
   const resolvedOgDesc = ogDescription || description;
+  const resolvedTwitterDesc = twitterDescription || resolvedOgDesc;
 
   const eventSchema = {
     '@context': 'https://schema.org',
@@ -129,7 +132,7 @@ export function buildSocialMetadata({
     twitter: {
       card: 'summary_large_image',
       title: resolvedOgTitle,
-      description: resolvedOgDesc,
+      description: resolvedTwitterDesc,
       image: imageUrl,
       imageAlt,
     },
