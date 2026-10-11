@@ -23,7 +23,7 @@ const { ceremony } = Astro.props;
     <!-- Card do Local -->
     <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-[#ECE8E1] mb-8 text-left">
       <!-- Foto do Local com ambient blur leve e otimizado pelo Astro -->
-      <div class="w-full h-72 sm:h-96 md:h-[460px] overflow-hidden bg-stone-900 relative flex items-center justify-center">
+      <div class="w-full h-72 sm:h-96 md:h-[460px] overflow-hidden bg-linen-light relative flex items-center justify-center">
         <Image 
           id="ceremony-venue-bg" 
           src={venueImg} 
@@ -44,7 +44,7 @@ const { ceremony } = Astro.props;
           quality={85}
           format="webp"
           loading="lazy"
-          class="relative z-10 max-h-full max-w-full object-contain md:object-cover md:w-full md:h-full md:object-center select-none" 
+          class="relative z-10 w-full h-full object-cover object-center select-none" 
         />
       </div>
 
