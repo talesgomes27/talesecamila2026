@@ -18,6 +18,12 @@ html {
   color: #1E241F;
 }
 
+/* Acessibilidade de Teclado WCAG 2.2 AA (Anel de foco visível apenas na navegação via Tab) */
+:focus-visible {
+  outline: 2px solid #3B573D;
+  outline-offset: 2px;
+}
+
 @layer components {
   /* Arquitetura Double-Bezel (Doppelrand) — Papelaria Fina Emoldurada */
   .double-bezel {

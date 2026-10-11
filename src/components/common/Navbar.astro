@@ -34,7 +34,7 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
         aria-label="Abrir menu de navegação" 
         aria-expanded="false" 
         aria-controls="mobile-menu"
-        class="md:hidden relative w-11 h-11 -mr-1.5 rounded-full flex items-center justify-center text-olive-900 hover:bg-olive-900/5 active:scale-95 focus:outline-none transition-[transform,background-color] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer"
+        class="md:hidden relative w-11 h-11 -mr-1.5 rounded-full flex items-center justify-center text-olive-900 hover:bg-olive-900/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive-700 transition-[transform,background-color] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer"
       >
         <span class="sr-only">Menu</span>
         <span id="burger-line-1" class="absolute w-4 h-[1.25px] bg-current -translate-y-1 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]"></span>
@@ -44,11 +44,10 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
   </div>
 
   <!-- Menu Mobile Dropdown Glass (Origin-Aware Popover com CSS Transition Interrompível) -->
-  <div 
+  <nav 
     id="mobile-menu" 
     data-open="false"
     class="md:hidden origin-top max-w-4xl mx-auto mt-2.5 p-4 bg-linen/95 backdrop-blur-2xl rounded-3xl shadow-[0_24px_48px_-12px_rgba(29,44,30,0.18)] ring-1 ring-olive-900/10 flex flex-col space-y-1.5 text-center transition-[opacity,transform,visibility] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] data-[open=false]:opacity-0 data-[open=false]:scale-95 data-[open=false]:-translate-y-1.5 data-[open=false]:pointer-events-none data-[open=false]:invisible data-[open=true]:opacity-100 data-[open=true]:scale-100 data-[open=true]:translate-y-0 data-[open=true]:pointer-events-auto data-[open=true]:visible"
-    role="region"
     aria-label="Menu móvel"
   >
     <a href="#hero" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-xs tracking-[0.22em] text-ink-muted hover:text-olive-800 uppercase rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">Início</a>
@@ -56,10 +55,11 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
     <a href="#cerimonia" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-xs tracking-[0.22em] text-ink-muted hover:text-olive-800 uppercase rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">A Celebração</a>
     <a href="#presentes" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-xs tracking-[0.22em] text-ink-muted hover:text-olive-800 uppercase rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">Lista de Presentes</a>
     <a href="#rsvp" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-xs tracking-[0.22em] text-ink-muted hover:text-olive-800 uppercase rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">Confirme sua Presença</a>
-  </div>
+  </nav>
 </header>
 
 <script>
+  const navbar = document.getElementById('navbar');
   const navbarPill = document.getElementById('navbar-pill');
   const mobileToggle = document.getElementById('mobile-menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -70,6 +70,7 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
     if (!mobileMenu || !mobileToggle) return;
     mobileMenu.dataset.open = String(open);
     mobileToggle.setAttribute('aria-expanded', String(open));
+    mobileToggle.setAttribute('aria-label', open ? 'Fechar menu de navegação' : 'Abrir menu de navegação');
     line1?.classList.toggle('-translate-y-1', !open);
     line1?.classList.toggle('rotate-45', open);
     line2?.classList.toggle('translate-y-1', !open);
@@ -97,6 +98,19 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
     mobileMenu.querySelectorAll('.nav-link').forEach((link) => {
       link.addEventListener('click', () => setMenuOpen(false));
     });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.dataset.open === 'true') {
+        setMenuOpen(false);
+        mobileToggle.focus();
+      }
+    });
+
+    document.addEventListener('pointerdown', (e) => {
+      if (mobileMenu.dataset.open === 'true' && navbar && !navbar.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    });
   }
 
   // Scroll Spy nativo com IntersectionObserver para destacar a seção ativa
@@ -114,6 +128,11 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
               link.classList.toggle('text-olive-800', isActive);
               link.classList.toggle('font-medium', isActive);
               link.classList.toggle('text-ink-muted', !isActive);
+              if (isActive) {
+                link.setAttribute('aria-current', 'location');
+              } else {
+                link.removeAttribute('aria-current');
+              }
             });
           }
         });

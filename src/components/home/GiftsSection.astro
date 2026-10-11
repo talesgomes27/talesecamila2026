@@ -85,9 +85,11 @@ const freePixPayload = generatePixPayload({
       new CustomEvent('open-pix-modal', {
         detail: {
           title: 'Contribuição com Valor Livre',
-          priceFormatted: 'Valor livre no app do seu banco',
-          image: '/assets/svgs/leaf-icon.svg',
-          pixCode: customPixBtn.dataset.pixCode || ''
+          priceFormatted: 'Você define o valor no app do seu banco',
+          image: '/favicon.svg',
+          pixCode: customPixBtn.dataset.pixCode || '',
+          isFreeAmount: true,
+          triggerEl: customPixBtn
         }
       })
     );
@@ -111,7 +113,9 @@ const freePixPayload = generatePixPayload({
             title: card.dataset.title || '',
             priceFormatted: card.dataset.priceFormatted || '',
             image: cardImg?.currentSrc || cardImg?.src || '',
-            pixCode: card.dataset.pixCode || ''
+            pixCode: card.dataset.pixCode || '',
+            isFreeAmount: false,
+            triggerEl: target
           }
         })
       );

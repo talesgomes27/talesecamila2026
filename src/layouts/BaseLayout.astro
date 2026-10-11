@@ -92,10 +92,16 @@ const social = buildSocialMetadata({
   </noscript>
 </head>
 <body class="bg-linen-texture text-ink antialiased selection:bg-olive-100 selection:text-olive-900 min-h-screen flex flex-col">
+  <a
+    href="#main-content"
+    class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-5 focus:py-2.5 focus:rounded-full focus:bg-olive-900 focus:text-linen focus:font-sans focus:text-xs focus:uppercase focus:tracking-[0.18em] focus:shadow-lg"
+  >
+    Pular para o conteúdo principal
+  </a>
   <div class="editorial-grain" aria-hidden="true"></div>
   <Navbar />
   
-  <main class="flex-grow">
+  <main id="main-content" class="flex-grow">
     <slot />
   </main>
 
