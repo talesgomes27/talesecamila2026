@@ -223,40 +223,6 @@ const { ceremony } = Astro.props;
       </div>
     )}
 
-    <!-- Mapa Interativo sob Demanda (Fachada Click-to-Load em Double-Bezel — Economiza ~500KB no 4G) -->
-    <div class="double-bezel mb-14">
-      <div
-        id="ceremony-map-container"
-        data-embed-url={ceremony.mapsEmbedUrl}
-        class="double-bezel-core w-full h-72 md:h-96 overflow-hidden bg-linen-light relative flex flex-col items-center justify-center p-6 text-center"
-      >
-        <div id="ceremony-map-facade" class="max-w-md mx-auto flex flex-col items-center">
-          <div class="w-12 h-12 rounded-full bg-olive-900/[0.06] ring-1 ring-olive-900/10 flex items-center justify-center mb-3.5 text-olive-800" aria-hidden="true">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-            </svg>
-          </div>
-          <p class="font-serif text-xl sm:text-2xl text-olive-900 mb-1 font-normal">
-            {ceremony.venueName}
-          </p>
-          <p class="font-sans text-xs text-ink-subtle mb-5">
-            {ceremony.address} • Estacionamento na Orla do Rio Guamá
-          </p>
-          <button
-            type="button"
-            id="load-map-btn"
-            class="btn-pill min-h-[44px] px-6 py-2.5 bg-olive-800 hover:bg-olive-900 text-linen font-sans text-xs uppercase tracking-[0.16em] font-medium inline-flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
-            </svg>
-            <span>Carregar Mapa Interativo</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
     <!-- Guia do Convidado & Dúvidas Frequentes (Acordeão Editorial Nativo) -->
     {ceremony.faq && ceremony.faq.length > 0 && (
       <div id="ceremony-faq" class="max-w-3xl mx-auto text-left">
@@ -317,25 +283,3 @@ const { ceremony } = Astro.props;
 
   </div>
 </section>
-
-<script>
-  const mapContainer = document.getElementById('ceremony-map-container');
-  const loadMapBtn = document.getElementById('load-map-btn');
-
-  loadMapBtn?.addEventListener('click', () => {
-    const embedUrl = mapContainer?.dataset.embedUrl;
-    if (!mapContainer || !embedUrl) return;
-
-    const iframe = document.createElement('iframe');
-    iframe.id = 'ceremony-maps-iframe';
-    iframe.src = embedUrl;
-    iframe.className = 'w-full h-full border-0';
-    iframe.allowFullscreen = true;
-    iframe.loading = 'eager';
-    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups');
-    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-    iframe.title = 'Mapa do local do casamento';
-
-    mapContainer.replaceChildren(iframe);
-  });
-</script>
