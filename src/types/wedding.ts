@@ -33,6 +33,14 @@ export const FaqItemSchema = z.object({
   items: z.array(z.string().trim().min(3)).optional(),
 });
 
+export const TimelineItemSchema = z.object({
+  time: z.string().regex(/^\d{2}:\d{2}$/, { message: "Horário deve seguir o formato HH:MM" }),
+  title: z.string().trim().min(3),
+  description: z.string().trim().min(10),
+  icon: z.enum(['drink', 'heart', 'camera', 'utensils', 'party']),
+  highlight: z.boolean().optional(),
+});
+
 export const CeremonyInfoSchema = z.object({
   title: z.string().trim().min(3),
   venueName: z.string().trim().min(3),
@@ -44,6 +52,7 @@ export const CeremonyInfoSchema = z.object({
   mapsEmbedUrl: z.string().url({ message: "mapsEmbedUrl deve ser uma URL válida" }),
   mapsUrl: z.string().url({ message: "mapsUrl deve ser uma URL válida" }),
   wazeUrl: z.string().url({ message: "wazeUrl deve ser uma URL válida" }),
+  schedule: z.array(TimelineItemSchema).optional(),
   faq: z.array(FaqItemSchema).optional(),
 });
 
@@ -101,6 +110,7 @@ export type CoupleInfo = z.infer<typeof CoupleInfoSchema>;
 export type GalleryPhoto = z.infer<typeof GalleryPhotoSchema>;
 export type CoupleStory = z.infer<typeof CoupleStorySchema>;
 export type FaqItem = z.infer<typeof FaqItemSchema>;
+export type TimelineItem = z.infer<typeof TimelineItemSchema>;
 export type CeremonyInfo = z.infer<typeof CeremonyInfoSchema>;
 export type PixConfig = z.infer<typeof PixConfigSchema>;
 export type GiftItem = z.infer<typeof GiftItemSchema>;

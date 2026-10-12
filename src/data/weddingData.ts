@@ -49,10 +49,43 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
     mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d997.0542474066214!2d-47.485272!3d-1.623415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zAv.%20Lauro%20Sodr%C3%A9%2C%20187%20-%20S%C3%A3o%20Miguel%20do%20Guam%C3%A1%2C%20PA%2C%2068660-000!5e0!3m2!1spt-BR!2sbr!4v1789923462646!5m2!1spt-BR!2sbr",
     mapsUrl: "https://maps.app.goo.gl/ugTke1R91TTHsNFE9",
     wazeUrl: "https://waze.com/ul?ll=-1.623415,-47.485272&navigate=yes",
+    schedule: [
+      {
+        time: "16:30",
+        title: "Chegada dos Convidados",
+        description: "Recepção aconchegante à beira do Rio Guamá com música ambiente suave para acolher cada convidado.",
+        icon: "drink"
+      },
+      {
+        time: "17:00",
+        title: "Cerimônia Religiosa",
+        description: "A troca de votos e alianças celebrada sob a luz dourada do pôr do sol paraense.",
+        icon: "heart",
+        highlight: true
+      },
+      {
+        time: "18:30",
+        title: "Brinde & Sessão de Fotos",
+        description: "Celebração com todos os nossos convidados, eternizando sorrisos e abraços inesquecíveis.",
+        icon: "camera"
+      },
+      {
+        time: "19:30",
+        title: "Jantar Especial",
+        description: "Rodízio de pizzas quentinhas saindo do forno com o padrão de qualidade d'O Teimoso, a pizzaria pioneira de São Miguel do Guamá.",
+        icon: "utensils"
+      },
+      {
+        time: "21:30",
+        title: "Abertura da Pista & Festa",
+        description: "Muita música, dança e alegria para comemorar o início deste novo capítulo até o amanhecer.",
+        icon: "party"
+      }
+    ],
     faq: [
       {
         question: "Qual o melhor horário para chegar?",
-        answer: "Recomendamos chegar por volta das 16h15 para se acomodar com tranquilidade e aproveitar a luz dourada do pôr do sol às margens do Rio Guamá. Nossa cerimônia iniciará pontualmente às 16h30."
+        answer: "A recepção dos convidados começa pontualmente às 16h30 para que todos possam se acomodar com tranquilidade e aproveitar a luz dourada do pôr do sol às margens do Rio Guamá. Nossa cerimônia religiosa terá início às 17h00."
       },
       {
         question: "Qual é o traje recomendado?",
