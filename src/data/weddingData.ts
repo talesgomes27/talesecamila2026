@@ -56,7 +56,11 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
       },
       {
         question: "Qual é o traje recomendado?",
-        answer: "O traje é Casual Chique. Pedimos com carinho que evitem roupas em tons de verde e branco. Dica especial da noiva para as mulheres: como o terreno do espaço é arenoso, evitem vestidos longos e salto agulha — apostem no comprimento mídi e em salto bloco ou rasteira elegante!"
+        answer: "O traje é Casual Chique. Pedimos com carinho que evitem roupas em tons de verde e branco. Dica especial da noiva para as mulheres: como o terreno do espaço é arenoso, evitem vestido longo e salto agulha — apostem no comprimento mídi e em salto bloco ou rasteira elegante!"
+      },
+      {
+        question: "Posso levar acompanhantes ou crianças?",
+        answer: "Nossa celebração foi planejada de forma íntima e com lugares contados para recebermos com todo conforto cada pessoa querida. Por isso, o convite é estritamente pessoal — pedimos com muito carinho e compreensão que não levem acompanhantes extras (afinal, convidado não convida!). Caso precise levar crianças, pedimos a gentileza de informar a quantidade no campo de mensagem ao confirmar sua presença aqui pelo site ou diretamente pelo nosso WhatsApp."
       },
       {
         question: "Onde posso estacionar?",
