@@ -7,6 +7,7 @@ interface Props {
 }
 
 const { rsvp, whatsappFallback = "5591984611907" } = Astro.props;
+const accessKey = rsvp.accessKey || "bd3a85b6-ff5f-471e-b9ee-61afb91d7282";
 ---
 
 <section id="rsvp" class="py-24 md:py-32 bg-linen-light/70 border-t border-olive-900/[0.06] reveal-on-scroll">
@@ -28,7 +29,7 @@ const { rsvp, whatsappFallback = "5591984611907" } = Astro.props;
       </p>
     )}
 
-    <div id="rsvp-netlify-container" class="double-bezel text-left">
+    <div id="rsvp-form-container" class="double-bezel text-left">
       <div class="double-bezel-core p-6 sm:p-10">
         
         <!-- Mensagem de Sucesso (Oculta por padrão) -->
@@ -70,23 +71,21 @@ const { rsvp, whatsappFallback = "5591984611907" } = Astro.props;
           </div>
         </div>
 
-        <!-- Formulário HTML com suporte a Netlify Forms -->
+        <!-- Formulário HTML com suporte a Web3Forms -->
         <form 
           id="rsvp-form" 
           name="rsvp" 
           method="POST" 
-          action="/" 
-          data-netlify="true" 
-          netlify-honeypot="bot-field" 
+          action="https://api.web3forms.com/submit"
           data-whatsapp-phone={whatsappFallback}
           class="space-y-6"
         >
-          <input type="hidden" name="form-name" value="rsvp" />
+          <input type="hidden" name="access_key" value={accessKey} />
+          <input type="hidden" name="subject" value="Nova Confirmação de Presença (RSVP) - Casamento Tales & Camila" />
+          <input type="hidden" name="from_name" value="Site Tales & Camila 2026" />
           
-          <!-- Honeypot posicionado fora de tela para proteção contra bots -->
-          <div class="absolute -left-[9999px] top-auto opacity-0" aria-hidden="true" tabindex="-1">
-            <label>Não preencha se for humano: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
-          </div>
+          <!-- Proteção Anti-Spam (Honeypot) do Web3Forms -->
+          <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
 
           <!-- Nome Completo -->
           <div>
@@ -169,7 +168,7 @@ const { rsvp, whatsappFallback = "5591984611907" } = Astro.props;
       const formData = new FormData(form);
 
       // Defesa Honeypot + Tempo mínimo anti-bot (1.5s)
-      if (formData.get('bot-field') || Date.now() - loadedAt < 1500) return;
+      if (formData.get('botcheck') || Date.now() - loadedAt < 1500) return;
 
       // Sanitização e validação de fronteira
       const rawName = String(formData.get('name') || '').trim().replace(/\s+/g, ' ');
@@ -195,19 +194,18 @@ const { rsvp, whatsappFallback = "5591984611907" } = Astro.props;
       errorFeedback?.classList.add('hidden');
 
       try {
-        const body = new URLSearchParams({
-          'form-name': 'rsvp',
-          name: rawName.slice(0, 100),
-          message: rawMessage.slice(0, 500)
-        }).toString();
-
-        const response = await fetch('/', {
+        const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body
+          headers: {
+            'Accept': 'application/json'
+          },
+          body: formData
         });
 
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        if (!response.ok || !data.success) {
+          throw new Error(data.message || `HTTP ${response.status}`);
+        }
 
         sessionStorage.setItem('rsvp_submitted', rawName.toLowerCase());
         navigator.vibrate?.(15);

@@ -82,6 +82,7 @@ export const RsvpConfigSchema = z.object({
   title: z.string().trim().min(3),
   subtitle: z.string().trim().min(3),
   deadlineText: z.string().trim().min(5),
+  accessKey: z.string().optional(),
 });
 
 export const MetaConfigSchema = z.object({
