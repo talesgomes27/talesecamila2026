@@ -162,6 +162,50 @@ const accessKey = rsvp.accessKey || "bd3a85b6-ff5f-471e-b9ee-61afb91d7282";
     }, 120);
   }
 
+  async function triggerRsvpCelebration() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    try {
+      const confetti = (await import('canvas-confetti')).default;
+      const colors = ['#9E9368', '#C5BC97', '#3B573D', '#2B412D', '#FAF8F5'];
+
+      // Disparo em arco suave (chuva de pétalas e ouro)
+      confetti({
+        particleCount: 50,
+        spread: 70,
+        origin: { y: 0.65 },
+        colors,
+        scalar: 1.1,
+        ticks: 200,
+        disableForReducedMotion: true
+      });
+
+      // Toque sutil complementar lateral após 200ms
+      setTimeout(() => {
+        confetti({
+          particleCount: 25,
+          angle: 60,
+          spread: 50,
+          origin: { x: 0.2, y: 0.7 },
+          colors,
+          ticks: 200,
+          disableForReducedMotion: true
+        });
+        confetti({
+          particleCount: 25,
+          angle: 120,
+          spread: 50,
+          origin: { x: 0.8, y: 0.7 },
+          colors,
+          ticks: 200,
+          disableForReducedMotion: true
+        });
+      }, 200);
+    } catch {
+      // Degradação graciosa silenciosa se o canvas for bloqueado
+    }
+  }
+
   if (form) {
     retryBtn?.addEventListener('click', () => {
       errorFeedback?.classList.add('hidden');
@@ -233,6 +277,7 @@ const accessKey = rsvp.accessKey || "bd3a85b6-ff5f-471e-b9ee-61afb91d7282";
         successFeedback?.classList.remove('hidden');
         successFeedback?.focus();
         window.dispatchEvent(new CustomEvent('site-toast', { detail: { message: 'Presença confirmada com sucesso! ✓' } }));
+        void triggerRsvpCelebration();
       } catch {
         form.classList.add('hidden');
         errorFeedback?.classList.remove('hidden');
