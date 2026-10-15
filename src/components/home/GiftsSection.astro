@@ -70,12 +70,65 @@ const freePixPayload = generatePixPayload({
       <GiftCard gift={gift} pix={pix} />
     ))}
   </div>
+
+  <!-- Botão Ver Mais Presentes (Expansão Progressiva Mobile/Desktop) -->
+  <div id="gifts-load-more-container" class="mt-12 text-center hidden">
+    <button
+      id="gifts-load-more-btn"
+      type="button"
+      class="btn-pill min-h-[44px] px-8 py-3 bg-linen hover:bg-linen-dark text-olive-900 ring-1 ring-olive-900/15 font-sans text-xs uppercase tracking-[0.16em] font-medium inline-flex items-center justify-center gap-2 cursor-pointer transition-colors"
+    >
+      <span>Ver mais opções</span>
+      <span id="gifts-load-more-count" class="tabular-nums"></span>
+      <svg class="w-4 h-4 text-olive-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </button>
+  </div>
 </section>
 
 <script>
   const grid = document.getElementById('gifts-grid');
   const sortSelect = document.getElementById('gifts-sort-select') as HTMLSelectElement | null;
   const customPixBtn = document.getElementById('custom-pix-btn');
+  const loadMoreContainer = document.getElementById('gifts-load-more-container');
+  const loadMoreBtn = document.getElementById('gifts-load-more-btn');
+  const loadMoreCount = document.getElementById('gifts-load-more-count');
+  const INITIAL_LIMIT = 9;
+  let isExpanded = false;
+
+  function updateVisibility(animateNew = false) {
+    if (!grid) return;
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>('.gift-card'));
+    cards.forEach((card, index) => {
+      if (!isExpanded && index >= INITIAL_LIMIT) {
+        card.classList.add('hidden');
+      } else {
+        const wasHidden = card.classList.contains('hidden');
+        card.classList.remove('hidden');
+        if (animateNew && wasHidden && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'animate' in card) {
+          card.animate(
+            [
+              { opacity: 0, transform: 'translateY(12px)' },
+              { opacity: 1, transform: 'translateY(0)' }
+            ],
+            { duration: 250, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }
+          );
+        }
+      }
+    });
+
+    if (loadMoreContainer) {
+      if (isExpanded || cards.length <= INITIAL_LIMIT) {
+        loadMoreContainer.classList.add('hidden');
+      } else {
+        loadMoreContainer.classList.remove('hidden');
+        if (loadMoreCount) {
+          loadMoreCount.textContent = `(+${cards.length - INITIAL_LIMIT})`;
+        }
+      }
+    }
+  }
 
   customPixBtn?.addEventListener('click', () => {
     window.dispatchEvent(
@@ -94,6 +147,14 @@ const freePixPayload = generatePixPayload({
 
   if (grid) {
     const cards = Array.from(grid.querySelectorAll<HTMLElement>('.gift-card'));
+
+    // Configura corte inicial dos cartões para reduzir fadiga de rolagem
+    updateVisibility();
+
+    loadMoreBtn?.addEventListener('click', () => {
+      isExpanded = true;
+      updateVisibility(true);
+    });
 
     grid.addEventListener('click', (e) => {
       const target = (e.target as HTMLElement).closest<HTMLElement>('.presentear-btn');
@@ -131,6 +192,7 @@ const freePixPayload = generatePixPayload({
       }
 
       sorted.forEach(card => grid.appendChild(card));
+      updateVisibility();
 
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'animate' in grid) {
         grid.animate(

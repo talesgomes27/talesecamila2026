@@ -110,10 +110,29 @@ const { pix, coupleNames } = Astro.props;
       </div>
 
       <!-- Detalhes do Favorecido -->
-      <div class="text-xs text-ink-muted bg-linen-light/70 p-4 rounded-xl ring-1 ring-olive-900/[0.06] space-y-1 font-light">
-        <p><span class="font-medium text-olive-900">Beneficiário:</span> <span id="pix-recipient-name">{pix.recipientName}</span></p>
-        <p><span class="font-medium text-olive-900">Banco:</span> <span id="pix-bank-name">{pix.bank}</span></p>
-        <p><span class="font-medium text-olive-900">Chave PIX:</span> <span id="pix-key-display">{pix.key}</span></p>
+      <div class="text-xs text-ink-muted bg-linen-light/70 p-4 rounded-xl ring-1 ring-olive-900/[0.06] space-y-2 font-light">
+        <div class="flex flex-wrap items-center justify-between gap-1">
+          <p><span class="font-medium text-olive-900">Beneficiário:</span> <span id="pix-recipient-name">{pix.recipientName}</span></p>
+          <p><span class="font-medium text-olive-900">Banco:</span> <span id="pix-bank-name">{pix.bank}</span></p>
+        </div>
+        <div class="flex items-center justify-between gap-2 pt-2 border-t border-olive-900/[0.06]">
+          <div class="min-w-0 flex-1 truncate">
+            <span class="font-medium text-olive-900 block sm:inline">Chave PIX (Aleatória):</span>
+            <span id="pix-key-display" class="font-mono text-[11px] block sm:inline sm:ml-1 text-ink-subtle select-all truncate">{pix.key}</span>
+          </div>
+          <button
+            type="button"
+            id="pix-copy-raw-key-btn"
+            title="Copiar apenas a chave PIX"
+            aria-label="Copiar apenas a chave PIX aleatória"
+            class="min-h-[36px] px-3 py-1.5 bg-white hover:bg-linen text-olive-900 ring-1 ring-olive-900/15 rounded-lg font-sans text-[11px] uppercase tracking-[0.12em] font-medium inline-flex items-center gap-1.5 flex-shrink-0 cursor-pointer active:scale-95 transition-transform"
+          >
+            <svg class="w-3.5 h-3.5 text-olive-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/>
+            </svg>
+            <span id="pix-copy-raw-key-text">Copiar chave</span>
+          </button>
+        </div>
       </div>
 
       <!-- Área de Envio de Recado via WhatsApp (Inputs com Labels Semânticos + Zero Auto-Zoom iOS) -->
@@ -215,6 +234,8 @@ const { pix, coupleNames } = Astro.props;
   const closeBtn = document.getElementById('pix-modal-close');
   const copyBtn = document.getElementById('pix-copy-btn') as HTMLButtonElement | null;
   const copyBtnContent = document.getElementById('pix-copy-btn-content');
+  const copyRawKeyBtn = document.getElementById('pix-copy-raw-key-btn');
+  const copyRawKeyText = document.getElementById('pix-copy-raw-key-text');
   const pixInput = document.getElementById('pix-copy-input') as HTMLInputElement | null;
   const sendWhatsappBtn = document.getElementById('pix-send-whatsapp-btn');
 
@@ -238,6 +259,23 @@ const { pix, coupleNames } = Astro.props;
   modal?.addEventListener('close', () => {
     if (lastTriggerEl && typeof lastTriggerEl.focus === 'function') {
       lastTriggerEl.focus();
+    }
+  });
+
+  // Copiar apenas a chave PIX avulsa (Facilita Jordan e convidados em apps bancários tradicionais)
+  copyRawKeyBtn?.addEventListener('click', async () => {
+    const rawKey = modal?.dataset.pixKey || '';
+    if (!rawKey) return;
+    try {
+      await navigator.clipboard.writeText(rawKey);
+      navigator.vibrate?.(15);
+      window.dispatchEvent(new CustomEvent('site-toast', { detail: { message: 'Chave PIX copiada! ✓' } }));
+      if (copyRawKeyText) copyRawKeyText.textContent = 'Copiado!';
+      setTimeout(() => {
+        if (copyRawKeyText) copyRawKeyText.textContent = 'Copiar chave';
+      }, 2400);
+    } catch {
+      window.dispatchEvent(new CustomEvent('site-toast', { detail: { message: 'Selecione e copie a chave manualmente.' } }));
     }
   });
 

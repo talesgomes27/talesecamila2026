@@ -22,7 +22,7 @@ export default {
         gold: {
           accent: '#9E9368',
           light: '#C5BC97',
-          text: '#685D36'
+          text: '#524622'
         },
         ink: {
           DEFAULT: '#1E241F',
