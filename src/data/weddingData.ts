@@ -132,6 +132,34 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
       image: "/assets/imagens/presentes/01-deus-tocou.jpg"
     },
     {
+      id: 5,
+      title: "Passeio de barco ao pôr do sol, lua de mel",
+      description: "Para brindarmos ao início dessa nova jornada com um cenário cinematográfico.",
+      price: 520.00,
+      image: "/assets/imagens/presentes/05-passeio-barco.jpg"
+    },
+    {
+      id: 10,
+      title: "Cota de Padrinho",
+      description: "Uma bênção e contribuição especial dos padrinhos queridos para marcar o início dessa nova etapa!",
+      price: 950.00,
+      image: "/assets/imagens/presentes/10-padrinho.jpg"
+    },
+    {
+      id: 14,
+      title: "Open de engov para a festa",
+      description: "Garantindo a dignidade e a animação de todos os convidados durante e após a comemoração!",
+      price: 180.00,
+      image: "/assets/imagens/presentes/14-open-engov.jpg"
+    },
+    {
+      id: 24,
+      title: "Primeiro lugar a ser servido pelo garçom no rodízio",
+      description: "Acesso VIP garantido à primeira rodada de pizza quentinha saindo do forno d'O Teimoso!",
+      price: 120.00,
+      image: "/assets/imagens/presentes/24-primeiro-rodizio.jpg"
+    },
+    {
       id: 2,
       title: "Ajuda para a aposentadoria dos noivos",
       description: "Garantindo nosso cafezinho e tranquilidade para quando ficarmos velhinhos juntos.",
@@ -151,13 +179,6 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
       description: "Uma noite inesquecível com vista para o mar e o melhor da gastronomia local.",
       price: 350.00,
       image: "/assets/imagens/presentes/04-jantar-romantico.jpg"
-    },
-    {
-      id: 5,
-      title: "Passeio de barco ao pôr do sol, lua de mel",
-      description: "Para brindarmos ao início dessa nova jornada com um cenário cinematográfico.",
-      price: 520.00,
-      image: "/assets/imagens/presentes/05-passeio-barco.jpg"
     },
     {
       id: 6,
@@ -188,13 +209,6 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
       image: "/assets/imagens/presentes/09-champanhe.jpg"
     },
     {
-      id: 10,
-      title: "Cota de Padrinho",
-      description: "Uma bênção e contribuição especial dos padrinhos queridos para marcar o início dessa nova etapa!",
-      price: 950.00,
-      image: "/assets/imagens/presentes/10-padrinho.jpg"
-    },
-    {
       id: 11,
       title: "Curso de Culinária para a noiva",
       description: "Para a noiva preparar banquetes maravilhosos (ou pelo menos garantir que o arroz não queime)!",
@@ -214,13 +228,6 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
       description: "Um mimo especial e charmoso para a mala da lua de mel ficar completa!",
       price: 120.00,
       image: "/assets/imagens/presentes/13-lingerie-noiva.jpg"
-    },
-    {
-      id: 14,
-      title: "Open de engov para a festa",
-      description: "Garantindo a dignidade e a animação de todos os convidados durante e após a comemoração!",
-      price: 180.00,
-      image: "/assets/imagens/presentes/14-open-engov.jpg"
     },
     {
       id: 15,
@@ -284,13 +291,6 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
       description: "Seguro de emergência e alívio imediato para manter a paz no relacionamento por mais um ano!",
       price: 250.00,
       image: "/assets/imagens/presentes/23-anti-buque.jpg"
-    },
-    {
-      id: 24,
-      title: "Primeiro lugar a ser servido pelo garçom no rodízio",
-      description: "Acesso VIP garantido à primeira rodada de pizza quentinha saindo do forno d'O Teimoso!",
-      price: 120.00,
-      image: "/assets/imagens/presentes/24-primeiro-rodizio.jpg"
     }
   ],
 

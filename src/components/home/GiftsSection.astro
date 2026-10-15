@@ -147,6 +147,9 @@ const freePixPayload = generatePixPayload({
 
   if (grid) {
     const cards = Array.from(grid.querySelectorAll<HTMLElement>('.gift-card'));
+    cards.forEach((card, idx) => {
+      card.dataset.initialOrder = String(idx);
+    });
 
     // Configura corte inicial dos cartões para reduzir fadiga de rolagem
     updateVisibility();
@@ -188,7 +191,7 @@ const freePixPayload = generatePixPayload({
       } else if (value === 'price-desc') {
         sorted.sort((a, b) => parseFloat(b.dataset.price || '0') - parseFloat(a.dataset.price || '0'));
       } else {
-        sorted.sort((a, b) => Number(a.dataset.id || 0) - Number(b.dataset.id || 0));
+        sorted.sort((a, b) => Number(a.dataset.initialOrder || 0) - Number(b.dataset.initialOrder || 0));
       }
 
       sorted.forEach(card => grid.appendChild(card));
