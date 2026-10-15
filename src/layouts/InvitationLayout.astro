@@ -99,15 +99,18 @@ const social = buildSocialMetadata({
       font-family: 'Montserrat', system-ui, sans-serif;
       background-color: #F3EFEA;
       background-image:
+        radial-gradient(at 50% 18%, rgba(158, 147, 104, 0.12) 0px, transparent 60%),
         radial-gradient(at 20% 15%, rgba(158, 147, 104, 0.08) 0px, transparent 50%),
         radial-gradient(#E5DFD5 0.65px, transparent 0.65px);
-      background-size: 100% 100%, 24px 24px;
+      background-size: 100% 100%, 100% 100%, 24px 24px;
       color: #1E241F;
     }
 
     .card-border {
-      border: 1px solid rgba(158, 147, 104, 0.35);
-      box-shadow: 0 32px 64px -20px rgba(29, 44, 30, 0.14), 0 8px 24px -8px rgba(29, 44, 30, 0.05);
+      border: 1px solid rgba(158, 147, 104, 0.45);
+      box-shadow: 
+        0 32px 64px -20px rgba(29, 44, 30, 0.16), 
+        0 12px 28px -10px rgba(29, 44, 30, 0.07);
       position: relative;
     }
 
@@ -115,9 +118,28 @@ const social = buildSocialMetadata({
       content: "";
       position: absolute;
       inset: 8px;
-      border: 1px solid rgba(158, 147, 104, 0.35);
+      border: 1px solid rgba(158, 147, 104, 0.38);
       border-radius: calc(2rem - 8px);
+      box-shadow: 
+        inset 0 1px 3px rgba(29, 44, 30, 0.04), 
+        inset 0 0 0 1px rgba(255, 255, 255, 0.45);
       pointer-events: none;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .invitation-card {
+        animation: card-appear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      @keyframes card-appear {
+        from {
+          opacity: 0;
+          transform: translateY(12px) scale(0.99);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
     }
 
     @media print {
@@ -130,10 +152,12 @@ const social = buildSocialMetadata({
       }
       .invitation-card {
         box-shadow: none !important;
-        border: 1px solid #B0A795 !important;
+        border: 1px solid #9E9368 !important;
         max-width: 100% !important;
         margin: 0 auto !important;
         page-break-inside: avoid;
+        animation: none !important;
+        transform: none !important;
       }
     }
   </style>
