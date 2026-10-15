@@ -298,7 +298,8 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
     title: "Confirmação de Presença",
     subtitle: "Sua presença é muito importante para nós!",
     deadlineText: "Por favor, confirme sua presença até o dia 04 de Dezembro de 2026.",
-    accessKey: "bd3a85b6-ff5f-471e-b9ee-61afb91d7282"
+    accessKey: "bd3a85b6-ff5f-471e-b9ee-61afb91d7282",
+    sheetsWebhookUrl: ""
   },
 
   meta: {

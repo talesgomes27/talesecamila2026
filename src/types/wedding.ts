@@ -83,6 +83,7 @@ export const RsvpConfigSchema = z.object({
   subtitle: z.string().trim().min(3),
   deadlineText: z.string().trim().min(5),
   accessKey: z.string().optional(),
+  sheetsWebhookUrl: z.string().url({ message: "sheetsWebhookUrl deve ser uma URL válida" }).optional().or(z.literal('')),
 });
 
 export const MetaConfigSchema = z.object({
