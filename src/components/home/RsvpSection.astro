@@ -85,7 +85,7 @@ const accessKey = rsvp.accessKey || "bd3a85b6-ff5f-471e-b9ee-61afb91d7282";
           <input type="hidden" name="from_name" value="Site Tales & Camila 2026" />
           
           <!-- Proteção Anti-Spam (Honeypot) do Web3Forms -->
-          <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
+          <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
           <!-- Nome Completo -->
           <div>
@@ -97,11 +97,12 @@ const accessKey = rsvp.accessKey || "bd3a85b6-ff5f-471e-b9ee-61afb91d7282";
               id="rsvp-name" 
               name="name" 
               required 
+              aria-required="true"
               minlength="3"
               maxlength="100"
               autocomplete="name"
               placeholder="Ex.: Maria Clara"
-              class="w-full font-sans text-base sm:text-sm min-h-[48px] px-4 py-3.5 rounded-2xl ring-1 ring-olive-900/10 bg-linen/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-olive-700 transition-colors"
+              class="w-full font-sans text-base sm:text-sm min-h-[48px] px-4 py-3.5 rounded-2xl ring-1 ring-olive-900/10 bg-linen/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-olive-700 transition-colors placeholder:text-[#5F6359]"
             />
           </div>
 
@@ -116,7 +117,7 @@ const accessKey = rsvp.accessKey || "bd3a85b6-ff5f-471e-b9ee-61afb91d7282";
               rows="3" 
               maxlength="500"
               placeholder="Deixe um recado especial para Tales e Camila..."
-              class="w-full font-sans text-base sm:text-sm px-4 py-3.5 rounded-2xl ring-1 ring-olive-900/10 bg-linen/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-olive-700 transition-colors resize-none"
+              class="w-full font-sans text-base sm:text-sm px-4 py-3.5 rounded-2xl ring-1 ring-olive-900/10 bg-linen/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-olive-700 transition-colors resize-none placeholder:text-[#5F6359]"
             ></textarea>
           </div>
 

@@ -53,7 +53,14 @@ const { pix, coupleNames } = Astro.props;
       
       <!-- Resumo do Presente Selecionado -->
       <div class="flex items-center gap-4 p-4 rounded-2xl bg-linen/80 ring-1 ring-olive-900/[0.08]">
-        <img id="pix-modal-gift-img" src="" alt="" class="w-16 h-16 rounded-xl object-cover ring-1 ring-black/5 flex-shrink-0" />
+        <img 
+          id="pix-modal-gift-img" 
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" 
+          alt="Foto do presente selecionado" 
+          width="64"
+          height="64"
+          class="w-16 h-16 rounded-xl object-cover ring-1 ring-black/5 flex-shrink-0" 
+        />
         <div class="flex-1 min-w-0">
           <h4 id="pix-modal-gift-title" class="font-serif text-base sm:text-lg text-olive-900 font-normal truncate"></h4>
           <p id="pix-modal-gift-price" class="font-serif text-xl sm:text-2xl font-normal text-gold-text"></p>
@@ -69,7 +76,14 @@ const { pix, coupleNames } = Astro.props;
           Aponte a câmera do app do seu banco para o QR Code ou use o código abaixo:
         </p>
         <div class="inline-flex justify-center items-center min-h-[176px] sm:min-h-[190px] p-3 bg-white rounded-2xl ring-1 ring-olive-900/10 mx-auto">
-          <img id="pix-qrcode-img" src="" alt="QR Code PIX para pagamento" width="190" height="190" class="w-[170px] h-[170px] sm:w-[190px] sm:h-[190px] mx-auto rounded-lg" />
+          <img 
+            id="pix-qrcode-img" 
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" 
+            alt="QR Code PIX para pagamento" 
+            width="190" 
+            height="190" 
+            class="w-[170px] h-[170px] sm:w-[190px] sm:h-[190px] mx-auto rounded-lg" 
+          />
         </div>
       </div>
 
@@ -116,7 +130,7 @@ const { pix, coupleNames } = Astro.props;
               placeholder="Seu nome (ex.: Tio Carlos e família)" 
               maxlength="80"
               autocomplete="name"
-              class="w-full font-sans text-base sm:text-xs min-h-[48px] px-4 py-3 rounded-xl ring-1 ring-olive-900/10 bg-linen focus:bg-white focus:ring-olive-700 transition-colors"
+              class="w-full font-sans text-base sm:text-xs min-h-[48px] px-4 py-3 rounded-xl ring-1 ring-olive-900/10 bg-linen focus:bg-white focus:ring-olive-700 transition-colors placeholder:text-[#5F6359]"
             />
           </div>
           <div>
@@ -126,7 +140,7 @@ const { pix, coupleNames } = Astro.props;
               rows="2" 
               maxlength="400"
               placeholder="Escreva uma mensagem especial de felicitações..." 
-              class="w-full font-sans text-base sm:text-xs px-4 py-3 rounded-xl ring-1 ring-olive-900/10 bg-linen focus:bg-white focus:ring-olive-700 transition-colors resize-none"
+              class="w-full font-sans text-base sm:text-xs px-4 py-3 rounded-xl ring-1 ring-olive-900/10 bg-linen focus:bg-white focus:ring-olive-700 transition-colors resize-none placeholder:text-[#5F6359]"
             ></textarea>
           </div>
           <button 
@@ -287,7 +301,10 @@ const { pix, coupleNames } = Astro.props;
 
     if (titleEl) titleEl.textContent = activeGift.title;
     if (priceEl) priceEl.textContent = activeGift.priceFormatted;
-    if (imgEl) imgEl.src = activeGift.image;
+    if (imgEl) {
+      imgEl.src = activeGift.image;
+      imgEl.alt = activeGift.title ? `Foto de ${activeGift.title}` : 'Foto do presente selecionado';
+    }
     if (pixInput) pixInput.value = activeGift.pixCode;
     if (guestNameInput) guestNameInput.value = '';
     if (guestMessageInput) guestMessageInput.value = '';

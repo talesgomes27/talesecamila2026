@@ -38,7 +38,7 @@ html {
 
   /* Eyebrow Tag Editorial */
   .eyebrow-tag {
-    @apply inline-flex items-center gap-2 rounded-full px-3.5 py-1 text-[10px] font-sans uppercase tracking-[0.24em] font-medium text-olive-700 bg-olive-900/[0.04] ring-1 ring-olive-900/[0.08];
+    @apply inline-flex items-center gap-2 rounded-full px-3.5 py-1 text-[11px] font-sans uppercase tracking-[0.24em] font-medium text-olive-700 bg-olive-900/[0.04] ring-1 ring-olive-900/[0.08];
   }
 }
 
@@ -199,15 +199,36 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  /* Anular translações e animações espaciais preservando legibilidade e estados */
   .stagger-item,
   .reveal-on-scroll {
     opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .organic-hero-frame,
+  .hover-lift,
+  .hover-lift:hover,
+  .btn-pill,
+  .btn-pill:hover,
+  .btn-pill:active {
+    transform: none !important;
+  }
+
+  dialog,
+  dialog[open] {
     transform: none !important;
   }
 }

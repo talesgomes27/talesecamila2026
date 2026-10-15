@@ -22,12 +22,12 @@ export default {
         gold: {
           accent: '#9E9368',
           light: '#C5BC97',
-          text: '#756A43'
+          text: '#685D36'
         },
         ink: {
           DEFAULT: '#1E241F',
           muted: '#5C5A54',
-          subtle: '#6E6A63'
+          subtle: '#625E57'
         }
       },
       fontFamily: {
