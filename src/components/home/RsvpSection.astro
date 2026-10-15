@@ -35,7 +35,16 @@ const accessKey = rsvp.accessKey || "bd3a85b6-ff5f-471e-b9ee-61afb91d7282";
             </svg>
           </div>
           <h3 class="font-serif text-2xl sm:text-3xl text-olive-900 mb-2 font-normal">Presença Confirmada!</h3>
-          <p class="font-sans text-sm text-ink-muted font-light">Que alegria ter você conosco! Recebemos sua confirmação com todo carinho. Nos vemos no grande dia!</p>
+          <p class="font-sans text-sm text-ink-muted font-light mb-6">Que alegria ter você conosco! Recebemos sua confirmação com todo carinho. Nos vemos no grande dia!</p>
+          <div>
+            <button 
+              id="rsvp-add-another-btn" 
+              type="button" 
+              class="btn-pill min-h-[44px] px-6 py-2.5 bg-linen hover:bg-linen-dark text-olive-900 ring-1 ring-olive-900/15 font-sans text-xs uppercase tracking-[0.16em] font-medium inline-flex items-center justify-center cursor-pointer"
+            >
+              Confirmar outro convidado
+            </button>
+          </div>
         </div>
 
         <!-- Mensagem de Erro de Conexão (Oculta por padrão) -->
@@ -111,7 +120,7 @@ const accessKey = rsvp.accessKey || "bd3a85b6-ff5f-471e-b9ee-61afb91d7282";
               name="message" 
               rows="3" 
               maxlength="500"
-              placeholder="Deixe um recado especial para Tales e Camila..."
+              placeholder="Deixe um recado especial para Tales e Camila (caso vá levar crianças, informe aqui a quantidade)..."
               class="w-full font-sans text-base sm:text-sm px-4 py-3.5 rounded-2xl ring-1 ring-olive-900/10 bg-linen/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-olive-700 transition-colors resize-none placeholder:text-[#5F6359]"
             ></textarea>
           </div>
@@ -138,6 +147,7 @@ const accessKey = rsvp.accessKey || "bd3a85b6-ff5f-471e-b9ee-61afb91d7282";
   const successFeedback = document.getElementById('rsvp-success-message');
   const errorFeedback = document.getElementById('rsvp-error-message');
   const retryBtn = document.getElementById('rsvp-retry-btn');
+  const addAnotherBtn = document.getElementById('rsvp-add-another-btn');
   const whatsappFallback = document.getElementById('rsvp-whatsapp-fallback') as HTMLAnchorElement | null;
   const submitBtn = document.getElementById('rsvp-submit-btn') as HTMLButtonElement | null;
   const submitContent = document.getElementById('rsvp-submit-content');
@@ -159,6 +169,13 @@ const accessKey = rsvp.accessKey || "bd3a85b6-ff5f-471e-b9ee-61afb91d7282";
       nameInput?.focus();
     });
 
+    addAnotherBtn?.addEventListener('click', () => {
+      successFeedback?.classList.add('hidden');
+      form.reset();
+      form.classList.remove('hidden');
+      nameInput?.focus();
+    });
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const formData = new FormData(form);
@@ -176,7 +193,8 @@ const accessKey = rsvp.accessKey || "bd3a85b6-ff5f-471e-b9ee-61afb91d7282";
       }
 
       // Cooldown contra duplo envio
-      if (sessionStorage.getItem('rsvp_submitted') === rawName.toLowerCase()) {
+      const submittedList = (sessionStorage.getItem('rsvp_submitted_list') || '').split('|').filter(Boolean);
+      if (sessionStorage.getItem('rsvp_submitted') === rawName.toLowerCase() || submittedList.includes(rawName.toLowerCase())) {
         form.classList.add('hidden');
         successFeedback?.classList.remove('hidden');
         successFeedback?.focus();
@@ -203,6 +221,11 @@ const accessKey = rsvp.accessKey || "bd3a85b6-ff5f-471e-b9ee-61afb91d7282";
           throw new Error(data.message || `HTTP ${response.status}`);
         }
 
+        const updatedList = (sessionStorage.getItem('rsvp_submitted_list') || '').split('|').filter(Boolean);
+        if (!updatedList.includes(rawName.toLowerCase())) {
+          updatedList.push(rawName.toLowerCase());
+          sessionStorage.setItem('rsvp_submitted_list', updatedList.join('|'));
+        }
         sessionStorage.setItem('rsvp_submitted', rawName.toLowerCase());
         navigator.vibrate?.(15);
         form.reset();
