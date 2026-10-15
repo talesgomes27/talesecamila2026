@@ -13,11 +13,6 @@ const { ceremony } = Astro.props;
 
 <section id="cerimonia" class="py-24 md:py-32 bg-linen-light/70 border-y border-olive-900/[0.06] reveal-on-scroll">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <!-- Eyebrow Capítulo II -->
-    <div class="mb-4">
-      <span class="eyebrow-tag">Cap. II • A Celebração</span>
-    </div>
-
     <h2 class="font-serif text-4xl md:text-5xl text-olive-900 tracking-[-0.02em] mb-12 font-normal">
       {ceremony.title}
     </h2>
@@ -140,9 +135,6 @@ const { ceremony } = Astro.props;
     {ceremony.schedule && ceremony.schedule.length > 0 && (
       <div id="ceremony-schedule" class="max-w-3xl mx-auto mb-16 pt-2">
         <div class="text-center mb-10">
-          <p class="font-serif italic text-lg sm:text-xl text-gold-text mb-1">
-            Programação
-          </p>
           <h3 class="font-serif text-3xl sm:text-4xl text-olive-900 tracking-[-0.02em] font-normal mb-2">
             Cronograma do Grande Dia
           </h3>
@@ -227,7 +219,6 @@ const { ceremony } = Astro.props;
     {ceremony.faq && ceremony.faq.length > 0 && (
       <div id="ceremony-faq" class="max-w-3xl mx-auto text-left">
         <div class="text-center mb-8">
-          <span class="eyebrow-tag mb-2">Dicas & Logística</span>
           <h3 class="font-serif text-2xl sm:text-3xl text-olive-900 tracking-[-0.015em] font-normal">
             Guia Rápido para Convidados
           </h3>
