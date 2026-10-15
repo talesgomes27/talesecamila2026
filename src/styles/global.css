@@ -250,14 +250,38 @@ input, textarea {
   }
 }
 
-/* Textura suave de linho/papel de casamento */
+/* Textura suave de linho/papel de casamento com iluminação solar atmosférica */
 .bg-linen-texture {
   background-color: #FAF8F5;
   background-image:
-    radial-gradient(at 15% 10%, rgba(158, 147, 104, 0.05) 0px, transparent 50%),
-    radial-gradient(at 85% 90%, rgba(76, 110, 78, 0.05) 0px, transparent 50%),
-    radial-gradient(#E8E3D9 0.65px, transparent 0.65px);
-  background-size: 100% 100%, 100% 100%, 28px 28px;
+    radial-gradient(ellipse at 85% 5%, rgba(197, 188, 151, 0.16) 0%, transparent 48%),
+    radial-gradient(ellipse at 10% 25%, rgba(94, 135, 96, 0.08) 0%, transparent 45%),
+    radial-gradient(ellipse at 90% 75%, rgba(158, 147, 104, 0.12) 0%, transparent 45%),
+    radial-gradient(ellipse at 15% 85%, rgba(76, 110, 78, 0.09) 0%, transparent 50%),
+    radial-gradient(#E5DFD3 0.7px, transparent 0.7px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 26px 26px;
+}
+
+/* Reflexo sutil de luz solar (sheen) em botões primários */
+.btn-pill-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-pill-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  pointer-events: none;
+  transition: transform 0.6s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-pill-shimmer:hover::after {
+    transform: translateX(100%);
+  }
 }
 
 /* Overlay fixo de granulação fina de papel (GPU-safe: tile repetido de 180x180px) */
@@ -281,13 +305,18 @@ input, textarea {
 /* Moldura Orgânica / Pincelada Artística para Foto Hero */
 .organic-hero-frame {
   border-radius: 54% 46% 62% 38% / 48% 58% 42% 52%;
-  box-shadow: 0 24px 54px -16px rgba(29, 44, 30, 0.20), 0 8px 20px -6px rgba(0, 0, 0, 0.04);
+  box-shadow: 
+    0 24px 54px -16px rgba(29, 44, 30, 0.22), 
+    0 8px 20px -6px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(158, 147, 104, 0.3);
 }
 
 /* Moldura Orgânica dos Perfis dos Noivos */
 .organic-profile-frame {
   border-radius: 60% 40% 55% 45% / 45% 55% 45% 55%;
-  box-shadow: 0 16px 36px -10px rgba(29, 44, 30, 0.16);
+  box-shadow: 
+    0 16px 36px -10px rgba(29, 44, 30, 0.16),
+    0 0 0 1px rgba(158, 147, 104, 0.35);
 }
 
 .organic-profile-frame img {

@@ -53,18 +53,18 @@ const { ceremony } = Astro.props;
           </p>
 
           <!-- Informações de Traje & Dica da Noiva (Double-Bezel Interno) -->
-          <div class="my-8 p-5 sm:p-6 rounded-2xl bg-linen/70 ring-1 ring-olive-900/[0.08] text-center max-w-lg mx-auto space-y-3">
+          <div class="my-8 p-6 sm:p-7 rounded-2xl bg-linen/90 ring-1 ring-gold-accent/40 shadow-xs text-center max-w-lg mx-auto space-y-3.5">
             <div>
-              <span class="inline-block font-sans text-xs font-medium uppercase tracking-[0.2em] text-olive-900">
+              <span class="inline-block font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-900">
                 Traje: Casual Chique
               </span>
               <p class="font-serif italic text-sm text-ink-muted mt-1">
                 (Pedimos a gentileza de não usar trajes em tons de verde e/ou branco)
               </p>
             </div>
-            <div class="w-10 h-px bg-gold-accent/40 mx-auto"></div>
+            <div class="w-12 h-px bg-gold-accent/50 mx-auto"></div>
             <p class="font-sans text-xs sm:text-sm text-ink-muted leading-relaxed font-light">
-              <strong class="text-olive-800 font-medium uppercase tracking-wider text-[11px] block mb-1">Nota da Noiva</strong>
+              <strong class="text-gold-text font-medium uppercase tracking-wider text-[11px] block mb-1">Nota da Noiva</strong>
               Meninas, o terreno é arenoso: evitem vestido longo e salto fino; apostem no comprimento mídi e salto bloco!
             </p>
           </div>
@@ -80,7 +80,7 @@ const { ceremony } = Astro.props;
               href={ceremony.mapsUrl} 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="btn-pill min-h-[44px] inline-flex items-center gap-2.5 py-2 pl-5 pr-2.5 bg-olive-800 hover:bg-olive-900 text-linen font-sans text-xs uppercase tracking-[0.16em] font-medium group"
+              class="btn-pill btn-pill-shimmer min-h-[44px] inline-flex items-center gap-2.5 py-2 pl-5 pr-2.5 bg-olive-800 hover:bg-olive-900 text-linen ring-1 ring-gold-accent/40 shadow-sm font-sans text-xs uppercase tracking-[0.16em] font-medium group"
             >
               <span>Google Maps</span>
               <span class="btn-trailing-icon w-7 h-7 rounded-full bg-white/10 flex items-center justify-center transition-[transform,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]">
@@ -95,7 +95,7 @@ const { ceremony } = Astro.props;
               href={ceremony.wazeUrl} 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="btn-pill min-h-[44px] inline-flex items-center gap-2 py-2.5 px-5 bg-white hover:bg-linen text-olive-900 ring-1 ring-olive-900/15 font-sans text-xs uppercase tracking-[0.16em] font-medium"
+              class="btn-pill min-h-[44px] inline-flex items-center gap-2 py-2.5 px-5 bg-white hover:bg-linen text-olive-900 ring-1 ring-olive-900/15 shadow-xs font-sans text-xs uppercase tracking-[0.16em] font-medium"
             >
               <svg class="w-3.5 h-3.5 text-gold-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>

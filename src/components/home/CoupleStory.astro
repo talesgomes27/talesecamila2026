@@ -21,7 +21,7 @@ const { story } = Astro.props;
   <!-- Fotos dos Noivos lado a lado com Double-Bezel Orgânico -->
   <div class="flex justify-center items-center gap-8 sm:gap-14 mb-12">
     <div class="flex flex-col items-center group">
-      <div class="organic-profile-frame w-36 h-36 sm:w-48 sm:h-48 overflow-hidden p-1.5 bg-white/80 ring-1 ring-olive-900/10">
+      <div class="organic-profile-frame w-36 h-36 sm:w-48 sm:h-48 overflow-hidden p-1.5 sm:p-2 bg-white/90 ring-1 ring-gold-accent/40 shadow-[0_16px_36px_-10px_rgba(29,44,30,0.18)]">
         <Image 
           id="groom-photo" 
           src={groomImg} 
@@ -41,12 +41,12 @@ const { story } = Astro.props;
       <span id="groom-name" class="font-serif italic text-xl text-olive-900 mt-4">{story.groomName}</span>
     </div>
 
-    <div class="hidden sm:flex flex-col items-center text-gold-accent/70 select-none" aria-hidden="true">
-      <span class="font-serif italic text-3xl">&</span>
+    <div class="hidden sm:flex flex-col items-center text-gold-accent select-none" aria-hidden="true">
+      <span class="font-serif italic text-4xl drop-shadow-sm">&</span>
     </div>
 
     <div class="flex flex-col items-center group">
-      <div class="organic-profile-frame w-36 h-36 sm:w-48 sm:h-48 overflow-hidden p-1.5 bg-white/80 ring-1 ring-olive-900/10">
+      <div class="organic-profile-frame w-36 h-36 sm:w-48 sm:h-48 overflow-hidden p-1.5 sm:p-2 bg-white/90 ring-1 ring-gold-accent/40 shadow-[0_16px_36px_-10px_rgba(29,44,30,0.18)]">
         <Image 
           id="bride-photo" 
           src={brideImg} 
@@ -72,7 +72,7 @@ const { story } = Astro.props;
     <p id="couple-story-text" class="font-sans text-sm sm:text-base text-ink-muted leading-[1.9] font-light text-center">
       {story.text}
     </p>
-    <div class="w-16 h-px bg-gold-accent/40 mx-auto mt-8"></div>
+    <div class="w-20 h-px bg-gold-accent/50 mx-auto mt-8"></div>
   </div>
 
   <!-- Carrossel de Fotos Pré-Wedding -->
