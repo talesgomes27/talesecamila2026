@@ -49,7 +49,7 @@ const { ceremony } = Astro.props;
           <h3 id="ceremony-venue-name" class="font-serif text-2xl sm:text-3xl md:text-4xl text-olive-900 tracking-[-0.015em] mb-2 font-normal">
             {ceremony.venueName}
           </h3>
-          <p id="ceremony-date-text" class="font-sans text-xs sm:text-sm uppercase tracking-[0.22em] text-gold-text font-medium mb-6">
+          <p id="ceremony-date-text" class="font-sans text-xs sm:text-sm uppercase tracking-[0.22em] text-gold-text font-medium mb-6 tabular-nums">
             {ceremony.dateFormatted} • {ceremony.time}
           </p>
           
@@ -157,7 +157,7 @@ const { ceremony } = Astro.props;
             <li class="group grid grid-cols-[40px_1fr] sm:grid-cols-[76px_48px_1fr] items-start gap-x-3.5 sm:gap-x-5">
               <!-- Coluna de Horário (Desktop) -->
               <div class="hidden sm:block pt-5 text-right">
-                <span class="font-serif text-xl text-gold-text tracking-wide">{step.time}</span>
+                <span class="font-serif text-xl text-gold-text tracking-wide tabular-nums">{step.time}</span>
               </div>
 
               <!-- Eixo Vertical + Medalhão de Ícone -->
@@ -205,7 +205,7 @@ const { ceremony } = Astro.props;
               <div class="pb-5 sm:pb-6">
                 <div class="double-bezel">
                   <div class="double-bezel-core px-5 sm:px-7 py-5 sm:py-6 text-left">
-                    <span class="sm:hidden block font-serif text-base text-gold-text mb-1">
+                    <span class="sm:hidden block font-serif text-base text-gold-text mb-1 tabular-nums">
                       {step.time}
                     </span>
                     <h4 class="font-serif text-xl sm:text-2xl text-olive-900 font-normal mb-1.5 leading-snug">

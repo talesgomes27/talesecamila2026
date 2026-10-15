@@ -16,6 +16,23 @@ html {
   font-family: 'Montserrat', system-ui, sans-serif;
   background-color: #FAF8F5;
   color: #1E241F;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tipografia Editorial Refinada: balanço em títulos e prevenção de viúvas em parágrafos */
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Caret temático nos formulários */
+input, textarea {
+  caret-color: #3B573D;
 }
 
 /* Acessibilidade de Teclado WCAG 2.2 AA (Anel de foco visível apenas na navegação via Tab) */
