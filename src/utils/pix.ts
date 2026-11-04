@@ -1,16 +1,17 @@
 import { z } from 'astro/zod';
 
 export const PixPayloadParamsSchema = z.object({
-  key: z.string().trim().min(1, { message: "Chave PIX obrigatória" }),
-  recipientName: z.string().trim().min(1, { message: "Nome do recebedor obrigatório" }),
-  city: z.string().trim().default('SAO MIGUEL DO GUAMA'),
-  amount: z.number().positive({ message: "Valor do PIX deve ser positivo" }).optional(),
-  txid: z.string().trim().default('***'),
+  key: z.string().trim().min(1, { message: "Chave PIX obrigatória" }).max(77).regex(/^[\x21-\x7e]+$/),
+  recipientName: z.string().trim().min(1).refine(value => normalizeText(value).length > 0, { message: "Nome do recebedor inválido" }),
+  city: z.string().trim().default('SAO MIGUEL DO GUAMA').refine(value => normalizeText(value).length > 0),
+  amount: z.number().finite().positive({ message: "Valor do PIX deve ser positivo" }).max(9999999999.99).multipleOf(0.01).optional(),
+  txid: z.string().trim().regex(/^(?:\*\*\*|[a-zA-Z0-9]{1,25})$/).default('***'),
 });
 
 export type PixPayloadParams = z.input<typeof PixPayloadParamsSchema>;
 
 function formatField(id: string, value: string): string {
+  if (value.length > 99) throw new Error('Campo Pix excede o limite de tamanho');
   const len = String(value.length).padStart(2, '0');
   return `${id}${len}${value}`;
 }
@@ -19,7 +20,10 @@ function normalizeText(text: string): string {
   return text
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
-    .toUpperCase();
+    .toUpperCase()
+    // O gerador usa ASCII para manter os comprimentos TLV e o CRC consistentes.
+    .replace(/[^\x20-\x7e]/g, '')
+    .trim();
 }
 
 /**
@@ -51,7 +55,6 @@ export function generatePixPayload(params: PixPayloadParams): string {
   const normKey = key;
   const normName = normalizeText(recipientName || 'CASAMENTO').slice(0, 25);
   const normCity = normalizeText(city || 'SAO MIGUEL DO GUAMA').slice(0, 15);
-  const normTxid = (txid || '***').replace(/[^a-zA-Z0-9]/g, '').slice(0, 25) || '***';
 
   let payload = '';
 
@@ -70,8 +73,8 @@ export function generatePixPayload(params: PixPayloadParams): string {
   payload += formatField('53', '986');
 
   // 54 - Transaction Amount
-  if (amount && Number(amount) > 0) {
-    const formattedAmount = Number(amount).toFixed(2);
+  if (amount !== undefined) {
+    const formattedAmount = amount.toFixed(2);
     payload += formatField('54', formattedAmount);
   }
 
@@ -85,7 +88,7 @@ export function generatePixPayload(params: PixPayloadParams): string {
   payload += formatField('60', normCity);
 
   // 62 - Additional Data Field Template (TxID)
-  const additionalData = formatField('05', normTxid);
+  const additionalData = formatField('05', txid);
   payload += formatField('62', additionalData);
 
   // 63 - CRC16 (Calculado sobre toda a string incluindo '6304')

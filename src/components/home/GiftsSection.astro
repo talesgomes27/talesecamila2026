@@ -1,6 +1,8 @@
 ---
 import type { GiftItem, PixConfig } from '../../types/wedding';
 import { generatePixPayload } from '../../utils/pix';
+import { orderGifts } from '../../utils/gifts';
+import GuestHelp from '../common/GuestHelp.astro';
 import GiftCard from './GiftCard.astro';
 
 interface Props {
@@ -9,6 +11,7 @@ interface Props {
 }
 
 const { gifts, pix } = Astro.props;
+const displayedGifts = orderGifts(gifts);
 
 // Pré-gerar código PIX com valor aberto (sem campo 54) em tempo de build
 const freePixPayload = generatePixPayload({
@@ -24,16 +27,16 @@ const freePixPayload = generatePixPayload({
     <h2 class="font-serif text-4xl md:text-5xl text-olive-900 tracking-[-0.02em] mb-5 font-normal">
       Lista de Presentes
     </h2>
-    <p class="font-sans text-sm sm:text-base text-ink-muted font-light leading-[1.85]">
-      Como nosso lar já está montado com muito amor, optamos por não receber presentes físicos. Criamos uma lista virtual com opções em PIX para nossa nova fase e lua de mel:
+    <p class="font-sans text-base sm:text-base text-ink-muted font-normal leading-[1.85]">
+      Como nosso lar já está montado com muito amor, optamos por não receber presentes físicos. Criamos uma lista virtual com opções de presentes via Pix para esta nossa nova fase e para a lua de mel.
     </p>
   </div>
 
   <!-- Barra de Controles e PIX de Valor Livre em Double-Bezel -->
   <div class="double-bezel mb-10 reveal-on-scroll">
-    <div class="double-bezel-core flex flex-col sm:flex-row items-center justify-between gap-4 px-5 py-4">
+    <div class="gift-controls double-bezel-core flex flex-col sm:flex-row items-center justify-between gap-4 px-5 py-4">
       <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3">
-        <div class="flex items-center gap-2 text-olive-800 font-sans text-xs sm:text-sm font-medium">
+        <div class="flex items-center gap-2 text-olive-800 font-sans text-base sm:text-base font-medium">
           <svg class="w-4 h-4 text-gold-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
           </svg>
@@ -42,19 +45,21 @@ const freePixPayload = generatePixPayload({
         <button
           id="custom-pix-btn"
           type="button"
+          disabled
           data-pix-code={freePixPayload}
-          class="btn-pill btn-pill-shimmer min-h-[44px] inline-flex items-center gap-2 py-2.5 px-5 bg-olive-800 hover:bg-olive-900 text-linen ring-1 ring-gold-accent/40 shadow-xs font-sans text-xs uppercase tracking-[0.16em] font-medium cursor-pointer"
+          class="btn-pill btn-pill-shimmer min-h-[44px] inline-flex items-center gap-2 py-2.5 px-5 bg-olive-800 hover:bg-olive-900 text-linen ring-1 ring-gold-accent/40 shadow-xs font-sans text-base tracking-[0.02em] font-medium cursor-pointer"
         >
-          Contribuir com Valor Livre
+          Você escolhe o valor
         </button>
       </div>
 
       <!-- Dropdown de Ordenação (Zero Auto-Zoom iOS + Hit Area 44px) -->
-      <div class="flex items-center gap-2.5">
-        <label for="gifts-sort-select" class="font-sans text-xs uppercase tracking-[0.16em] text-ink-subtle">Ordenar:</label>
+      <div class="gift-sort-control flex flex-wrap items-center justify-center gap-2.5 max-w-full">
+        <label for="gifts-sort-select" class="font-sans text-base tracking-[0.02em] text-ink-subtle">Ordenar:</label>
         <select 
           id="gifts-sort-select" 
-          class="font-sans text-base sm:text-sm min-h-[44px] bg-linen/80 ring-1 ring-olive-900/10 rounded-full px-4 py-1.5 text-olive-900 focus:outline-none focus:ring-olive-700 cursor-pointer"
+          disabled
+          class="font-sans text-base sm:text-base min-h-[44px] bg-linen/80 ring-1 ring-olive-900/10 rounded-full px-4 py-1.5 text-olive-900 focus:outline-none focus:ring-olive-700 cursor-pointer"
         >
           <option value="default">Destaques</option>
           <option value="price-desc">Maior valor</option>
@@ -66,7 +71,7 @@ const freePixPayload = generatePixPayload({
 
   <!-- Grid de Presentes -->
   <div id="gifts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 sm:gap-9">
-    {gifts.map(gift => (
+    {displayedGifts.map(gift => (
       <GiftCard gift={gift} pix={pix} />
     ))}
   </div>
@@ -76,7 +81,7 @@ const freePixPayload = generatePixPayload({
     <button
       id="gifts-load-more-btn"
       type="button"
-      class="btn-pill min-h-[44px] px-8 py-3 bg-linen hover:bg-linen-dark text-olive-900 ring-1 ring-olive-900/15 font-sans text-xs uppercase tracking-[0.16em] font-medium inline-flex items-center justify-center gap-2 cursor-pointer transition-colors"
+      class="btn-pill min-h-[44px] px-8 py-3 bg-linen hover:bg-linen-dark text-olive-900 ring-1 ring-olive-900/15 font-sans text-base tracking-[0.02em] font-medium inline-flex items-center justify-center gap-2 cursor-pointer transition-colors"
     >
       <span>Ver mais opções</span>
       <span id="gifts-load-more-count" class="tabular-nums"></span>
@@ -85,6 +90,7 @@ const freePixPayload = generatePixPayload({
       </svg>
     </button>
   </div>
+  <noscript><GuestHelp message="Olá, Tales e Camila! Preciso de ajuda para escolher um presente e fazer o Pix." label="Ajuda para presentear sem usar o site" /></noscript>
 </section>
 
 <script>
@@ -96,6 +102,8 @@ const freePixPayload = generatePixPayload({
   const loadMoreCount = document.getElementById('gifts-load-more-count');
   const INITIAL_LIMIT = 9;
   let isExpanded = false;
+  (customPixBtn as HTMLButtonElement | null)?.removeAttribute('disabled');
+  sortSelect?.removeAttribute('disabled');
 
   function updateVisibility(animateNew = false) {
     if (!grid) return;
@@ -134,7 +142,7 @@ const freePixPayload = generatePixPayload({
     window.dispatchEvent(
       new CustomEvent('open-pix-modal', {
         detail: {
-          title: 'Contribuição com Valor Livre',
+          title: 'Você escolhe o valor',
           priceFormatted: 'Você define o valor no app do seu banco',
           image: '/favicon.svg',
           pixCode: customPixBtn.dataset.pixCode || '',
@@ -149,14 +157,17 @@ const freePixPayload = generatePixPayload({
     const cards = Array.from(grid.querySelectorAll<HTMLElement>('.gift-card'));
     cards.forEach((card, idx) => {
       card.dataset.initialOrder = String(idx);
+      card.querySelector<HTMLButtonElement>('.presentear-btn')?.removeAttribute('disabled');
     });
 
     // Configura corte inicial dos cartões para reduzir fadiga de rolagem
     updateVisibility();
 
     loadMoreBtn?.addEventListener('click', () => {
+      const firstNewCard = cards.find(card => card.classList.contains('hidden'));
       isExpanded = true;
       updateVisibility(true);
+      firstNewCard?.querySelector<HTMLButtonElement>('.presentear-btn')?.focus();
     });
 
     grid.addEventListener('click', (e) => {

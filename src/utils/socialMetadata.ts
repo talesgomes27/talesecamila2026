@@ -88,7 +88,6 @@ export function buildSocialMetadata({
     startDate: weddingData.weddingDate.endsWith('-03:00')
       ? weddingData.weddingDate
       : `${weddingData.weddingDate}-03:00`,
-    endDate: '2026-12-19T23:00:00-03:00',
     eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     url: canonicalUrl,

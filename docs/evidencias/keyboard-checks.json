@@ -1,0 +1,15 @@
+{
+  "dialogKeyboard": {
+    "focused": "pix-copy-btn",
+    "open": true,
+    "outline": "2px"
+  },
+  "dialogReturn": {
+    "focused": "custom-pix-btn",
+    "open": false
+  },
+  "expansionKeyboard": {
+    "focusedGift": "8",
+    "visibleCards": 24
+  }
+}

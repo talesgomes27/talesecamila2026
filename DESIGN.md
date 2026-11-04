@@ -35,16 +35,16 @@ typography:
     letterSpacing: "normal"
   body:
     fontFamily: "'Montserrat', system-ui, sans-serif"
-    fontSize: "1rem"
-    fontWeight: 300
+    fontSize: "1.125rem"
+    fontWeight: 400
     lineHeight: 1.85
     letterSpacing: "normal"
   label:
     fontFamily: "'Montserrat', system-ui, sans-serif"
-    fontSize: "0.6875rem"
+    fontSize: "1rem"
     fontWeight: 500
     lineHeight: 1.4
-    letterSpacing: "0.2em"
+    letterSpacing: "0.02em"
 rounded:
   sm: "8px"
   md: "12px"
@@ -86,7 +86,7 @@ components:
 
 Este sistema visual traduz a solenidade e o afeto de um convite de papelaria de alta gramatura para o meio digital. Em vez de imitar softwares corporativos ou cair no visual pasteurizado de portais matrimoniais pré-fabricados, cada componente foi estruturado para refletir a ambientação real da cerimônia: o verde denso das copas amazônicas, o dourado solar que reflete nas águas do Rio Guamá e a textura de linho cru com toque artesanal.
 
-O projeto recusa categoricamente ornamentos sintéticos. Não há brilho simulado, glitter em degradê, nem tipografia cursiva ilegível em pincelada (*brush script*). O layout respira com margens amplas, descansos visuais generosos e hierarquia rigorosa. A experiência foi calibrada tanto para dispositivos móveis de convidados no trânsito quanto para parentes idosos navegando em conexões instáveis.
+O projeto recusa categoricamente ornamentos sintéticos. Não há brilho simulado, glitter em degradê, nem tipografia cursiva ilegível em pincelada (*brush script*). O layout respira com margens amplas, descansos visuais generosos e hierarquia rigorosa. A interface prioriza leitura e tarefas no celular. A avaliação com convidados idosos, aparelhos físicos e conexões lentas permanece pendente; o desenho não comprova acessibilidade universal.
 
 **Key Characteristics:**
 - Moldura física dupla (*Double-Bezel*) simulando baixo-relevo de prensagem tipográfica em cartolina nobre.
@@ -120,7 +120,7 @@ A paleta é contida e intencionalmente serena. Três famílias cromáticas estab
 ### Named Rules
 **The Double-Bezel Rule.** Áreas centrais de conversão (formulários, cartões destacados e modais) utilizam o padrão *Doppelrand*: uma moldura externa translúcida de 6px a 8px com anel sutil (`ring-1 ring-olive-900/[0.08]`) encapsulando o cartão interno branco com cantos arredondados coordenados (`calc(2rem - 0.5rem)`). Essa estrutura delimita a informação como um cartão físico pousado sobre papel linho.
 
-**The Contrast Sovereignty Rule.** Nenhum texto de apoio pode ter tamanho inferior a 11px (`0.6875rem`) ou taxa de contraste inferior a 4.5:1. O token `gold-text` opera em `#524622`, assegurando que mesmo convidados lendo o celular sob sol aberto consigam identificar horários e instruções.
+**Contraste.** Textos comuns devem atingir 4.5:1; textos grandes, 3:1. Verificar os pares efetivamente renderizados, incluindo transparência, foco, erros e placeholders. O token `gold-text` usa `#524622`; a cor sozinha não comprova legibilidade sob sol ou conformidade integral.
 
 ## Typography
 
@@ -134,12 +134,14 @@ A tipografia organiza a leitura com contraste clássico: títulos com alma edito
 - **Display** (Regular 400, `clamp(2.5rem, 6vw, 4.5rem)`, line-height 1.15, tracking -0.02em): Nomes dos noivos no Hero e convite cerimonial. Sempre com `text-wrap: balance`.
 - **Headline** (Regular 400, `clamp(1.75rem, 4vw, 2.75rem)`, line-height 1.2, tracking -0.01em): Títulos das seções principais (História, Celebração, Presentes, Presença, Dúvidas).
 - **Title** (Regular 400 / Medium 500, `1.125rem` a `1.5rem`, line-height 1.3): Títulos de cartões de presente, nomes dos noivos nos perfis e títulos de modais.
-- **Body** (Light 300 / Normal 400, `0.9375rem` a `1rem`, line-height 1.85): Narrativas e orientações aos convidados. Parágrafos usam `text-wrap: pretty` para eliminar viúvas tipográficas.
-- **Label / Eyebrow** (Medium 500, `0.6875rem` [11px], line-height 1.4, tracking 0.2em a 0.26em, uppercase): Prazos de confirmação, horários, categorias e micro-etiquetas editoriais.
+- **Body** (Regular 400, `1.125rem` nos textos principais; entrelinha 1.7–1.85): narrativas e orientações. Aumentar o texto deve preservar conteúdo e ações.
+- **Rótulos e instruções** (400/500, `1rem`, entrelinha confortável, tracking normal ou 0.02em): prazos, horários, campos e botões. Usar caixa normal.
 - **Numbers / Values** (Tabular-nums): Todos os números no cronômetro, preços de presentes e horários da cerimônia aplicam números tabulares (`font-feature-settings: "tnum"` / `.tabular-nums`) para evitar oscilações de layout.
 
 ### Named Rules
-**The 11px Floor Rule.** O piso absoluto de renderização tipográfica em todo o site é 11px. Nunca reduza fontes de legenda para 9px ou 10px, preservando a usabilidade para visitantes de qualquer faixa etária.
+**Piso de leitura do projeto.** Informação prática, instruções, rótulos e botões usam pelo menos `1rem` (16px na configuração padrão). Textos principais se aproximam de 18px. São escolhas deste projeto, não tamanhos universais exigidos pela WCAG. Testar reflow em 320px e ampliação a 200%, sem esconder conteúdo para caber.
+
+**Exceção solicitada pelo usuário:** os botões de `/convite/` mantêm a disposição e a tipografia originais: acesso ao site, confirmação/mapa e calendários. Nesse bloco, somente “Confirmar RSVP” foi substituído por “Confirmar presença”.
 
 ## Layout
 
@@ -155,7 +157,7 @@ O modelo espacial estabelece fluidez responsiva com grades balanceadas e limites
 Este sistema não emprega sombras pretas pesadas de software nem relevos falsos com chanfros 3D. A profundidade é puramente tonal e atmosférica.
 
 - **Filosofia Tonal:** Os elementos ganham destaque através de contrastes de superfícies claras sobre linho (`#FAF8F5` base -> camada em `#F5F2EC` -> núcleo do cartão em `#FFFFFF`).
-- **Textura Tátil:** O fundo geral aplica granulação fina de papel em overlay com baixa opacidade (`opacity: 0.025` na classe `.editorial-grain`), garantindo textura analógica com zero impacto no paint do navegador.
+- **Textura Tátil:** O fundo geral aplica granulação fina de papel em overlay com baixa opacidade (`opacity: 0.025` na classe `.editorial-grain`), mantendo textura visual discreta; o custo de renderização não foi medido.
 - **Vocabulário de Sombras:**
   - *Double-bezel resting:* `box-shadow: 0 24px 48px -18px rgba(29, 44, 30, 0.08), 0 4px 12px -2px rgba(29, 44, 30, 0.03)`
   - *Botão em repouso:* Plano sobre o papel; em `:hover` projeta sombra suave de elevação: `0 10px 24px -6px rgba(29, 44, 30, 0.22)`
@@ -175,26 +177,30 @@ A linguagem de contornos equilibra o rigor geométrico com curvas orgânicas ins
 
 ## Components
 
-Os componentes são ferramentas de acolhimento: intuitivos, resilientes e com área de toque mínima de 44px de altura em conformidade com as Leis de Fitts e WCAG 2.5.8.
+Os componentes priorizam tarefas diretas. O projeto busca alvos de pelo menos 44px e prefere 48px nas ações principais. A WCAG 2.2 AA 2.5.8 estabelece 24px com exceções de espaçamento; 44px corresponde ao critério ampliado 2.5.5 AAA, não a uma certificação geral.
 
 ### Buttons
-- **Botão Primário (`.btn-pill` com `bg-olive-800`):** Pílula de cor sólida verde oliva, texto em linho claro, tracking expandido (`tracking-[0.16em]`) e tipografia de 12px uppercase. Em dispositivos com cursor fino, eleva 1px no hover; ao toque de clique, retrai em física elástica (`scale(0.97)` em 160ms).
+- **Botão Primário (`.btn-pill` com `bg-olive-800`):** Pílula de cor sólida verde oliva, texto em linho claro, espaçamento moderado (`tracking-[0.02em]`) e tipografia de pelo menos 16px em caixa normal. Em dispositivos com cursor fino, eleva 1px no hover; ao toque de clique, retrai em física elástica (`scale(0.97)` em 160ms).
 - **Botão Secundário / Ação Alternativa (`bg-linen text-olive-900 ring-1 ring-olive-900/15`):** Pílula neutra com anel sutil para ações secundárias como "Tentar Novamente", "Confirmar outro convidado" e "Ver mais opções".
-- **Botão de WhatsApp (`bg-olive-700 hover:bg-olive-800`):** Acento botânico com ícone oficial SVG embutido, acionando a mensagem pré-formatada sem transição de contexto confusa.
+- **Botão de WhatsApp (`bg-olive-700 hover:bg-olive-800`):** Acento botânico com ícone oficial SVG embutido, abrindo uma conversa com texto preparado, sem enviar automaticamente.
 
 ### Cards / Containers
 - **Cartão de Presente (`.gift-card`):** Moldura dupla leve, imagem com proporção 4:3 com zoom sutil no hover (`scale(1.035)`), título serifado e valor em ouro champanhe tabular. Possui `content-visibility: auto` para desempenho fluido de rolagem.
 - **Controle de Expansão Progressiva:** O grid de presentes exibe inicialmente um lote de 9 cartões. O botão centralizado "Ver mais opções (+15)" revela os cartões restantes com animação suave e sem recarga de página.
 
 ### Inputs / Fields
-- **Estilo:** Fundo linho semi-translúcido (`bg-linen/70`), anel delicado `ring-1 ring-olive-900/10` e altura mínima de 48px.
+- **Estilo:** fundo linho e borda `#625E57` para identificar o campo, altura mínima de 48px e texto de pelo menos 16px.
 - **Foco:** Anel reforçado verde oliva (`focus:ring-2 focus:ring-olive-700`) e fundo clareado para branco puro.
 - **Caret Temático:** O cursor de digitação pulsa no verde oliva da paleta (`caret-color: #3B573D`).
 - **Placeholder:** Cor `#5F6359`, garantindo contraste legível com instruções contextuais claras (como orientar a menção a crianças).
 
-### Modal PIX (`PixModal.astro`)
-- **Arquitetura Dialog:** Elemento HTML5 `<dialog>` nativo. No desktop funciona como modal centralizado; no mobile ancora-se como uma folha inferior (*bottom-sheet*) com indicador táctil de puxar.
-- **Duplo Acesso à Chave:** Oferece tanto o botão central de "Copiar Código" (payload completo do QR Code dinâmico com valor) quanto o botão "Copiar chave" avulso ao lado da chave aleatória, apoiando convidados idosos em bancos tradicionais.
+### Modal Pix (`PixModal.astro`)
+
+Usa `<dialog>` nativo com título e descrição, foco inicial na cópia, Escape e retorno ao botão de origem. Beneficiário, banco e valor aparecem antes da ação principal. A orientação depois da cópia permanece visível; copiar não realiza pagamento. QR Code, chave e recado opcional ficam em `<details>`, com alternativa à falha de clipboard/QR e ajuda pelo WhatsApp. O recado não declara pagamento recebido.
+
+### Organização e movimento
+
+Ordem original preservada: Hero → Contagem regressiva → História → Cerimônia e orientações → Presentes → Confirmação. O Hero contém atalhos diretos para as tarefas. O convite prioriza presença e local; presentes não são sua ação principal. O carrossel não avança sozinho. Conteúdo informativo não depende de IntersectionObserver para aparecer. `prefers-reduced-motion` desativa animações e transições sem ocultar estados ou conteúdo.
 
 ## Do's and Don'ts
 
@@ -209,5 +215,5 @@ Os componentes são ferramentas de acolhimento: intuitivos, resilientes e com á
 - **Don't** introduzir gradientes coloridos tecnológicos, roxos, azuis elétricos ou padrões visuais de SaaS corporativo.
 - **Don't** aplicar fontes cursivas de pincelada (*brush script*) ilegíveis ou simulações baratas de glitter/dourado brilhante.
 - **Don't** usar sombras pretas sólidas (`rgba(0,0,0,0.5)`); utilize sempre sombras coloridas baseadas no verde oliva (`rgba(29, 44, 30, ...)`).
-- **Don't** criar textos informativos com tamanho menor que 11px.
+- **Don't** reduzir informações práticas abaixo de 16px na configuração padrão.
 - **Don't** depender exclusivamente do envio online de formulário; mantenha sempre a rota de contingência via WhatsApp.

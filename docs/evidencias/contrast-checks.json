@@ -1,0 +1,30 @@
+[
+  {
+    "ratio": 6.5,
+    "selector": "#hero dt"
+  },
+  {
+    "ratio": 10.44,
+    "selector": "#hero-ctas a"
+  },
+  {
+    "ratio": 6.45,
+    "selector": "#ceremony-address"
+  },
+  {
+    "ratio": 6.9,
+    "selector": "#rsvp label"
+  },
+  {
+    "ratio": 15.19,
+    "selector": "#rsvp-name"
+  },
+  {
+    "ratio": 6.9,
+    "selector": ".gift-card p"
+  },
+  {
+    "ratio": 10.44,
+    "selector": "#pix-copy-btn"
+  }
+]

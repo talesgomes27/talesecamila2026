@@ -1,182 +1,78 @@
 ---
 import type { PixConfig } from '../../types/wedding';
-
-interface Props {
-  pix: PixConfig;
-  coupleNames: string;
-}
-
+import GuestHelp from '../common/GuestHelp.astro';
+interface Props { pix: PixConfig; coupleNames: string; }
 const { pix, coupleNames } = Astro.props;
 ---
 
-<dialog 
-  id="pix-modal" 
-  aria-labelledby="pix-modal-title"
-  aria-describedby="pix-modal-desc"
-  class="backdrop:bg-black/60 backdrop:backdrop-blur-sm p-1.5 sm:p-2 pb-[max(0.375rem,env(safe-area-inset-bottom))] sm:pb-2 rounded-t-[2rem] rounded-b-none sm:rounded-[2rem] bg-linen/90 ring-1 ring-olive-900/15 shadow-[0_32px_64px_-16px_rgba(29,44,30,0.35)] max-w-full sm:max-w-lg w-full overflow-hidden mt-auto mb-0 mx-auto sm:m-auto"
-  data-pix-key={pix.key}
-  data-pix-recipient={pix.recipientName}
-  data-pix-city={pix.city}
-  data-pix-whatsapp={pix.whatsappNumber}
-  data-couple-names={coupleNames}
->
-  <!-- Caixa Interna do Modal (Double-Bezel Core) -->
-  <div class="double-bezel-core rounded-b-none sm:rounded-[calc(2rem-0.5rem)] relative w-full flex flex-col max-h-[90dvh] sm:max-h-[88vh] overflow-hidden">
-    
-    <!-- Indicador de Bottom Sheet no Mobile (Affordance Visual) -->
-    <div class="w-10 h-1 rounded-full bg-olive-900/15 mx-auto mt-2.5 mb-0.5 sm:hidden flex-shrink-0" aria-hidden="true"></div>
-
-    <!-- Cabeçalho do Modal -->
-    <div class="px-5 py-4 sm:p-6 bg-linen-light/80 border-b border-olive-900/[0.06] flex items-center justify-between">
-      <div class="flex items-center gap-3.5">
-        <div class="w-10 h-10 rounded-full bg-olive-900/[0.06] ring-1 ring-olive-900/10 flex items-center justify-center text-olive-800 flex-shrink-0" aria-hidden="true">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-        </div>
-        <div>
-          <h3 id="pix-modal-title" class="font-serif text-xl sm:text-2xl text-olive-900 font-normal leading-tight">Presentear via PIX</h3>
-          <p id="pix-modal-desc" class="font-sans text-xs text-ink-muted font-light">Seu carinho vai direto para a nossa nova fase</p>
-        </div>
-      </div>
-
-      <!-- Hit Area 44x44px (Lei de Fitts / WCAG 2.5.8) -->
-      <button id="pix-modal-close" type="button" aria-label="Fechar janela de presente" class="w-11 h-11 -mr-1.5 text-ink-subtle hover:text-olive-900 rounded-full hover:bg-olive-900/5 active:scale-95 flex items-center justify-center transition-[transform,color,background-color] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer flex-shrink-0">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
-    </div>
-
-    <!-- Conteúdo com Scroll Interno -->
-    <div class="p-5 sm:p-6 overflow-y-auto space-y-5 sm:space-y-6">
-      
-      <!-- Resumo do Presente Selecionado -->
-      <div class="flex items-center gap-4 p-4 rounded-2xl bg-linen/80 ring-1 ring-olive-900/[0.08]">
-        <img 
-          id="pix-modal-gift-img" 
-          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" 
-          alt="Foto do presente selecionado" 
-          width="64"
-          height="64"
-          class="w-16 h-16 rounded-xl object-cover ring-1 ring-black/5 flex-shrink-0" 
-        />
-        <div class="flex-1 min-w-0">
-          <h4 id="pix-modal-gift-title" class="font-serif text-base sm:text-lg text-olive-900 font-normal truncate"></h4>
-          <p id="pix-modal-gift-price" class="font-serif text-xl sm:text-2xl font-normal text-gold-text tabular-nums"></p>
-        </div>
-      </div>
-
-      <!-- QR Code em Alta Definição (Retina 2x) + Orientação Contextual Mobile vs Desktop -->
-      <div class="text-center">
-        <p class="font-sans text-xs text-ink-muted mb-3 font-light sm:hidden">
-          No celular, toque em <strong class="font-medium text-olive-900">Copiar Código</strong> abaixo e cole na área <strong class="font-medium text-olive-900">PIX Copia e Cola</strong> do seu banco:
-        </p>
-        <p class="font-sans text-xs text-ink-muted mb-3 font-light hidden sm:block">
-          Aponte a câmera do app do seu banco para o QR Code ou use o código abaixo:
-        </p>
-        <div class="inline-flex justify-center items-center min-h-[176px] sm:min-h-[190px] p-3 bg-white rounded-2xl ring-1 ring-olive-900/10 mx-auto">
-          <img 
-            id="pix-qrcode-img" 
-            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E" 
-            alt="QR Code PIX para pagamento" 
-            width="190" 
-            height="190" 
-            class="w-[170px] h-[170px] sm:w-[190px] sm:h-[190px] mx-auto rounded-lg" 
-          />
-        </div>
-      </div>
-
-      <!-- Código PIX Copia e Cola (Na Zona do Polegar + Zero Auto-Zoom iOS com text-base sm:text-xs) -->
+<dialog id="pix-modal" aria-labelledby="pix-modal-title" aria-describedby="pix-modal-desc"
+  class="backdrop:bg-black/60 p-1.5 sm:p-2 rounded-t-3xl sm:rounded-3xl bg-linen w-full max-w-lg overflow-hidden mt-auto mb-0 sm:m-auto shadow-xl"
+  data-pix-key={pix.key} data-pix-recipient={pix.recipientName} data-pix-city={pix.city}
+  data-pix-whatsapp={pix.whatsappNumber} data-couple-names={coupleNames}>
+  <div class="bg-white rounded-2xl flex flex-col max-h-[90dvh] overflow-hidden">
+    <header class="flex items-center justify-between gap-3 px-5 py-4 border-b border-olive-900/10">
       <div>
-        <label for="pix-copy-input" class="block font-sans text-[11px] font-medium text-ink-muted uppercase tracking-[0.18em] mb-2">
-          Código PIX Copia e Cola:
-        </label>
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
-          <input 
-            type="text" 
-            id="pix-copy-input" 
-            readonly 
-            class="w-full font-mono text-base sm:text-xs min-h-[48px] px-3.5 py-2.5 rounded-xl bg-linen ring-1 ring-olive-900/10 text-ink-muted select-all"
-          />
-          <button 
-            type="button" 
-            id="pix-copy-btn" 
-            class="btn-pill flex-shrink-0 min-h-[48px] min-w-[152px] justify-center px-5 py-3 bg-olive-800 hover:bg-olive-900 text-linen font-sans text-xs uppercase tracking-[0.15em] font-medium whitespace-nowrap inline-flex items-center cursor-pointer"
-          >
-            <span id="pix-copy-btn-content" class="blur-bridge">Copiar Código</span>
-          </button>
+        <h2 id="pix-modal-title" class="font-serif text-2xl text-olive-900">Presentear pelo Pix</h2>
+        <p id="pix-modal-desc" class="text-base text-ink-muted">Você conclui o pagamento no seu banco.</p>
+      </div>
+      <button id="pix-modal-close" type="button" aria-label="Fechar janela de presente" class="min-w-[48px] min-h-[48px] rounded-full text-olive-900 hover:bg-linen flex items-center justify-center">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-width="2" d="m6 6 12 12M6 18 18 6" /></svg>
+      </button>
+    </header>
+    <div class="p-5 sm:p-6 overflow-y-auto space-y-5">
+      <div class="flex items-start gap-3">
+        <img id="pix-modal-gift-img" src="/favicon.svg" alt="" width="64" height="64" class="w-16 h-16 rounded-xl object-cover flex-shrink-0" />
+        <div class="min-w-0">
+          <h3 id="pix-modal-gift-title" class="font-serif text-xl text-olive-900 break-words"></h3>
+          <p id="pix-modal-gift-price" class="text-lg font-medium text-gold-text tabular-nums"></p>
         </div>
       </div>
-
-      <!-- Detalhes do Favorecido -->
-      <div class="text-xs text-ink-muted bg-linen-light/70 p-4 rounded-xl ring-1 ring-olive-900/[0.06] space-y-2 font-light">
-        <div class="flex flex-wrap items-center justify-between gap-1">
-          <p><span class="font-medium text-olive-900">Beneficiário:</span> <span id="pix-recipient-name">{pix.recipientName}</span></p>
-          <p><span class="font-medium text-olive-900">Banco:</span> <span id="pix-bank-name">{pix.bank}</span></p>
-        </div>
-        <div class="flex items-center justify-between gap-2 pt-2 border-t border-olive-900/[0.06]">
-          <div class="min-w-0 flex-1 truncate">
-            <span class="font-medium text-olive-900 block sm:inline">Chave PIX (Aleatória):</span>
-            <span id="pix-key-display" class="font-mono text-[11px] block sm:inline sm:ml-1 text-ink-subtle select-all truncate">{pix.key}</span>
-          </div>
-          <button
-            type="button"
-            id="pix-copy-raw-key-btn"
-            title="Copiar apenas a chave PIX"
-            aria-label="Copiar apenas a chave PIX aleatória"
-            class="min-h-[36px] px-3 py-1.5 bg-white hover:bg-linen text-olive-900 ring-1 ring-olive-900/15 rounded-lg font-sans text-[11px] uppercase tracking-[0.12em] font-medium inline-flex items-center gap-1.5 flex-shrink-0 cursor-pointer active:scale-95 transition-transform"
-          >
-            <svg class="w-3.5 h-3.5 text-olive-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/>
-            </svg>
-            <span id="pix-copy-raw-key-text">Copiar chave</span>
-          </button>
-        </div>
+      <div class="text-base text-ink-muted bg-linen-light rounded-xl p-4">
+        <p><strong class="text-olive-900">Beneficiário:</strong> <span id="pix-recipient-name">{pix.recipientName}</span></p>
+        <p><strong class="text-olive-900">Banco:</strong> <span id="pix-bank-name">{pix.bank}</span></p>
+        <p class="mt-2">Confira o nome e o valor no banco antes de autorizar.</p>
       </div>
-
-      <!-- Área de Envio de Recado via WhatsApp (Inputs com Labels Semânticos + Zero Auto-Zoom iOS) -->
-      <div class="border-t border-olive-900/[0.06] pt-5">
-        <h5 class="font-sans text-[11px] font-medium uppercase tracking-[0.18em] text-ink-muted mb-2.5">
-          Avisar os noivos e deixar um recado:
-        </h5>
-        <div class="space-y-3">
-          <div>
-            <label for="pix-guest-name" class="sr-only">Seu nome</label>
-            <input 
-              type="text" 
-              id="pix-guest-name" 
-              placeholder="Seu nome (ex.: Tio Carlos e família)" 
-              maxlength="80"
-              autocomplete="name"
-              class="w-full font-sans text-base sm:text-xs min-h-[48px] px-4 py-3 rounded-xl ring-1 ring-olive-900/10 bg-linen focus:bg-white focus:ring-olive-700 transition-colors placeholder:text-[#5F6359]"
-            />
-          </div>
-          <div>
-            <label for="pix-guest-message" class="sr-only">Sua mensagem de carinho para os noivos</label>
-            <textarea 
-              id="pix-guest-message" 
-              rows="2" 
-              maxlength="400"
-              placeholder="Escreva uma mensagem especial de felicitações..." 
-              class="w-full font-sans text-base sm:text-xs px-4 py-3 rounded-xl ring-1 ring-olive-900/10 bg-linen focus:bg-white focus:ring-olive-700 transition-colors resize-none placeholder:text-[#5F6359]"
-            ></textarea>
-          </div>
-          <button 
-            type="button" 
-            id="pix-send-whatsapp-btn" 
-            class="btn-pill w-full min-h-[48px] py-3 px-5 bg-olive-700 hover:bg-olive-800 text-linen font-sans text-xs uppercase tracking-[0.16em] font-medium flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z"/>
-            </svg>
-            Enviar Recado no WhatsApp
-          </button>
-        </div>
+      <div>
+        <button id="pix-copy-btn" type="button" class="btn-pill w-full min-h-[48px] px-5 py-3 bg-olive-800 hover:bg-olive-900 text-linen text-base font-medium flex justify-center">
+          <span id="pix-copy-btn-content">Copiar código Pix</span>
+        </button>
+        <p id="pix-next-step" role="status" aria-live="polite" class="mt-3 text-base font-medium text-olive-900">Copiar o código ainda não realiza o pagamento.</p>
       </div>
-
+      <ol class="list-decimal pl-6 space-y-2 text-base text-ink">
+        <li>Toque em <strong>Copiar código Pix</strong>.</li>
+        <li>Abra o aplicativo do seu banco e escolha <strong>Pix → Pix Copia e Cola</strong>.</li>
+        <li>Cole o código, confira o beneficiário e o valor e autorize no banco.</li>
+      </ol>
+      <details class="border-t border-olive-900/10 pt-2">
+        <summary class="min-h-[48px] flex items-center cursor-pointer text-base text-olive-800 underline underline-offset-4">Ver código para copiar manualmente</summary>
+        <label for="pix-copy-input" class="block text-base mt-2 mb-2">Código Pix Copia e Cola</label>
+        <input type="text" id="pix-copy-input" readonly class="w-full min-h-[48px] px-3 rounded-xl bg-linen text-base font-mono select-all" />
+      </details>
+      <details class="border-t border-olive-900/10 pt-2">
+        <summary class="min-h-[48px] flex items-center cursor-pointer text-base text-olive-800 underline underline-offset-4">Usar QR Code em outro aparelho</summary>
+        <p class="text-base text-ink-muted my-3">Se o site está aberto em outro aparelho, use o leitor de QR Code do aplicativo do banco.</p>
+        <img id="pix-qrcode-img" src="/favicon.svg" alt="QR Code Pix para pagamento" width="190" height="190" class="w-[190px] h-[190px] mx-auto" />
+        <p id="pix-qr-status" role="status" class="text-base text-ink-muted mt-2"></p>
+      </details>
+      <details class="border-t border-olive-900/10 pt-2">
+        <summary class="min-h-[48px] flex items-center cursor-pointer text-base text-olive-800 underline underline-offset-4">Usar somente a chave Pix</summary>
+        <p class="text-base text-ink-muted my-3">Escolha Pix por chave no banco e informe também o valor que deseja enviar.</p>
+        <p class="text-base break-all"><strong>Chave aleatória:</strong> <span id="pix-key-display" class="select-all">{pix.key}</span></p>
+        <button id="pix-copy-raw-key-btn" type="button" class="btn-pill min-h-[48px] mt-3 px-5 py-3 bg-linen text-olive-900 ring-1 ring-olive-900/20 text-base">
+          <span id="pix-copy-raw-key-text">Copiar chave Pix</span>
+        </button>
+      </details>
+      <GuestHelp message="Olá, Tales e Camila! Preciso de orientação para presentear pelo Pix." label="Ajuda para presentear" />
+      <details class="border-t border-olive-900/10 pt-2">
+        <summary class="min-h-[48px] flex items-center cursor-pointer text-base text-olive-800 underline underline-offset-4">Deixar um recado aos noivos (opcional)</summary>
+        <p class="text-base text-ink-muted my-3">O recado é independente do Pix e não confirma um pagamento.</p>
+        <label for="pix-guest-name" class="block text-base mb-2">Seu nome</label>
+        <input type="text" id="pix-guest-name" maxlength="80" autocomplete="name" class="w-full min-h-[48px] px-3 rounded-xl bg-linen text-base mb-3" />
+        <label for="pix-guest-message" class="block text-base mb-2">Sua mensagem</label>
+        <textarea id="pix-guest-message" rows="3" maxlength="400" class="w-full p-3 rounded-xl bg-linen text-base"></textarea>
+        <button id="pix-send-whatsapp-btn" type="button" class="btn-pill w-full min-h-[48px] mt-3 px-4 py-3 bg-olive-700 text-linen text-base">Abrir recado no WhatsApp</button>
+      </details>
     </div>
-
   </div>
 </dialog>
 
@@ -192,6 +88,7 @@ const { pix, coupleNames } = Astro.props;
 
   let activeGift: GiftModalDetail | null = null;
   let lastTriggerEl: HTMLElement | null = null;
+  let modalSession = 0;
   const qrCache = new Map<string, string>();
   let qrModulePromise: Promise<typeof import('qrcode')> | null = null;
 
@@ -205,11 +102,11 @@ const { pix, coupleNames } = Astro.props;
   // Pré-carregar o gerador de QR Code em tempo ocioso (Zero bloqueio da thread principal)
   if ('requestIdleCallback' in window) {
     window.requestIdleCallback(() => {
-      void loadQrModule();
+      void loadQrModule().catch(() => { qrModulePromise = null; });
     });
   } else {
     setTimeout(() => {
-      void loadQrModule();
+      void loadQrModule().catch(() => { qrModulePromise = null; });
     }, 1500);
   }
 
@@ -238,15 +135,8 @@ const { pix, coupleNames } = Astro.props;
   const copyRawKeyText = document.getElementById('pix-copy-raw-key-text');
   const pixInput = document.getElementById('pix-copy-input') as HTMLInputElement | null;
   const sendWhatsappBtn = document.getElementById('pix-send-whatsapp-btn');
-
-  function switchButtonLabel(el: HTMLElement | null, newText: string) {
-    if (!el) return;
-    el.classList.add('is-switching');
-    setTimeout(() => {
-      el.textContent = newText;
-      el.classList.remove('is-switching');
-    }, 130);
-  }
+  const nextStep = document.getElementById('pix-next-step');
+  const qrStatus = document.getElementById('pix-qr-status');
 
   closeBtn?.addEventListener('click', () => modal?.close());
 
@@ -257,43 +147,56 @@ const { pix, coupleNames } = Astro.props;
 
   // Restaurar o foco exatamente ao botão que abriu o modal (WCAG 2.4.3 Focus Order)
   modal?.addEventListener('close', () => {
+    modalSession++;
     if (lastTriggerEl && typeof lastTriggerEl.focus === 'function') {
       lastTriggerEl.focus();
     }
   });
 
-  // Copiar apenas a chave PIX avulsa (Facilita Jordan e convidados em apps bancários tradicionais)
+  // Chave avulsa: o convidado informa o valor no banco.
   copyRawKeyBtn?.addEventListener('click', async () => {
+    const session = modalSession;
     const rawKey = modal?.dataset.pixKey || '';
     if (!rawKey) return;
     try {
       await navigator.clipboard.writeText(rawKey);
+      if (session !== modalSession || !modal?.open) return;
+      if (nextStep) nextStep.textContent = 'Chave copiada. Abra o banco, escolha Pix por chave e informe o valor antes de autorizar.';
       navigator.vibrate?.(15);
       window.dispatchEvent(new CustomEvent('site-toast', { detail: { message: 'Chave PIX copiada! ✓' } }));
       if (copyRawKeyText) copyRawKeyText.textContent = 'Copiado!';
       setTimeout(() => {
-        if (copyRawKeyText) copyRawKeyText.textContent = 'Copiar chave';
+        if (session === modalSession && copyRawKeyText) copyRawKeyText.textContent = 'Copiar chave Pix';
       }, 2400);
     } catch {
+      if (session !== modalSession || !modal?.open) return;
+      if (nextStep) nextStep.textContent = 'Não foi possível copiar. Selecione a chave abaixo para copiar manualmente ou peça ajuda.';
       window.dispatchEvent(new CustomEvent('site-toast', { detail: { message: 'Selecione e copie a chave manualmente.' } }));
     }
   });
 
-  // Copiar código PIX com Clipboard API moderna + Blur Bridge + Haptic Feedback
+  // A orientação persistente continua disponível depois do aviso temporário.
   copyBtn?.addEventListener('click', async () => {
     if (!activeGift || !pixInput) return;
+    const session = modalSession;
     try {
       await navigator.clipboard.writeText(activeGift.pixCode);
+      if (session !== modalSession || !modal?.open) return;
+      if (nextStep) nextStep.textContent = 'Código copiado. Agora abra seu banco, escolha Pix Copia e Cola e cole. Confira o nome e o valor antes de autorizar.';
       navigator.vibrate?.(15);
       window.dispatchEvent(new CustomEvent('site-toast', { detail: { message: 'Código PIX copiado! Cole no app do seu banco ✓' } }));
-      switchButtonLabel(copyBtnContent, 'Copiado ✓');
+      if (copyBtnContent) copyBtnContent.textContent = 'Copiado';
       copyBtn.classList.replace('bg-olive-800', 'bg-olive-600');
       setTimeout(() => {
-        switchButtonLabel(copyBtnContent, 'Copiar Código');
+        if (session !== modalSession || !modal?.open) return;
+        if (copyBtnContent) copyBtnContent.textContent = 'Copiar código Pix';
         copyBtn.classList.replace('bg-olive-600', 'bg-olive-800');
       }, 2800);
     } catch {
+      if (session !== modalSession || !modal?.open) return;
+      pixInput.closest('details')?.setAttribute('open', '');
       pixInput.select();
+      if (nextStep) nextStep.textContent = 'Não foi possível copiar automaticamente. Toque e segure no código abaixo para copiar ou peça ajuda pelo WhatsApp.';
       window.dispatchEvent(new CustomEvent('site-toast', { detail: { message: 'Toque e segure no código acima para copiar' } }));
     }
   });
@@ -313,9 +216,9 @@ const { pix, coupleNames } = Astro.props;
 
     let text = `Oi, ${coupleNames}! ❤️\n\n`;
     if (activeGift.isFreeAmount) {
-      text += `Acabei de enviar um presente via PIX com muito carinho para celebrar a nova fase de vocês!\n\n`;
+      text += `Gostaria de deixar um recado com muito carinho para celebrar a nova fase de vocês.\n\n`;
     } else {
-      text += `Acabei de enviar um mimo da lista para vocês: *${activeGift.title}* (${activeGift.priceFormatted}).\n\n`;
+      text += `Meu recado sobre o presente da lista: *${activeGift.title}* (${activeGift.priceFormatted}).\n\n`;
     }
     if (guestMessage) {
       text += `Recado: "${guestMessage}"\n\n`;
@@ -327,6 +230,7 @@ const { pix, coupleNames } = Astro.props;
 
   window.addEventListener('open-pix-modal', ((e: CustomEvent<GiftModalDetail>) => {
     if (!e.detail || !modal) return;
+    modalSession++;
     activeGift = e.detail;
     lastTriggerEl = e.detail.triggerEl || (document.activeElement as HTMLElement | null);
 
@@ -346,6 +250,12 @@ const { pix, coupleNames } = Astro.props;
     if (pixInput) pixInput.value = activeGift.pixCode;
     if (guestNameInput) guestNameInput.value = '';
     if (guestMessageInput) guestMessageInput.value = '';
+    if (copyBtnContent) copyBtnContent.textContent = 'Copiar código Pix';
+    copyBtn?.classList.replace('bg-olive-600', 'bg-olive-800');
+    if (copyRawKeyText) copyRawKeyText.textContent = 'Copiar chave Pix';
+    if (nextStep) nextStep.textContent = 'Copiar o código ainda não realiza o pagamento.';
+    if (qrStatus) qrStatus.textContent = 'Preparando QR Code…';
+    if (qrImg) qrImg.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg"/%3E';
 
     modal.showModal();
     // Focar o botão primário de copiar código sem abrir o teclado virtual em celulares
@@ -355,7 +265,11 @@ const { pix, coupleNames } = Astro.props;
       void getQrDataUrl(activeGift.pixCode).then((dataUrl) => {
         if (activeGift?.pixCode === e.detail.pixCode) {
           qrImg.src = dataUrl;
+          if (qrStatus) qrStatus.textContent = '';
         }
+      }).catch(() => {
+        qrModulePromise = null;
+        if (qrStatus && activeGift?.pixCode === e.detail.pixCode) qrStatus.textContent = 'Não foi possível preparar o QR Code. Use Copiar código Pix ou peça ajuda.';
       });
     }
   }) as EventListener);

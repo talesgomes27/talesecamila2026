@@ -20,7 +20,7 @@ const {
 
 const social = buildSocialMetadata({
   title,
-  ogTitle: `Casamento de ${weddingData.couple.names} | 19.12.2026 às ${weddingData.ceremony.time}`,
+  ogTitle: `Casamento de ${weddingData.couple.names} | 19.12.2026 — chegada ${weddingData.ceremony.arrivalTime}, cerimônia ${weddingData.ceremony.ceremonyTime}`,
   description,
   ogDescription: 'Com muita alegria convidamos você para celebrar o nosso grande dia! Acesse para confirmar sua presença e ver a lista de presentes.',
   path: Astro.url.pathname,
@@ -97,7 +97,7 @@ const social = buildSocialMetadata({
 <body class="bg-linen-texture text-ink antialiased selection:bg-olive-100 selection:text-olive-900 min-h-screen flex flex-col">
   <a
     href="#main-content"
-    class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-5 focus:py-2.5 focus:rounded-full focus:bg-olive-900 focus:text-linen focus:font-sans focus:text-xs focus:uppercase focus:tracking-[0.18em] focus:shadow-lg"
+    class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-5 focus:py-2.5 focus:rounded-full focus:bg-olive-900 focus:text-linen focus:font-sans focus:text-base focus:focus:tracking-[0.02em] focus:shadow-lg"
   >
     Pular para o conteúdo principal
   </a>
@@ -111,24 +111,6 @@ const social = buildSocialMetadata({
   <Footer coupleNames={weddingData.couple.names} weddingDateFormatted={weddingData.ceremony.dateFormatted} />
   <Toast />
 
-  <script>
-    const revealEls = document.querySelectorAll<HTMLElement>('.reveal-on-scroll');
-    if (revealEls.length && 'IntersectionObserver' in window) {
-      const revealObserver = new IntersectionObserver(
-        (entries, obs) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              obs.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0, rootMargin: '0px 0px -24px 0px' }
-      );
-      revealEls.forEach((el) => revealObserver.observe(el));
-    } else {
-      revealEls.forEach((el) => el.classList.add('is-visible'));
-    }
-  </script>
+
 </body>
 </html>

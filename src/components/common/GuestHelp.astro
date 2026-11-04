@@ -1,0 +1,15 @@
+---
+import { weddingData } from '../../data/weddingData';
+interface Props { message?: string; label?: string; }
+const {
+  message = 'Olá, Tales e Camila! Preciso de ajuda com as informações do casamento.',
+  label = 'Pedir ajuda pelo WhatsApp',
+} = Astro.props;
+const helpUrl = `https://wa.me/${weddingData.pix.whatsappNumber}?text=${encodeURIComponent(message)}`;
+---
+<p class="guest-help text-base text-ink-muted leading-relaxed text-center mt-6">
+  Precisa de ajuda?
+  <a href={helpUrl} target="_blank" rel="noopener noreferrer" class="inline-flex min-h-[48px] items-center justify-center px-2 font-medium text-olive-800 underline underline-offset-4 decoration-olive-700/50">
+    {label}<span class="sr-only"> (abre o WhatsApp)</span>
+  </a>
+</p>
