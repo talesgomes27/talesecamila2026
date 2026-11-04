@@ -138,6 +138,8 @@ A tipografia organiza a leitura com contraste clássico: títulos com alma edito
 - **Rótulos e instruções** (400/500, `1rem`, entrelinha confortável, tracking normal ou 0.02em): prazos, horários, campos e botões. Usar caixa normal.
 - **Numbers / Values** (Tabular-nums): Todos os números no cronômetro, preços de presentes e horários da cerimônia aplicam números tabulares (`font-feature-settings: "tnum"` / `.tabular-nums`) para evitar oscilações de layout.
 
+**Correção mobile solicitada:** a contagem mantém quatro unidades na mesma linha, com números de 48px na base e rótulos “Min.”/“Seg.” em telas estreitas. Ao ampliar o texto, a linha pode rolar dentro do próprio componente, com acesso por teclado, sem alargar a página. A foto do Hero usa moldura de 12rem no celular, maior que as molduras de 9rem dos perfis, e o nome/foto podem se distribuir em linhas quando faltar espaço. Referências de conferência: iPhone 16e e Galaxy S24 Ultra, com variações de viewport e ampliação.
+
 ### Named Rules
 **Piso de leitura do projeto.** Informação prática, instruções, rótulos e botões usam pelo menos `1rem` (16px na configuração padrão). Textos principais se aproximam de 18px. São escolhas deste projeto, não tamanhos universais exigidos pela WCAG. Testar reflow em 320px e ampliação a 200%, sem esconder conteúdo para caber.
 

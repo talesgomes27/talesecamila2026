@@ -162,3 +162,17 @@ O novo contrato de serviço único e a agenda sem encerramento fixo foram reprod
 No navegador, o formulário em 390×844 ficou visível, sem atributo de integração Sheets e com regras de adultos/crianças junto aos campos. Largura do documento: 382px. Na vitrine em 1280×900, a introdução revisada aparece em um único parágrafo e o documento tem 1272px de largura. Ordem das seções preservada; nenhuma submissão foi acionada. Evidências: [formulário no celular](evidencias/rsvp-web3forms-celular.png) e [presentes no computador](evidencias/presentes-texto-revisado-desktop.png).
 
 As capturas e medições anteriores continuam documentando a rodada inicial; não representam uma nova inspeção de todos os componentes. Não houve importação em aplicativos reais de agenda, consulta/exportação na conta Web3Forms, teste com convidados ou publicação.
+
+## Correção mobile após publicação — 03/11/2026
+
+O usuário demonstrou em capturas a contagem em duas linhas e a foto inicial pequena. Reproduzido em 390px: números de 36px em duas alturas (763,75 e 845,75px), foto do Hero com 80px e perfil com 132px. A regra global `auto-fit` substituía as quatro colunas do componente; o Hero tinha tamanho móvel fixado em 88px.
+
+Removida a regra conflitante, a contagem conserva quatro colunas com números de 48px, abreviações legíveis e títulos completos para minutos/segundos. O Hero passa a moldura de 192px, com imagem visível de 184px; `sizes` acompanha a imagem maior. Em ampliação de texto, a contagem pode rolar internamente, com foco de teclado, preservando a página. Nenhuma seção ou botão do convite foi reordenado.
+
+Referências solicitadas: iPhone 16e e Galaxy S24 Ultra. As especificações físicas vêm da [Apple](https://support.apple.com/en-us/122208) e da [Samsung](https://developer.samsung.com/galaxy-emulator-skin/galaxy-s.html); dimensões físicas não determinam sozinhas o viewport CSS. Foram inspecionadas larguras de 320, 360, 384, 390, 412, 430, 768, 844, 892 e 1280px, com formatos de referência 390×844 e variações Android 384×832/412×892. Nos dez casos, a contagem ficou em uma linha, coube sem rolagem no tamanho normal, a foto inicial foi maior que a dos perfis e a página não transbordou. [Medições antes/depois](evidencias/mobile-layout-checks.json).
+
+Conferência em Chromium com viewports emulados, sem aparelho físico, Safari ou teste de gestos em Android/iOS. A fixture de texto a 200% em 384px manteve a página com 376px de largura e a foto com 296px contra perfil de 264px; a contagem preservou uma linha, com rolagem interna. A referência visual veio dos aparelhos informados pelo usuário, sem alegar execução nativa nesses aparelhos.
+
+O teste de teclado na contagem ampliada moveu a rolagem interna em 120px e manteve o foco com anel de 2px. Os 45 testes de lógica/cliente e 3 testes do build passaram; a compilação final gerou as 3 páginas. A checagem final ficou com 0 erros, 0 warnings e 2 hints preexistentes. Base de produção: `0478ae00e5483c14d263c326536e813f4c95de0b`; correção na branch `codex/corrigir-layout-mobile`.
+
+Após ver as capturas e os resultados, o usuário autorizou explicitamente o fluxo completo em 03/11/2026: commit, push, PR, merge depois do preview aprovado e publicação, preservando a proteção da main. Este registro documenta o conjunto preparado; hash integrado, PR e conferência do destino serão informados após a execução. Nenhuma submissão externa ou pagamento faz parte desse fluxo.
