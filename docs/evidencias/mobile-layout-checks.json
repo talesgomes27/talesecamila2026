@@ -1,0 +1,219 @@
+{
+  "engine": "Chromium, viewport emulado",
+  "before": {
+    "heroWidth": 80,
+    "numberFont": "36px",
+    "numberTops": [
+      763.75,
+      763.75,
+      845.75,
+      845.75
+    ],
+    "profileWidth": 132,
+    "viewport": 390
+  },
+  "after": [
+    {
+      "width": 320,
+      "height": 780,
+      "countdownClientWidth": 280,
+      "countdownScrollWidth": 280,
+      "documentWidth": 312,
+      "heroWidth": 184,
+      "numberFont": "48px",
+      "numberTops": [
+        916.5,
+        916.5,
+        916.5,
+        916.5
+      ],
+      "profileWidth": 132,
+      "viewport": 320,
+      "sameRow": true,
+      "photoAtLeastProfile": true
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "countdownClientWidth": 320,
+      "countdownScrollWidth": 320,
+      "documentWidth": 352,
+      "heroWidth": 184,
+      "numberFont": "48px",
+      "numberTops": [
+        867.75,
+        867.75,
+        867.75,
+        867.75
+      ],
+      "profileWidth": 132,
+      "viewport": 360,
+      "sameRow": true,
+      "photoAtLeastProfile": true
+    },
+    {
+      "width": 384,
+      "height": 832,
+      "countdownClientWidth": 344,
+      "countdownScrollWidth": 344,
+      "documentWidth": 376,
+      "heroWidth": 184,
+      "numberFont": "48px",
+      "numberTops": [
+        867.75,
+        867.75,
+        867.75,
+        867.75
+      ],
+      "profileWidth": 132,
+      "viewport": 384,
+      "sameRow": true,
+      "photoAtLeastProfile": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "countdownClientWidth": 350,
+      "countdownScrollWidth": 350,
+      "documentWidth": 382,
+      "heroWidth": 184,
+      "numberFont": "48px",
+      "numberTops": [
+        867.75,
+        867.75,
+        867.75,
+        867.75
+      ],
+      "profileWidth": 132,
+      "viewport": 390,
+      "sameRow": true,
+      "photoAtLeastProfile": true
+    },
+    {
+      "width": 412,
+      "height": 892,
+      "countdownClientWidth": 372,
+      "countdownScrollWidth": 372,
+      "documentWidth": 404,
+      "heroWidth": 184,
+      "numberFont": "48px",
+      "numberTops": [
+        867.75,
+        867.75,
+        867.75,
+        867.75
+      ],
+      "profileWidth": 132,
+      "viewport": 412,
+      "sameRow": true,
+      "photoAtLeastProfile": true
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "countdownClientWidth": 390,
+      "countdownScrollWidth": 390,
+      "documentWidth": 422,
+      "heroWidth": 184,
+      "numberFont": "48px",
+      "numberTops": [
+        867.75,
+        867.75,
+        867.75,
+        867.75
+      ],
+      "profileWidth": 132,
+      "viewport": 430,
+      "sameRow": true,
+      "photoAtLeastProfile": true
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "countdownClientWidth": 672,
+      "countdownScrollWidth": 672,
+      "documentWidth": 760,
+      "heroWidth": 244,
+      "numberFont": "60px",
+      "numberTops": [
+        819.75,
+        819.75,
+        819.75,
+        819.75
+      ],
+      "profileWidth": 176,
+      "viewport": 768,
+      "sameRow": true,
+      "photoAtLeastProfile": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "countdownClientWidth": 672,
+      "countdownScrollWidth": 672,
+      "documentWidth": 836,
+      "heroWidth": 275.671875,
+      "numberFont": "60px",
+      "numberTops": [
+        819.75,
+        819.75,
+        819.75,
+        819.75
+      ],
+      "profileWidth": 176,
+      "viewport": 844,
+      "sameRow": true,
+      "photoAtLeastProfile": true
+    },
+    {
+      "width": 892,
+      "height": 412,
+      "countdownClientWidth": 672,
+      "countdownScrollWidth": 672,
+      "documentWidth": 884,
+      "heroWidth": 295.671875,
+      "numberFont": "60px",
+      "numberTops": [
+        819.75,
+        819.75,
+        819.75,
+        819.75
+      ],
+      "profileWidth": 176,
+      "viewport": 892,
+      "sameRow": true,
+      "photoAtLeastProfile": true
+    },
+    {
+      "width": 1280,
+      "height": 900,
+      "countdownClientWidth": 672,
+      "countdownScrollWidth": 672,
+      "documentWidth": 1272,
+      "heroWidth": 380,
+      "numberFont": "60px",
+      "numberTops": [
+        831.75,
+        831.75,
+        831.75,
+        831.75
+      ],
+      "profileWidth": 176,
+      "viewport": 1280,
+      "sameRow": true,
+      "photoAtLeastProfile": true
+    }
+  ],
+  "text200": {
+    "countdownClientWidth": 312,
+    "countdownScrollWidth": 560,
+    "documentWidth": 376,
+    "focused": "countdown-grid",
+    "heroWidth": 296,
+    "outline": "2px",
+    "profileWidth": 264,
+    "rootFont": "32px",
+    "scrollLeft": 120,
+    "viewport": 384
+  }
+}

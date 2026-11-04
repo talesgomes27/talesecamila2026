@@ -41,7 +41,6 @@ main :is(a, button) { max-width: 100%; white-space: normal; }
 #hero-ctas { display: flex; flex-wrap: wrap; }
 #hero-ctas > a { flex: 1 1 8rem; }
 #hero-ctas > a:first-child { flex-basis: 100%; }
-#countdown-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); }
 #navbar-pill > div { flex-wrap: wrap; gap: 8px; }
 #navbar-pill > div > a { white-space: nowrap; }
 #navbar-pill nav { flex-wrap: wrap; justify-content: flex-end; gap: 0 1rem; min-width: 0; }
@@ -50,7 +49,7 @@ main :is(a, button) { max-width: 100%; white-space: normal; }
 @media (max-width: 767px) {
   #hero > div:last-child { display: flex; flex-wrap: wrap; }
   #hero h1 { flex: 1 1 min-content; min-width: 0; }
-  #hero .hero-photo { flex: 0 0 88px; }
+  #hero .hero-photo { flex: 0 1 12rem; max-width: 100%; }
   #hero .hero-info { flex-basis: 100%; min-width: 0; }
 }
 
