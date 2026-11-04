@@ -1,5 +1,12 @@
 import { WeddingDataSchema, type WeddingData } from '../types/wedding';
 
+const arrivalTime = '16h30';
+const ceremonyTime = '17h';
+const deadlineDate = '2026-12-04';
+const deadlineFormatted = new Intl.DateTimeFormat('pt-BR', {
+  day: 'numeric', month: 'long', year: 'numeric', timeZone: 'America/Belem',
+}).format(new Date(`${deadlineDate}T12:00:00-03:00`));
+
 export const weddingData: WeddingData = WeddingDataSchema.parse({
   couple: {
     groom: "Tales",
@@ -43,7 +50,8 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
     venueName: "Beira Rio, no antigo Empresa Bar",
     venuePhoto: "/assets/imagens/cerimonia.jpeg",
     dateFormatted: "19 de Dezembro de 2026",
-    time: "16h30m",
+    arrivalTime,
+    ceremonyTime,
     notes: "Será uma alegria imensa ter vocês conosco para abençoar nossa união diante de Deus. Nossa cerimônia será breve e pontual; em seguida, preparem o coração e o apetite para um rodízio de pizza quentinha saindo do forno, no padrão de qualidade O Teimoso, celebrando a vida e o amor. Esperamos por vocês!",
     address: "Av. Lauro Sodré, 187 - São Miguel do Guamá, PA, 68660-000",
     mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d997.0542474066214!2d-47.485272!3d-1.623415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zAv.%20Lauro%20Sodr%C3%A9%2C%20187%20-%20S%C3%A3o%20Miguel%20do%20Guam%C3%A1%2C%20PA%2C%2068660-000!5e0!3m2!1spt-BR!2sbr!4v1789923462646!5m2!1spt-BR!2sbr",
@@ -51,13 +59,13 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
     wazeUrl: "https://waze.com/ul?ll=-1.623415,-47.485272&navigate=yes",
     schedule: [
       {
-        time: "16:30",
+        time: arrivalTime.replace('h', ':'),
         title: "Chegada dos Convidados",
         description: "Recepção aconchegante à beira do Rio Guamá com música ambiente suave para acolher cada convidado.",
         icon: "drink"
       },
       {
-        time: "17:00",
+        time: `${ceremonyTime.replace('h', ':')}00`,
         title: "Cerimônia Religiosa",
         description: "A troca de votos e alianças celebrada sob a luz dourada do pôr do sol paraense.",
         icon: "heart",
@@ -93,11 +101,11 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
       },
       {
         question: "Posso levar acompanhantes ou crianças?",
-        answer: "Nossa celebração foi planejada de forma íntima e com lugares contados para recebermos com todo conforto cada pessoa querida. Por isso, o convite é estritamente pessoal — pedimos com muito carinho e compreensão que não levem acompanhantes extras (afinal, convidado não convida!). Caso precise levar crianças, pedimos a gentileza de informar a quantidade no campo de mensagem ao confirmar sua presença aqui pelo site ou diretamente pelo nosso WhatsApp."
+        answer: "Preparamos uma celebração íntima, com lugares contados para acolher cada pessoa convidada. O convite é pessoal; pedimos que não levem acompanhantes extras. Cada adulto convidado deve confirmar sua presença separadamente, inclusive acompanhantes. Se for levar crianças, informe a quantidade no campo de mensagem da sua confirmação."
       },
       {
         question: "Onde posso estacionar?",
-        answer: "O estacionamento será na própria Orla do Rio Guamá, que fica bem próxima ao local do casamento (Beira Rio, no antigo Empresa Bar — Av. Lauro Sodré, 187), com acesso fácil a pé."
+        answer: "O estacionamento será na própria Orla do Rio Guamá, que fica bem próxima ao local do casamento (Beira Rio, no antigo Empresa Bar — Av. Lauro Sodré, 187), Se precisar de orientação sobre o trajeto ou mobilidade, fale conosco pelo WhatsApp."
       },
       {
         question: "Vem de outra cidade? Sugestões de hotéis próximos ao Centro",
@@ -110,7 +118,7 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
       },
       {
         question: "Até quando confirmar presença e como funcionam os presentes?",
-        answer: "Pedimos a gentileza de confirmar sua presença aqui pelo site até o dia 04 de Dezembro de 2026. Nossa lista de presentes é 100% virtual via PIX (com opção de itens divertidos da lista ou contribuição de valor livre) e você pode enviar um recado direto para o nosso WhatsApp!"
+        answer: `Pedimos a gentileza de confirmar sua presença pelo site até ${deadlineFormatted}. Os presentes são contribuições simbólicas via Pix, com opções da lista ou um valor escolhido por você. Você também pode deixar um recado pelo WhatsApp.`
       }
     ]
   },
@@ -297,9 +305,10 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
   rsvp: {
     title: "Confirmação de Presença",
     subtitle: "Sua presença é muito importante para nós!",
-    deadlineText: "Por favor, confirme sua presença até o dia 04 de Dezembro de 2026.",
-    accessKey: "bd3a85b6-ff5f-471e-b9ee-61afb91d7282",
-    sheetsWebhookUrl: "https://script.google.com/macros/s/AKfycbzb0dC2dUv3QApWQVFZ_XXhXbn1tBtw-XP2HKmX1rZEkEYknWYIhomHZh-y9Ymyb5megw/exec"
+    deadlineText: `Por favor, confirme sua presença até ${deadlineFormatted}.`,
+    deadlineDate,
+    deadlineFormatted,
+    accessKey: "bd3a85b6-ff5f-471e-b9ee-61afb91d7282"
   },
 
   meta: {
@@ -309,6 +318,9 @@ export const weddingData: WeddingData = WeddingDataSchema.parse({
   }
 });
 
+const calendarDescription = 'Chegada às 16h30. Cerimônia às 17h. Sem horário definido para terminar. A festa pode seguir até o amanhecer. Mais informações: https://talesecamila2026.netlify.app';
+
+// Lembrete da data: os noivos não definiram um horário de encerramento.
 const icsContent = [
   'BEGIN:VCALENDAR',
   'VERSION:2.0',
@@ -316,16 +328,15 @@ const icsContent = [
   'BEGIN:VEVENT',
   'UID:casamento-tales-camila-20261219@talesecamila2026.netlify.app',
   'DTSTAMP:20261008T120000Z',
-  'DTSTART:20261219T193000Z',
-  'DTEND:20261220T020000Z',
+  'DTSTART;VALUE=DATE:20261219',
   'SUMMARY:Casamento de Tales & Camila',
-  'DESCRIPTION:Casamento de Tales & Camila. Site: https://talesecamila2026.netlify.app',
+  `DESCRIPTION:${calendarDescription}`,
   'LOCATION:Beira Rio, no antigo Empresa Bar - Av. Lauro Sodré, 187 - São Miguel do Guamá, PA',
   'END:VEVENT',
   'END:VCALENDAR'
 ].join('\r\n');
 
 export const calendarLinks = {
-  googleUrl: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Casamento+de+Tales+%26+Camila&dates=20261219T193000Z/20261220T020000Z&details=Casamento+de+Tales+%26+Camila.+Mais+informa%C3%A7%C3%B5es:+https://talesecamila2026.netlify.app&location=Beira+Rio,+no+antigo+Empresa+Bar+-+Av.+Lauro+Sodr%C3%A9,+187+-+S%C3%A3o+Miguel+do+Guam%C3%A1,+PA',
+  googleUrl: `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Casamento+de+Tales+%26+Camila&dates=20261219/20261220&details=${encodeURIComponent(calendarDescription)}&location=Beira+Rio,+no+antigo+Empresa+Bar+-+Av.+Lauro+Sodr%C3%A9,+187+-+S%C3%A3o+Miguel+do+Guam%C3%A1,+PA`,
   icsDataUri: `data:text/calendar;charset=utf8,${encodeURIComponent(icsContent)}`
 };

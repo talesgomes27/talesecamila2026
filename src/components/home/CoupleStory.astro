@@ -19,8 +19,8 @@ const { story } = Astro.props;
   </h2>
 
   <!-- Fotos dos Noivos lado a lado com Double-Bezel Orgânico -->
-  <div class="flex justify-center items-center gap-8 sm:gap-14 mb-12">
-    <div class="flex flex-col items-center group">
+  <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-14 mb-12">
+    <div class="flex flex-col items-center group min-w-0 max-w-full">
       <div class="organic-profile-frame w-36 h-36 sm:w-48 sm:h-48 overflow-hidden p-1.5 sm:p-2 bg-white/90 ring-1 ring-gold-accent/40 shadow-[0_16px_36px_-10px_rgba(29,44,30,0.18)]">
         <Image 
           id="groom-photo" 
@@ -45,7 +45,7 @@ const { story } = Astro.props;
       <span class="font-serif italic text-4xl drop-shadow-sm">&</span>
     </div>
 
-    <div class="flex flex-col items-center group">
+    <div class="flex flex-col items-center group min-w-0 max-w-full">
       <div class="organic-profile-frame w-36 h-36 sm:w-48 sm:h-48 overflow-hidden p-1.5 sm:p-2 bg-white/90 ring-1 ring-gold-accent/40 shadow-[0_16px_36px_-10px_rgba(29,44,30,0.18)]">
         <Image 
           id="bride-photo" 
@@ -69,7 +69,7 @@ const { story } = Astro.props;
 
   <!-- Texto de Boas-Vindas e História com Ritmo Editorial -->
   <div class="max-w-2xl mx-auto mb-16 px-2">
-    <p id="couple-story-text" class="font-sans text-sm sm:text-base text-ink-muted leading-[1.9] font-light text-center">
+    <p id="couple-story-text" class="font-sans text-base sm:text-base text-ink-muted leading-[1.9] font-normal text-center">
       {story.text}
     </p>
     <div class="w-20 h-px bg-gold-accent/50 mx-auto mt-8"></div>

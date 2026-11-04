@@ -46,7 +46,8 @@ export const CeremonyInfoSchema = z.object({
   venueName: z.string().trim().min(3),
   venuePhoto: z.string().startsWith('/assets/imagens/'),
   dateFormatted: z.string().trim().min(5),
-  time: z.string().trim().min(3),
+  arrivalTime: z.string().trim().min(3),
+  ceremonyTime: z.string().trim().min(3),
   notes: z.string().trim().min(10),
   address: z.string().trim().min(10),
   mapsEmbedUrl: z.string().url({ message: "mapsEmbedUrl deve ser uma URL válida" }),
@@ -82,8 +83,9 @@ export const RsvpConfigSchema = z.object({
   title: z.string().trim().min(3),
   subtitle: z.string().trim().min(3),
   deadlineText: z.string().trim().min(5),
+  deadlineDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  deadlineFormatted: z.string().trim().min(5),
   accessKey: z.string().optional(),
-  sheetsWebhookUrl: z.string().url({ message: "sheetsWebhookUrl deve ser uma URL válida" }).optional().or(z.literal('')),
 });
 
 export const MetaConfigSchema = z.object({

@@ -20,11 +20,11 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
 
       <!-- Menu Desktop -->
       <nav class="hidden md:flex items-center space-x-7" aria-label="Navegação principal">
-        <a href="#hero" class="nav-link font-sans text-[11px] tracking-[0.2em] text-ink-muted hover:text-olive-800 uppercase transition-colors duration-200">Início</a>
-        <a href="#casal" class="nav-link font-sans text-[11px] tracking-[0.2em] text-ink-muted hover:text-olive-800 uppercase transition-colors duration-200">O Casal</a>
-        <a href="#cerimonia" class="nav-link font-sans text-[11px] tracking-[0.2em] text-ink-muted hover:text-olive-800 uppercase transition-colors duration-200">A Celebração</a>
-        <a href="#presentes" class="nav-link font-sans text-[11px] tracking-[0.2em] text-ink-muted hover:text-olive-800 uppercase transition-colors duration-200">Presentes</a>
-        <a href="#rsvp" class="nav-link font-sans text-[11px] tracking-[0.2em] text-ink-muted hover:text-olive-800 uppercase transition-colors duration-200">Confirme Presença</a>
+        <a href="#hero" class="nav-link min-h-[44px] inline-flex items-center font-sans text-base tracking-[0.02em] text-ink-muted hover:text-olive-800 transition-colors duration-200">Início</a>
+        <a href="#casal" class="nav-link min-h-[44px] inline-flex items-center font-sans text-base tracking-[0.02em] text-ink-muted hover:text-olive-800 transition-colors duration-200">O Casal</a>
+        <a href="#cerimonia" class="nav-link min-h-[44px] inline-flex items-center font-sans text-base tracking-[0.02em] text-ink-muted hover:text-olive-800 transition-colors duration-200">A Celebração</a>
+        <a href="#presentes" class="nav-link min-h-[44px] inline-flex items-center font-sans text-base tracking-[0.02em] text-ink-muted hover:text-olive-800 transition-colors duration-200">Presentes</a>
+        <a href="#rsvp" class="nav-link min-h-[44px] inline-flex items-center font-sans text-base tracking-[0.02em] text-ink-muted hover:text-olive-800 transition-colors duration-200">Confirme Presença</a>
       </nav>
 
       <!-- Botão Mobile Hamburger com Morph de 2 Linhas em X (200ms, Hit Area 44x44px) -->
@@ -34,11 +34,11 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
         aria-label="Abrir menu de navegação" 
         aria-expanded="false" 
         aria-controls="mobile-menu"
-        class="md:hidden relative w-11 h-11 -mr-1.5 rounded-full flex items-center justify-center text-olive-900 hover:bg-olive-900/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive-700 transition-[transform,background-color] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer"
+        class="hidden md:hidden relative min-w-[92px] h-12 -mr-1.5 rounded-full flex items-center justify-center text-olive-900 hover:bg-olive-900/5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive-700 transition-[transform,background-color] duration-150 cursor-pointer"
       >
-        <span class="sr-only">Menu</span>
-        <span id="burger-line-1" class="absolute w-4 h-[1.25px] bg-current -translate-y-1 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]"></span>
-        <span id="burger-line-2" class="absolute w-4 h-[1.25px] bg-current translate-y-1 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]"></span>
+        <span class="mr-6 text-base">Menu</span>
+        <span id="burger-line-1" class="absolute right-3 w-4 h-[1.25px] bg-current -translate-y-1 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]"></span>
+        <span id="burger-line-2" class="absolute right-3 w-4 h-[1.25px] bg-current translate-y-1 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]"></span>
       </button>
     </div>
   </div>
@@ -50,11 +50,11 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
     class="md:hidden origin-top max-w-4xl mx-auto mt-2.5 p-4 bg-linen/95 backdrop-blur-2xl rounded-3xl shadow-[0_24px_48px_-12px_rgba(29,44,30,0.18)] ring-1 ring-olive-900/10 flex flex-col space-y-1.5 text-center transition-[opacity,transform,visibility] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] data-[open=false]:opacity-0 data-[open=false]:scale-95 data-[open=false]:-translate-y-1.5 data-[open=false]:pointer-events-none data-[open=false]:invisible data-[open=true]:opacity-100 data-[open=true]:scale-100 data-[open=true]:translate-y-0 data-[open=true]:pointer-events-auto data-[open=true]:visible"
     aria-label="Menu móvel"
   >
-    <a href="#hero" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-xs tracking-[0.22em] text-ink-muted hover:text-olive-800 uppercase rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">Início</a>
-    <a href="#casal" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-xs tracking-[0.22em] text-ink-muted hover:text-olive-800 uppercase rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">O Casal</a>
-    <a href="#cerimonia" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-xs tracking-[0.22em] text-ink-muted hover:text-olive-800 uppercase rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">A Celebração</a>
-    <a href="#presentes" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-xs tracking-[0.22em] text-ink-muted hover:text-olive-800 uppercase rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">Lista de Presentes</a>
-    <a href="#rsvp" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-xs tracking-[0.22em] text-ink-muted hover:text-olive-800 uppercase rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">Confirme sua Presença</a>
+    <a href="#hero" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-base tracking-[0.02em] text-ink-muted hover:text-olive-800 rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">Início</a>
+    <a href="#casal" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-base tracking-[0.02em] text-ink-muted hover:text-olive-800 rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">O Casal</a>
+    <a href="#cerimonia" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-base tracking-[0.02em] text-ink-muted hover:text-olive-800 rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">A Celebração</a>
+    <a href="#presentes" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-base tracking-[0.02em] text-ink-muted hover:text-olive-800 rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">Lista de Presentes</a>
+    <a href="#rsvp" class="nav-link min-h-[44px] flex items-center justify-center font-sans text-base tracking-[0.02em] text-ink-muted hover:text-olive-800 rounded-xl hover:bg-olive-900/[0.03] active:scale-[0.98] transition-[color,background-color,transform] duration-150">Confirme sua Presença</a>
   </nav>
 </header>
 
@@ -90,6 +90,7 @@ const { groomInit = "T", brideInit = "C" } = Astro.props;
   onWindowScroll();
 
   if (mobileToggle && mobileMenu) {
+    mobileToggle.classList.remove('hidden');
     mobileToggle.addEventListener('click', () => {
       const isOpen = mobileMenu.dataset.open === 'true';
       setMenuOpen(!isOpen);

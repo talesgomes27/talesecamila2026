@@ -21,9 +21,50 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body { font-size: 1.125rem; line-height: 1.7; }
+section[id], #main-content { scroll-margin-top: 7rem; }
+#ceremony-notes, #casal p, #presentes > div:first-child p { font-size: 1.125rem; }
+.gift-card h3, .gift-card p { -webkit-line-clamp: unset; }
+input:not([type="hidden"]):not([type="checkbox"]), textarea, select { border: 1px solid #625E57; }
+
+@media (max-width: 639px) {
+  #rsvp-submit-btn { min-width: 0; padding-inline: 1rem; }
+}
+
 /* Tipografia Editorial Refinada: balanço em títulos e prevenção de viúvas em parágrafos */
 h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
+}
+
+main :is(h1, h2, h3, h4, p, a, button, summary) { overflow-wrap: anywhere; }
+main :is(a, button) { max-width: 100%; white-space: normal; }
+#hero-ctas { display: flex; flex-wrap: wrap; }
+#hero-ctas > a { flex: 1 1 8rem; }
+#hero-ctas > a:first-child { flex-basis: 100%; }
+#countdown-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); }
+#navbar-pill > div { flex-wrap: wrap; gap: 8px; }
+#navbar-pill > div > a { white-space: nowrap; }
+#navbar-pill nav { flex-wrap: wrap; justify-content: flex-end; gap: 0 1rem; min-width: 0; }
+#navbar-pill nav a { margin-left: 0; }
+
+@media (max-width: 767px) {
+  #hero > div:last-child { display: flex; flex-wrap: wrap; }
+  #hero h1 { flex: 1 1 min-content; min-width: 0; }
+  #hero .hero-photo { flex: 0 0 88px; }
+  #hero .hero-info { flex-basis: 100%; min-width: 0; }
+}
+
+@media (max-width: 639px) {
+  .guest-details, .guest-form-core { padding-inline: 16px; }
+  .guest-attire, .guest-faq-copy { padding-inline: 12px; }
+  .guest-timeline-content { padding: 16px; }
+  #ceremony-schedule li { grid-template-columns: minmax(0, 1fr); }
+  #ceremony-schedule .timeline-axis { display: none; }
+  #cerimonia :is(a, button) { max-width: 100%; }
+  #cerimonia .btn-trailing-icon { display: none; }
+  .invitation-card { padding-inline: 16px !important; }
+  .gift-controls { padding-inline: 12px; }
+  .gift-sort-control select { width: 100%; max-width: 100%; padding-inline: 8px; }
 }
 
 p {
@@ -55,7 +96,7 @@ input, textarea {
 
   /* Eyebrow Tag Editorial */
   .eyebrow-tag {
-    @apply inline-flex items-center gap-2 rounded-full px-3.5 py-1 text-[11px] font-sans uppercase tracking-[0.24em] font-medium text-olive-700 bg-olive-900/[0.04] ring-1 ring-olive-900/[0.08];
+    @apply inline-flex items-center gap-2 rounded-full px-3.5 py-1 text-base font-sans tracking-normal font-medium text-olive-700 bg-olive-900/[0.04] ring-1 ring-olive-900/[0.08];
   }
 }
 
@@ -135,15 +176,15 @@ input, textarea {
 
   /* Stagger em cascata curta (60ms entre itens) */
   .stagger-item {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(8px) scale(0.985);
     animation: staggerIn 0.55s var(--ease-out) forwards;
     animation-delay: calc(var(--stagger-index, 0) * 60ms);
   }
 
   .reveal-on-scroll {
-    opacity: 0;
-    transform: translateY(20px);
+    opacity: 1;
+    transform: none;
     transition:
       opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
       transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
@@ -221,8 +262,8 @@ input, textarea {
   }
 
   *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+    animation: none !important;
+    transition: none !important;
     scroll-behavior: auto !important;
   }
 
@@ -313,6 +354,9 @@ input, textarea {
 
 /* Moldura Orgânica dos Perfis dos Noivos */
 .organic-profile-frame {
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1;
   border-radius: 60% 40% 55% 45% / 45% 55% 45% 55%;
   box-shadow: 
     0 16px 36px -10px rgba(29, 44, 30, 0.16),

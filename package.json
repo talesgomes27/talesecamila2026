@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "test": "node --import ./tests/register.mjs tests/run.mjs",
+    "test:build": "node tests/built.test.mjs",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",

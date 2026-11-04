@@ -40,36 +40,36 @@ const { ceremony } = Astro.props;
         </div>
 
         <!-- Informações Detalhadas -->
-        <div class="p-6 sm:p-10 text-center max-w-2xl mx-auto">
+        <div class="guest-details p-6 sm:p-10 text-center max-w-2xl mx-auto">
           <h3 id="ceremony-venue-name" class="font-serif text-2xl sm:text-3xl md:text-4xl text-olive-900 tracking-[-0.015em] mb-2 font-normal">
             {ceremony.venueName}
           </h3>
-          <p id="ceremony-date-text" class="font-sans text-xs sm:text-sm uppercase tracking-[0.22em] text-gold-text font-medium mb-6 tabular-nums">
-            {ceremony.dateFormatted} • {ceremony.time}
+          <p id="ceremony-date-text" class="font-sans text-base sm:text-base tracking-[0.02em] text-gold-text font-medium mb-6 tabular-nums">
+            {ceremony.dateFormatted}<br />Chegada às {ceremony.arrivalTime} · Cerimônia às {ceremony.ceremonyTime}
           </p>
           
-          <p id="ceremony-notes" class="font-sans text-sm sm:text-base text-ink-muted leading-[1.85] font-light mb-6">
+          <p id="ceremony-notes" class="font-sans text-base sm:text-base text-ink-muted leading-[1.85] font-normal mb-6">
             {ceremony.notes}
           </p>
 
           <!-- Informações de Traje & Dica da Noiva (Double-Bezel Interno) -->
-          <div class="my-8 p-6 sm:p-7 rounded-2xl bg-linen/90 ring-1 ring-gold-accent/40 shadow-xs text-center max-w-lg mx-auto space-y-3.5">
+          <div class="guest-attire my-8 p-6 sm:p-7 rounded-2xl bg-linen/90 ring-1 ring-gold-accent/40 shadow-xs text-center max-w-lg mx-auto space-y-3.5">
             <div>
-              <span class="inline-block font-sans text-xs font-semibold uppercase tracking-[0.2em] text-olive-900">
+              <span class="inline-block font-sans text-base font-semibold tracking-[0.02em] text-olive-900">
                 Traje: Casual Chique
               </span>
-              <p class="font-serif italic text-sm text-ink-muted mt-1">
+              <p class="font-serif italic text-base text-ink-muted mt-1">
                 (Pedimos a gentileza de não usar trajes em tons de verde e/ou branco)
               </p>
             </div>
             <div class="w-12 h-px bg-gold-accent/50 mx-auto"></div>
-            <p class="font-sans text-xs sm:text-sm text-ink-muted leading-relaxed font-light">
-              <strong class="text-gold-text font-medium uppercase tracking-wider text-[11px] block mb-1">Nota da Noiva</strong>
+            <p class="font-sans text-base sm:text-base text-ink-muted leading-relaxed font-normal">
+              <strong class="text-gold-text font-medium tracking-wider text-base block mb-1">Nota da Noiva</strong>
               Meninas, o terreno é arenoso: evitem vestido longo e salto fino; apostem no comprimento mídi e salto bloco!
             </p>
           </div>
 
-          <p id="ceremony-address" class="font-sans text-xs sm:text-sm text-ink-subtle font-normal mb-8">
+          <p id="ceremony-address" class="font-sans text-base sm:text-base text-ink-subtle font-normal mb-8">
             {ceremony.address}
           </p>
 
@@ -80,7 +80,7 @@ const { ceremony } = Astro.props;
               href={ceremony.mapsUrl} 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="btn-pill btn-pill-shimmer min-h-[44px] inline-flex items-center gap-2.5 py-2 pl-5 pr-2.5 bg-olive-800 hover:bg-olive-900 text-linen ring-1 ring-gold-accent/40 shadow-sm font-sans text-xs uppercase tracking-[0.16em] font-medium group"
+              class="btn-pill btn-pill-shimmer min-h-[44px] inline-flex items-center gap-2.5 py-2 pl-5 pr-2.5 bg-olive-800 hover:bg-olive-900 text-linen ring-1 ring-gold-accent/40 shadow-sm font-sans text-base tracking-[0.02em] font-medium group"
             >
               <span>Google Maps</span>
               <span class="btn-trailing-icon w-7 h-7 rounded-full bg-white/10 flex items-center justify-center transition-[transform,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]">
@@ -95,7 +95,7 @@ const { ceremony } = Astro.props;
               href={ceremony.wazeUrl} 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="btn-pill min-h-[44px] inline-flex items-center gap-2 py-2.5 px-5 bg-white hover:bg-linen text-olive-900 ring-1 ring-olive-900/15 shadow-xs font-sans text-xs uppercase tracking-[0.16em] font-medium"
+              class="btn-pill min-h-[44px] inline-flex items-center gap-2 py-2.5 px-5 bg-white hover:bg-linen text-olive-900 ring-1 ring-olive-900/15 shadow-xs font-sans text-base tracking-[0.02em] font-medium"
             >
               <svg class="w-3.5 h-3.5 text-gold-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
@@ -108,7 +108,7 @@ const { ceremony } = Astro.props;
               href={calendarLinks.googleUrl} 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="btn-pill min-h-[44px] inline-flex items-center gap-2 py-2.5 px-5 bg-linen hover:bg-linen-dark text-ink-muted ring-1 ring-olive-900/10 font-sans text-xs uppercase tracking-[0.16em] font-medium"
+              class="btn-pill min-h-[44px] inline-flex items-center gap-2 py-2.5 px-5 bg-linen hover:bg-linen-dark text-ink-muted ring-1 ring-olive-900/10 font-sans text-base tracking-[0.02em] font-medium"
             >
               <svg class="w-3.5 h-3.5 text-olive-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -119,7 +119,7 @@ const { ceremony } = Astro.props;
             <a 
               href={calendarLinks.icsDataUri} 
               download="casamento-tales-e-camila.ics"
-              class="btn-pill min-h-[44px] inline-flex items-center gap-2 py-2.5 px-5 bg-linen hover:bg-linen-dark text-ink-muted ring-1 ring-olive-900/10 font-sans text-xs uppercase tracking-[0.16em] font-medium"
+              class="btn-pill min-h-[44px] inline-flex items-center gap-2 py-2.5 px-5 bg-linen hover:bg-linen-dark text-ink-muted ring-1 ring-olive-900/10 font-sans text-base tracking-[0.02em] font-medium"
             >
               <svg class="w-3.5 h-3.5 text-olive-700" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.99.6-2.63 1.35-.57.66-.97 1.73-.84 2.76 1 .08 2.03-.51 2.55-1.26z"/>
@@ -138,7 +138,7 @@ const { ceremony } = Astro.props;
           <h3 class="font-serif text-3xl sm:text-4xl text-olive-900 tracking-[-0.02em] font-normal mb-2">
             Cronograma do Grande Dia
           </h3>
-          <p class="font-sans text-xs sm:text-sm text-ink-muted font-light mb-5">
+          <p class="font-sans text-base sm:text-base text-ink-muted font-normal mb-5">
             Momentos planejados com muito amor para vivermos juntos.
           </p>
           <div class="w-14 h-px bg-gold-accent/40 mx-auto" aria-hidden="true"></div>
@@ -153,7 +153,7 @@ const { ceremony } = Astro.props;
               </div>
 
               <!-- Eixo Vertical + Medalhão de Ícone -->
-              <div class="relative flex flex-col items-center self-stretch">
+              <div class="timeline-axis relative flex flex-col items-center self-stretch">
                 <span class="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-gold-accent/40" aria-hidden="true"></span>
                 <span
                   class:list={[
@@ -196,14 +196,14 @@ const { ceremony } = Astro.props;
               <!-- Card do Momento (Double-Bezel) -->
               <div class="pb-5 sm:pb-6">
                 <div class="double-bezel">
-                  <div class="double-bezel-core px-5 sm:px-7 py-5 sm:py-6 text-left">
+                  <div class="guest-timeline-content double-bezel-core px-5 sm:px-7 py-5 sm:py-6 text-left">
                     <span class="sm:hidden block font-serif text-base text-gold-text mb-1 tabular-nums">
                       {step.time}
                     </span>
                     <h4 class="font-serif text-xl sm:text-2xl text-olive-900 font-normal mb-1.5 leading-snug">
                       {step.title}
                     </h4>
-                    <p class="font-sans text-xs sm:text-sm text-ink-muted font-light leading-relaxed">
+                    <p class="font-sans text-base sm:text-base text-ink-muted font-normal leading-relaxed">
                       {step.description}
                     </p>
                   </div>
@@ -238,7 +238,7 @@ const { ceremony } = Astro.props;
                     </svg>
                   </span>
                 </summary>
-                <div class="px-6 sm:px-8 pb-6 pt-0 text-ink-muted font-sans text-xs sm:text-sm leading-relaxed font-light">
+                <div class="guest-faq-copy px-6 sm:px-8 pb-6 pt-0 text-ink-muted font-sans text-base sm:text-base leading-relaxed font-normal">
                   <div class="h-px w-full bg-olive-900/[0.08] mb-4" aria-hidden="true"></div>
                   <p>{item.answer}</p>
                   {item.items && item.items.length > 0 && (
